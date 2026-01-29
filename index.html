@@ -4,107 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="index,follow" />
-    <meta name="description" content="Datageo Parana: portal institucional com dashboards de indicadores e precos para apoio a decisoes territoriais." />
+    <meta name="description" content="Datageo Paraná — painéis de consulta com séries históricas de preços e produção agropecuária do estado do Paraná." />
     <link rel="canonical" href="https://datageoparana.github.io/" />
-    <title>Datageo Parana | Portal de Indicadores</title>
+    <title>Datageo Paraná</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="bg-noise" aria-hidden="true"></div>
-    <div class="bg-glow" aria-hidden="true"></div>
-
     <header class="site-header">
-      <div class="badge">Portal institucional</div>
-      <h1>Datageo Parana</h1>
+      <h1>Datageo Paraná</h1>
       <p class="subtitle">
-        Intelligence hub para indicadores territoriais e precos de mercado. Acesso rapido e neutro,
-        pensado para uso tecnico e institucional.
+        Painéis de consulta com séries históricas de preços e produção agropecuária do Paraná.
+        Dados públicos organizados para acesso direto.
       </p>
       <div class="cta-row">
-        <a class="btn primary" href="#dashboards">Ver dashboards</a>
-        <a class="btn ghost" href="#sobre">Sobre o portal</a>
+        <a class="btn primary" href="#paineis">Ver painéis</a>
       </div>
     </header>
 
     <main>
-      <section id="dashboards" class="section">
+      <section id="paineis" class="section">
         <div class="section-head">
-          <h2>Dashboards principais</h2>
-          <p>Links diretos para as plataformas oficiais.</p>
+          <h2>Painéis</h2>
+          <p>Dados públicos organizados para consulta rápida.</p>
         </div>
         <div class="card-grid">
-          <a class="card" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener noreferrer">
-            <div class="card-tag">Producao</div>
-            <h3>VBP Parana</h3>
-            <p>Serie historica do Valor Bruto da Producao Agropecuaria, com recortes territoriais.</p>
-            <span class="card-link">Abrir painel</span>
+          <a class="card accent-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener noreferrer">
+            <div class="card-tag">Produção</div>
+            <h3>VBP Paraná</h3>
+            <p>Valor Bruto da Produção Agropecuária por município e produto.</p>
+            <span class="card-source">Fonte: SEAB/DERAL</span>
+            <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Mercado</div>
-            <h3>Precos Diarios</h3>
-            <p>Cotacoes diarias do SIMA com filtros por produto e referencia temporal.</p>
-            <span class="card-link">Abrir painel</span>
+            <h3>Preços Diários</h3>
+            <p>Cotações diárias de produtos agropecuários no Paraná.</p>
+            <span class="card-source">Fonte: SIMA/DERAL</span>
+            <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Florestal</div>
-            <h3>Precos Florestais</h3>
-            <p>Monitoramento de produtos florestais do Parana com comparativos e tendencias.</p>
-            <span class="card-link">Abrir painel</span>
+            <h3>Preços Florestais</h3>
+            <p>Preços de produtos florestais com comparativos por região.</p>
+            <span class="card-source">Fonte: SEAB/DERAL</span>
+            <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Terras</div>
-            <h3>Precos de Terras</h3>
-            <p>Analise historica de precos de terras com recortes por regional e categoria.</p>
-            <span class="card-link">Abrir painel</span>
+            <h3>Preços de Terras</h3>
+            <p>Série histórica de preços de terras por regional e categoria.</p>
+            <span class="card-source">Fonte: DERAL</span>
+            <span class="card-link">Abrir painel &rarr;</span>
           </a>
         </div>
       </section>
 
-      <section id="sobre" class="section split">
-        <div>
-          <h2>Proposito institucional</h2>
-          <p>
-            O Datageo Parana organiza paines tecnicos de referencia para apoiar tomada de decisao
-            em inteligencia territorial. A pagina e neutra, sem identidade pessoal, e serve como
-            ponto de entrada unico para o ecossistema de dados.
-          </p>
-          <ul class="bullets">
-            <li>Fontes publicas e series historicas consolidadas</li>
-            <li>Indicadores-chave para planejamento e monitoramento</li>
-            <li>Links diretos, sem dispersao</li>
-          </ul>
+      <section id="sobre" class="section">
+        <div class="section-head">
+          <h2>Sobre</h2>
         </div>
-        <div class="panel">
-          <h3>Acesso interno</h3>
+        <div class="about-block">
           <p>
-            Caso o painel utilize controle de acesso, compartilhe esta landing como link oficial de
-            entrada. O conteudo permanece publico e institucional.
+            O Datageo Paraná reúne painéis interativos com dados públicos sobre preços e produção
+            agropecuária do estado. As fontes são oficiais (SEAB, DERAL, IDR-Paraná) e os painéis
+            permitem consulta por produto, região e período.
           </p>
-          <a class="btn secondary" href="https://avnergomes.github.io/controlpanel/" target="_blank" rel="noopener noreferrer">
-            Abrir Control Panel
-          </a>
-        </div>
-      </section>
-
-      <section class="section full">
-        <div class="notice">
-          <div>
-            <h4>Uso institucional</h4>
-            <p>Portal mantido para uso tecnico e institucional com foco em indicadores publicos.</p>
-          </div>
-          <a class="btn ghost" href="https://avnergomes.github.io/" target="_blank" rel="noopener noreferrer">
-            Visitar outras iniciativas
-          </a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>Datageo Parana</span>
-      <span>Portal de indicadores territoriais</span>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Datageo Paraná</h4>
+          <p>Consulta a séries históricas de preços e produção agropecuária do Paraná com dados públicos.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Fontes</h4>
+          <ul>
+            <li><a href="https://www.agricultura.pr.gov.br/" target="_blank" rel="noopener noreferrer">SEAB &mdash; Secretaria da Agricultura</a></li>
+            <li><a href="https://www.agricultura.pr.gov.br/deral" target="_blank" rel="noopener noreferrer">DERAL &mdash; Economia Rural</a></li>
+            <li><a href="https://www.idrparana.pr.gov.br/" target="_blank" rel="noopener noreferrer">IDR-Paraná</a></li>
+            <li><a href="https://avnergomes.github.io/controlpanel/" target="_blank" rel="noopener noreferrer">Control Panel</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Desenvolvido por</h4>
+          <ul>
+            <li><a href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Avner Gomes &mdash; Portfólio</a></li>
+            <li><a href="https://github.com/avnergomes" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Dados públicos &middot; Sem vínculo institucional</span>
+      </div>
     </footer>
     <script>
       (function () {
