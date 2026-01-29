@@ -122,6 +122,42 @@
         <span>Dados públicos &middot; Sem vínculo institucional</span>
       </div>
     </footer>
+
+    <!-- Bug report -->
+    <button id="bug-trigger" class="bug-trigger" type="button" title="Encontrei um BUG!">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 2l1.88 1.88M16 2l-1.88 1.88"/>
+        <path d="M9 7.13v-1a3.003 3.003 0 116 0v1"/>
+        <path d="M12 20c-3.3 0-6-2.7-6-6v-3a6 6 0 0112 0v3c0 3.3-2.7 6-6 6z"/>
+        <path d="M12 20v2M6 13H2M6 17H3M18 13h4M18 17h3"/>
+      </svg>
+    </button>
+
+    <div id="bug-modal" class="bug-modal" hidden>
+      <div class="bug-backdrop"></div>
+      <div class="bug-dialog">
+        <div class="bug-dialog-head">
+          <h3>Reportar problema</h3>
+          <button type="button" class="bug-close" id="bug-close">&times;</button>
+        </div>
+        <form id="bug-form" class="bug-form">
+          <label for="bug-page">Página com problema</label>
+          <select id="bug-page" required>
+            <option value="">Selecione...</option>
+            <option value="Datageo Paraná (landing)">Datageo Paraná (landing)</option>
+            <option value="VBP Paraná">VBP Paraná</option>
+            <option value="Preços Diários">Preços Diários</option>
+            <option value="Preços Florestais">Preços Florestais</option>
+            <option value="Preços de Terras">Preços de Terras</option>
+            <option value="Outra">Outra</option>
+          </select>
+          <label for="bug-desc">Descrição do problema</label>
+          <textarea id="bug-desc" rows="3" required placeholder="Ex: valor absurdo, gráfico quebrado, link com problemas..."></textarea>
+          <button type="submit" class="btn primary gate-btn">Enviar</button>
+          <p class="bug-sent" id="bug-sent" hidden>Enviado. Obrigado!</p>
+        </form>
+      </div>
+    </div>
     <script>
       (function () {
         const TRACKING_URL = 'https://script.google.com/macros/s/AKfycbzz9RzAbdG6da7rCn-7LVwigaMni74vFCy_C3RjDPzaasbzrFvgC9_UrLgRV0mcm07gjQ/exec';
@@ -397,6 +433,53 @@
           } catch (err) {}
 
           unlock();
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var trigger = document.getElementById('bug-trigger');
+        var modal = document.getElementById('bug-modal');
+        var closeBtn = document.getElementById('bug-close');
+        var backdrop = modal.querySelector('.bug-backdrop');
+        var form = document.getElementById('bug-form');
+        var sent = document.getElementById('bug-sent');
+
+        function open() { modal.hidden = false; }
+        function close() { modal.hidden = true; sent.hidden = true; form.reset(); form.style.display = ''; }
+
+        trigger.addEventListener('click', open);
+        closeBtn.addEventListener('click', close);
+        backdrop.addEventListener('click', close);
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var page = document.getElementById('bug-page').value;
+          var desc = document.getElementById('bug-desc').value.trim();
+          if (!page || !desc) return;
+
+          var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbzz9RzAbdG6da7rCn-7LVwigaMni74vFCy_C3RjDPzaasbzrFvgC9_UrLgRV0mcm07gjQ/exec';
+          try {
+            fetch(TRACKING_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                page: 'bug-report',
+                bugPage: page,
+                bugDescription: desc,
+                email: localStorage.getItem('dg_access_email') || '',
+                timestamp: new Date().toISOString(),
+                sessionId: sessionStorage.getItem('dg_session_id') || '',
+                hostname: window.location.hostname
+              }),
+              keepalive: true
+            }).catch(function () {});
+          } catch (err) {}
+
+          form.style.display = 'none';
+          sent.hidden = false;
+          setTimeout(close, 2000);
         });
       })();
     </script>

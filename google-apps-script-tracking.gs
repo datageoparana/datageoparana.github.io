@@ -1,21 +1,27 @@
-﻿/**
+/**
  * Google Apps Script para tracking do Portal Datageo Parana
  *
  * PASSO A PASSO PARA CONFIGURACAO:
  * 1. Cole TODO este codigo no Google Apps Script
  * 2. Substitua 'SEU_SPREADSHEET_ID_AQUI' pelo ID da sua planilha
  * 3. Salve o projeto
- * 4. Execute a funcao setupSheet()
+ * 4. Execute a funcao setupSheet() para criar as abas e cabecalhos
  * 5. Implante como Web App:
  *    - Tipo: Aplicativo da Web
  *    - Executar como: Eu
  *    - Acesso: Qualquer pessoa
  * 6. Copie a URL gerada
  * 7. Atualize TRACKING_URL no index.html
+ *
+ * ABAS CRIADAS:
+ * - "Tracking Data": registros de visita (page views, device info, etc.)
+ * - "Emails": registros de e-mail coletados pelo gate de acesso
+ * - "Bug Reports": relatos de problemas enviados pelos usuarios
  */
 
 const SPREADSHEET_ID = 'SEU_SPREADSHEET_ID_AQUI';
 const SHEET_NAME = 'Tracking Data';
+const EMAIL_SHEET_NAME = 'Emails';
 
 const COLUMNS = [
   'URL',
@@ -115,10 +121,37 @@ const COLUMNS = [
   'prefersContrast'
 ];
 
+const EMAIL_COLUMNS = [
+  'Email',
+  'Data/Hora',
+  'Session ID',
+  'Hostname'
+];
+
+const BUG_SHEET_NAME = 'Bug Reports';
+const BUG_COLUMNS = [
+  'Página',
+  'Descrição',
+  'Email do usuário',
+  'Data/Hora',
+  'Session ID',
+  'Hostname'
+];
+
+// ─── Endpoints ───────────────────────────────────
+
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    saveToSheet(data);
+
+    if (data.page === 'email-gate' && data.email) {
+      saveEmail(data);
+    } else if (data.page === 'bug-report') {
+      saveBugReport(data);
+    } else {
+      saveToSheet(data);
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: 'success',
       message: 'Dados salvos com sucesso'
@@ -140,18 +173,14 @@ function doGet() {
   })).setMimeType(ContentService.MimeType.JSON);
 }
 
+// ─── Salvar visita (aba Tracking Data) ───────────
+
 function saveToSheet(data) {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
   if (!sheet) {
-    sheet = spreadsheet.insertSheet(SHEET_NAME);
-    sheet.getRange(1, 1, 1, COLUMNS.length).setValues([COLUMNS]);
-    const headerRange = sheet.getRange(1, 1, 1, COLUMNS.length);
-    headerRange.setFontWeight('bold');
-    headerRange.setBackground('#0ea5e9');
-    headerRange.setFontColor('#FFFFFF');
-    sheet.setFrozenRows(1);
+    sheet = createTrackingSheet_(spreadsheet);
   }
 
   const enriched = enrichAliases(data);
@@ -166,6 +195,52 @@ function saveToSheet(data) {
   const nextRow = sheet.getLastRow() + 1;
   sheet.getRange(nextRow, 1, 1, rowData.length).setValues([rowData]);
 }
+
+// ─── Salvar email (aba Emails) ───────────────────
+
+function saveEmail(data) {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = spreadsheet.getSheetByName(EMAIL_SHEET_NAME);
+
+  if (!sheet) {
+    sheet = createEmailSheet_(spreadsheet);
+  }
+
+  const row = [
+    data.email || '',
+    data.timestamp || new Date().toISOString(),
+    data.sessionId || '',
+    data.hostname || ''
+  ];
+
+  const nextRow = sheet.getLastRow() + 1;
+  sheet.getRange(nextRow, 1, 1, row.length).setValues([row]);
+}
+
+// ─── Salvar bug report (aba Bug Reports) ─────────
+
+function saveBugReport(data) {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = spreadsheet.getSheetByName(BUG_SHEET_NAME);
+
+  if (!sheet) {
+    sheet = createBugSheet_(spreadsheet);
+  }
+
+  const row = [
+    data.bugPage || '',
+    data.bugDescription || '',
+    data.email || '',
+    data.timestamp || new Date().toISOString(),
+    data.sessionId || '',
+    data.hostname || ''
+  ];
+
+  const nextRow = sheet.getLastRow() + 1;
+  sheet.getRange(nextRow, 1, 1, row.length).setValues([row]);
+}
+
+// ─── Enriquecimento de dados ─────────────────────
 
 function enrichAliases(data) {
   const result = Object.assign({}, data);
@@ -192,7 +267,7 @@ function buildUrl(data) {
   if (!data.protocol || !data.hostname) return '';
   const path = data.pathname || '';
   const query = data.queryString || '';
-  return `${data.protocol}//${data.hostname}${path}${query}`;
+  return data.protocol + '//' + data.hostname + path + query;
 }
 
 function extractPath(url) {
@@ -206,9 +281,9 @@ function extractPath(url) {
 
 function parseUserAgent(ua) {
   const value = String(ua || '').toLowerCase();
-  let os = '';
-  let browser = '';
-  let deviceType = 'Desktop';
+  var os = '';
+  var browser = '';
+  var deviceType = 'Desktop';
 
   if (value.includes('android')) os = 'Android';
   else if (value.includes('iphone') || value.includes('ipad')) os = 'iOS';
@@ -224,21 +299,44 @@ function parseUserAgent(ua) {
   if (value.includes('ipad') || value.includes('tablet')) deviceType = 'Tablet';
   else if (value.includes('mobi') || value.includes('android') || value.includes('iphone')) deviceType = 'Mobile';
 
-  return { os, browser, deviceType };
+  return { os: os, browser: browser, deviceType: deviceType };
 }
+
+// ─── Setup (executar manualmente uma vez) ────────
 
 function setupSheet() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
-  if (sheet) {
-    spreadsheet.deleteSheet(sheet);
+  // Aba de tracking
+  var trackingSheet = spreadsheet.getSheetByName(SHEET_NAME);
+  if (trackingSheet) {
+    spreadsheet.deleteSheet(trackingSheet);
   }
+  createTrackingSheet_(spreadsheet);
 
-  sheet = spreadsheet.insertSheet(SHEET_NAME);
+  // Aba de emails
+  var emailSheet = spreadsheet.getSheetByName(EMAIL_SHEET_NAME);
+  if (emailSheet) {
+    spreadsheet.deleteSheet(emailSheet);
+  }
+  createEmailSheet_(spreadsheet);
+
+  // Aba de bug reports
+  var bugSheet = spreadsheet.getSheetByName(BUG_SHEET_NAME);
+  if (bugSheet) {
+    spreadsheet.deleteSheet(bugSheet);
+  }
+  createBugSheet_(spreadsheet);
+}
+
+// ─── Criacao de abas ─────────────────────────────
+
+function createTrackingSheet_(spreadsheet) {
+  var sheet = spreadsheet.insertSheet(SHEET_NAME);
+
   sheet.getRange(1, 1, 1, COLUMNS.length).setValues([COLUMNS]);
 
-  const headerRange = sheet.getRange(1, 1, 1, COLUMNS.length);
+  var headerRange = sheet.getRange(1, 1, 1, COLUMNS.length);
   headerRange.setFontWeight('bold');
   headerRange.setBackground('#0ea5e9');
   headerRange.setFontColor('#FFFFFF');
@@ -250,8 +348,54 @@ function setupSheet() {
     sheet.autoResizeColumns(1, COLUMNS.length);
   } else {
     sheet.autoResizeColumns(1, 20);
-    for (let i = 21; i <= COLUMNS.length; i++) {
+    for (var i = 21; i <= COLUMNS.length; i++) {
       sheet.setColumnWidth(i, 120);
     }
   }
+
+  return sheet;
+}
+
+function createEmailSheet_(spreadsheet) {
+  var sheet = spreadsheet.insertSheet(EMAIL_SHEET_NAME);
+
+  sheet.getRange(1, 1, 1, EMAIL_COLUMNS.length).setValues([EMAIL_COLUMNS]);
+
+  var headerRange = sheet.getRange(1, 1, 1, EMAIL_COLUMNS.length);
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#0f766e');
+  headerRange.setFontColor('#FFFFFF');
+  headerRange.setWrap(false);
+  headerRange.setVerticalAlignment('middle');
+  sheet.setFrozenRows(1);
+
+  sheet.setColumnWidth(1, 280);
+  sheet.setColumnWidth(2, 200);
+  sheet.setColumnWidth(3, 220);
+  sheet.setColumnWidth(4, 200);
+
+  return sheet;
+}
+
+function createBugSheet_(spreadsheet) {
+  var sheet = spreadsheet.insertSheet(BUG_SHEET_NAME);
+
+  sheet.getRange(1, 1, 1, BUG_COLUMNS.length).setValues([BUG_COLUMNS]);
+
+  var headerRange = sheet.getRange(1, 1, 1, BUG_COLUMNS.length);
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#dc2626');
+  headerRange.setFontColor('#FFFFFF');
+  headerRange.setWrap(false);
+  headerRange.setVerticalAlignment('middle');
+  sheet.setFrozenRows(1);
+
+  sheet.setColumnWidth(1, 220);
+  sheet.setColumnWidth(2, 400);
+  sheet.setColumnWidth(3, 250);
+  sheet.setColumnWidth(4, 200);
+  sheet.setColumnWidth(5, 220);
+  sheet.setColumnWidth(6, 200);
+
+  return sheet;
 }
