@@ -401,7 +401,7 @@
           document.body.classList.remove('gate-locked');
         }
 
-        var stored = localStorage.getItem(GATE_KEY);
+        var stored = sessionStorage.getItem(GATE_KEY);
         if (stored) {
           unlock();
         } else {
@@ -413,7 +413,7 @@
           var email = input.value.trim();
           if (!email) return;
 
-          localStorage.setItem(GATE_KEY, email);
+          sessionStorage.setItem(GATE_KEY, email);
 
           var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbzz9RzAbdG6da7rCn-7LVwigaMni74vFCy_C3RjDPzaasbzrFvgC9_UrLgRV0mcm07gjQ/exec';
           try {
@@ -468,7 +468,7 @@
                 page: 'bug-report',
                 bugPage: page,
                 bugDescription: desc,
-                email: localStorage.getItem('dg_access_email') || '',
+                email: sessionStorage.getItem('dg_access_email') || '',
                 timestamp: new Date().toISOString(),
                 sessionId: sessionStorage.getItem('dg_session_id') || '',
                 hostname: window.location.hostname
