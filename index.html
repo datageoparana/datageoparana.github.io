@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Datageo Parana: portal institucional com dashboards de indicadores e precos para apoio a decisoes territoriais." />
+    <link rel="canonical" href="https://datageoparana.github.io/" />
+    <title>Datageo Parana | Portal de Indicadores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="badge">Portal institucional</div>
+      <h1>Datageo Parana</h1>
+      <p class="subtitle">
+        Intelligence hub para indicadores territoriais e precos de mercado. Acesso rapido e neutro,
+        pensado para uso tecnico e institucional.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#dashboards">Ver dashboards</a>
+        <a class="btn ghost" href="#sobre">Sobre o portal</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="dashboards" class="section">
+        <div class="section-head">
+          <h2>Dashboards principais</h2>
+          <p>Links diretos para as plataformas oficiais.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener noreferrer">
+            <div class="card-tag">Producao</div>
+            <h3>VBP Parana</h3>
+            <p>Serie historica do Valor Bruto da Producao Agropecuaria, com recortes territoriais.</p>
+            <span class="card-link">Abrir painel</span>
+          </a>
+          <a class="card" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener noreferrer">
+            <div class="card-tag">Mercado</div>
+            <h3>Precos Diarios</h3>
+            <p>Cotacoes diarias do SIMA com filtros por produto e referencia temporal.</p>
+            <span class="card-link">Abrir painel</span>
+          </a>
+          <a class="card" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener noreferrer">
+            <div class="card-tag">Florestal</div>
+            <h3>Precos Florestais</h3>
+            <p>Monitoramento de produtos florestais do Parana com comparativos e tendencias.</p>
+            <span class="card-link">Abrir painel</span>
+          </a>
+          <a class="card" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener noreferrer">
+            <div class="card-tag">Terras</div>
+            <h3>Precos de Terras</h3>
+            <p>Analise historica de precos de terras com recortes por regional e categoria.</p>
+            <span class="card-link">Abrir painel</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="sobre" class="section split">
+        <div>
+          <h2>Proposito institucional</h2>
+          <p>
+            O Datageo Parana organiza paines tecnicos de referencia para apoiar tomada de decisao
+            em inteligencia territorial. A pagina e neutra, sem identidade pessoal, e serve como
+            ponto de entrada unico para o ecossistema de dados.
+          </p>
+          <ul class="bullets">
+            <li>Fontes publicas e series historicas consolidadas</li>
+            <li>Indicadores-chave para planejamento e monitoramento</li>
+            <li>Links diretos, sem dispersao</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Acesso interno</h3>
+          <p>
+            Caso o painel utilize controle de acesso, compartilhe esta landing como link oficial de
+            entrada. O conteudo permanece publico e institucional.
+          </p>
+          <a class="btn secondary" href="https://avnergomes.github.io/controlpanel/" target="_blank" rel="noopener noreferrer">
+            Abrir Control Panel
+          </a>
+        </div>
+      </section>
+
+      <section class="section full">
+        <div class="notice">
+          <div>
+            <h4>Uso institucional</h4>
+            <p>Portal mantido para uso tecnico e institucional com foco em indicadores publicos.</p>
+          </div>
+          <a class="btn ghost" href="https://avnergomes.github.io/" target="_blank" rel="noopener noreferrer">
+            Visitar outras iniciativas
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Datageo Parana</span>
+      <span>Portal de indicadores territoriais</span>
+    </footer>
+    <script>
+      (function () {
+        const TRACKING_URL = 'https://script.google.com/macros/s/AKfycbzz9RzAbdG6da7rCn-7LWvigaMni74vFCy_C3RjDPzaasbzrFvgC9_UrLgRV0mcmC7giQ/exec';
+        const TRACKING_DEBUG = false;
+
+        function log(message, data) {
+          if (TRACKING_DEBUG) {
+            console.log('[Tracking]', message, data || '');
+          }
+        }
+
+        function getSessionId() {
+          let sessionId = sessionStorage.getItem('dg_session_id');
+          if (!sessionId) {
+            sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            sessionStorage.setItem('dg_session_id', sessionId);
+            log('Novo sessionId criado:', sessionId);
+          }
+          return sessionId;
+        }
+
+        function trackVisit(page) {
+          if (TRACKING_URL === 'SEU_APPS_SCRIPT_URL_AQUI') {
+            log('Tracking desabilitado - configure TRACKING_URL');
+            return;
+          }
+
+          const perfTiming = performance.timing;
+          const perfEntries = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+          const paintEntries = performance.getEntriesByType ? performance.getEntriesByType('paint') : [];
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const utmSource = urlParams.get('utm_source') || '';
+          const utmMedium = urlParams.get('utm_medium') || '';
+          const utmCampaign = urlParams.get('utm_campaign') || '';
+          const utmTerm = urlParams.get('utm_term') || '';
+          const utmContent = urlParams.get('utm_content') || '';
+
+          const returningVisitor = (function () {
+            try {
+              const hasVisitedBefore = localStorage.getItem('dg_has_visited');
+              if (!hasVisitedBefore) {
+                localStorage.setItem('dg_has_visited', 'true');
+                localStorage.setItem('dg_first_visit', new Date().toISOString());
+                return false;
+              }
+              return true;
+            } catch (e) {
+              return false;
+            }
+          })();
+
+          const visitData = {
+            page: page || window.location.pathname + window.location.hash,
+            referrer: document.referrer || 'direto',
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            platform: navigator.platform,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            sessionId: getSessionId(),
+            timestamp: new Date().toISOString(),
+            returningVisitor: returningVisitor,
+
+            colorDepth: screen.colorDepth || null,
+            pixelRatio: window.devicePixelRatio || 1,
+            viewportWidth: window.innerWidth || null,
+            viewportHeight: window.innerHeight || null,
+            touchSupport: navigator.maxTouchPoints > 0,
+            cpuCores: navigator.hardwareConcurrency || null,
+            deviceMemory: navigator.deviceMemory || null,
+
+            vendor: navigator.vendor || 'unknown',
+            cookiesEnabled: navigator.cookieEnabled,
+            doNotTrack: navigator.doNotTrack === '1',
+            onlineStatus: navigator.onLine,
+
+            connectionType: navigator.connection?.effectiveType || 'unknown',
+            connectionSpeed: navigator.connection?.downlink || null,
+            saveDataMode: navigator.connection?.saveData || false,
+
+            protocol: window.location.protocol,
+            hostname: window.location.hostname,
+            pathname: window.location.pathname,
+            queryString: window.location.search || '',
+            pageTitle: document.title,
+
+            loadTime: performance.timing.loadEventEnd > 0
+              ? performance.timing.loadEventEnd - performance.timing.navigationStart
+              : null,
+
+            screenOrientation: screen.orientation?.type || 'unknown',
+            timezoneOffset: new Date().getTimezoneOffset(),
+
+            dnsLookupTime: perfTiming.domainLookupEnd > 0 ? perfTiming.domainLookupEnd - perfTiming.domainLookupStart : null,
+            tcpConnectionTime: perfTiming.connectEnd > 0 ? perfTiming.connectEnd - perfTiming.connectStart : null,
+            serverResponseTime: perfTiming.responseEnd > 0 ? perfTiming.responseEnd - perfTiming.requestStart : null,
+            domContentLoadedTime: perfTiming.domContentLoadedEventEnd > 0 ? perfTiming.domContentLoadedEventEnd - perfTiming.navigationStart : null,
+            domInteractiveTime: perfTiming.domInteractive > 0 ? perfTiming.domInteractive - perfTiming.navigationStart : null,
+            firstPaint: paintEntries.find((e) => e.name === 'first-paint')?.startTime || null,
+            firstContentfulPaint: paintEntries.find((e) => e.name === 'first-contentful-paint')?.startTime || null,
+            transferSize: perfEntries?.transferSize || null,
+            encodedBodySize: perfEntries?.encodedBodySize || null,
+            decodedBodySize: perfEntries?.decodedBodySize || null,
+
+            connectionRTT: navigator.connection?.rtt || null,
+            connectionDownlinkMax: navigator.connection?.downlinkMax || null,
+
+            languages: navigator.languages ? navigator.languages.join(',') : navigator.language,
+            localStorageEnabled: (function () {
+              try { return !!window.localStorage; } catch (e) { return false; }
+            })(),
+            sessionStorageEnabled: (function () {
+              try { return !!window.sessionStorage; } catch (e) { return false; }
+            })(),
+            indexedDBEnabled: !!window.indexedDB,
+            serviceWorkerEnabled: 'serviceWorker' in navigator,
+            webGLSupported: (function () {
+              try {
+                const canvas = document.createElement('canvas');
+                return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+              } catch (e) { return false; }
+            })(),
+            webRTCSupported: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+            notificationPermission: 'Notification' in window ? Notification.permission : 'not-supported',
+
+            pluginsCount: navigator.plugins ? navigator.plugins.length : 0,
+            mimeTypesCount: navigator.mimeTypes ? navigator.mimeTypes.length : 0,
+            pdfViewerEnabled: navigator.pdfViewerEnabled || false,
+
+            maxTouchPoints: navigator.maxTouchPoints || 0,
+            batteryLevel: null,
+            batteryCharging: null,
+
+            historyLength: window.history.length,
+            isIframe: window.self !== window.top,
+
+            utmSource: utmSource,
+            utmMedium: utmMedium,
+            utmCampaign: utmCampaign,
+            utmTerm: utmTerm,
+            utmContent: utmContent,
+
+            sessionStartTime: sessionStorage.getItem('dg_session_start') || (function () {
+              const start = new Date().toISOString();
+              sessionStorage.setItem('dg_session_start', start);
+              return start;
+            })(),
+            pageViewsInSession: parseInt(sessionStorage.getItem('dg_page_views') || '0') + 1,
+
+            isMobile: /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+            isTablet: /iPad|Android(?!.*Mobile)/i.test(navigator.userAgent),
+            isDesktop: !/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+
+            secureContext: window.isSecureContext || false,
+            crossOriginIsolated: window.crossOriginIsolated || false,
+
+            canvasSupported: !!document.createElement('canvas').getContext,
+            svgSupported: !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect,
+
+            storageQuota: null,
+            storageUsage: null,
+            storageUsagePercent: null,
+
+            availScreenWidth: screen.availWidth || null,
+            availScreenHeight: screen.availHeight || null,
+
+            displayMode: window.matchMedia('(display-mode: standalone)').matches ? 'standalone'
+              : window.matchMedia('(display-mode: fullscreen)').matches ? 'fullscreen'
+                : window.matchMedia('(display-mode: minimal-ui)').matches ? 'minimal-ui' : 'browser',
+
+            prefersColorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark'
+              : window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'no-preference',
+            prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+            prefersReducedTransparency: window.matchMedia('(prefers-reduced-transparency: reduce)').matches,
+            prefersContrast: window.matchMedia('(prefers-contrast: high)').matches ? 'high'
+              : window.matchMedia('(prefers-contrast: low)').matches ? 'low' : 'no-preference'
+          };
+
+          sessionStorage.setItem('dg_page_views', visitData.pageViewsInSession.toString());
+
+          const asyncPromises = [];
+
+          if ('getBattery' in navigator) {
+            asyncPromises.push(
+              navigator.getBattery().then((battery) => {
+                visitData.batteryLevel = battery.level;
+                visitData.batteryCharging = battery.charging;
+              }).catch(() => {})
+            );
+          }
+
+          if ('storage' in navigator && 'estimate' in navigator.storage) {
+            asyncPromises.push(
+              navigator.storage.estimate().then((estimate) => {
+                visitData.storageQuota = estimate.quota || null;
+                visitData.storageUsage = estimate.usage || null;
+                visitData.storageUsagePercent = estimate.quota
+                  ? (estimate.usage / estimate.quota * 100).toFixed(2)
+                  : null;
+              }).catch(() => {})
+            );
+          }
+
+          Promise.all(asyncPromises).finally(() => {
+            log('Enviando dados:', visitData);
+            try {
+              fetch(TRACKING_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(visitData),
+                keepalive: true
+              }).catch(() => {
+                log('Tracking enviado (erro ignorado)');
+              });
+            } catch (e) {
+              log('Tracking error (ignorado):', e.message);
+            }
+          });
+        }
+
+        function startTracking() {
+          log('Inicializando rastreamento');
+          trackVisit();
+        }
+
+        startTracking();
+      })();
+    </script>
+  </body>
+</html>
