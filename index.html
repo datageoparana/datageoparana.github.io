@@ -14,6 +14,25 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="email-gate" class="gate-overlay">
+      <div class="gate-card">
+        <h1 class="gate-title">Datageo Paraná</h1>
+        <p class="gate-desc">Insira seu e-mail para acessar os painéis de consulta.</p>
+        <form id="gate-form" class="gate-form" autocomplete="on">
+          <input
+            id="gate-email"
+            type="email"
+            name="email"
+            placeholder="seu@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn primary gate-btn">Acessar</button>
+        </form>
+        <p class="gate-note">Seus dados não serão compartilhados com terceiros.</p>
+      </div>
+    </div>
+
     <header class="site-header">
       <h1>Datageo Paraná</h1>
       <p class="subtitle">
@@ -332,6 +351,53 @@
         }
 
         startTracking();
+      })();
+    </script>
+    <script>
+      (function () {
+        var GATE_KEY = 'dg_access_email';
+        var gate = document.getElementById('email-gate');
+        var form = document.getElementById('gate-form');
+        var input = document.getElementById('gate-email');
+
+        function unlock() {
+          gate.classList.add('gate-hidden');
+          document.body.classList.remove('gate-locked');
+        }
+
+        var stored = localStorage.getItem(GATE_KEY);
+        if (stored) {
+          unlock();
+        } else {
+          document.body.classList.add('gate-locked');
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = input.value.trim();
+          if (!email) return;
+
+          localStorage.setItem(GATE_KEY, email);
+
+          var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbzz9RzAbdG6da7rCn-7LVwigaMni74vFCy_C3RjDPzaasbzrFvgC9_UrLgRV0mcm07gjQ/exec';
+          try {
+            fetch(TRACKING_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                page: 'email-gate',
+                email: email,
+                timestamp: new Date().toISOString(),
+                sessionId: sessionStorage.getItem('dg_session_id') || '',
+                hostname: window.location.hostname
+              }),
+              keepalive: true
+            }).catch(function () {});
+          } catch (err) {}
+
+          unlock();
+        });
       })();
     </script>
   </body>
