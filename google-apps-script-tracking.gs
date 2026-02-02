@@ -23,6 +23,49 @@ const SPREADSHEET_ID = 'SEU_SPREADSHEET_ID_AQUI';
 const SHEET_NAME = 'Tracking Data';
 const EMAIL_SHEET_NAME = 'Emails';
 
+// ─── Seguranca ──────────────────────────────────
+
+const ALLOWED_ORIGINS = [
+  'https://datageoparana.github.io',
+  'http://localhost',
+  'http://127.0.0.1',
+];
+
+const RATE_LIMIT_MAX = 30;
+const RATE_LIMIT_WINDOW_SEC = 60;
+const MAX_PAYLOAD_SIZE = 10000;
+
+function isAllowedOrigin_(data) {
+  var origin = data.origin || '';
+  if (!origin) return true;
+  for (var i = 0; i < ALLOWED_ORIGINS.length; i++) {
+    if (origin.indexOf(ALLOWED_ORIGINS[i]) === 0) return true;
+  }
+  return false;
+}
+
+function checkRateLimit_(sessionId) {
+  if (!sessionId) return true;
+  var cache = CacheService.getScriptCache();
+  var key = 'rl_' + sessionId;
+  var current = cache.get(key);
+  var count = current ? parseInt(current, 10) : 0;
+  if (count >= RATE_LIMIT_MAX) return false;
+  cache.put(key, String(count + 1), RATE_LIMIT_WINDOW_SEC);
+  return true;
+}
+
+function validatePayload_(raw) {
+  if (!raw || raw.length > MAX_PAYLOAD_SIZE) return null;
+  try {
+    var data = JSON.parse(raw);
+    if (typeof data !== 'object' || data === null) return null;
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
 const COLUMNS = [
   'URL',
   'Caminho',
@@ -142,7 +185,20 @@ const BUG_COLUMNS = [
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    var raw = e.postData.contents;
+    var data = validatePayload_(raw);
+
+    if (!data) {
+      return jsonError_('invalid payload');
+    }
+
+    if (!isAllowedOrigin_(data)) {
+      return jsonError_('forbidden');
+    }
+
+    if (!checkRateLimit_(data.sessionId || '')) {
+      return jsonError_('rate limited');
+    }
 
     if (data.page === 'email-gate' && data.email) {
       saveEmail(data);
@@ -162,6 +218,13 @@ function doPost(e) {
       message: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+function jsonError_(msg) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'error',
+    message: msg
+  })).setMimeType(ContentService.MimeType.JSON);
 }
 
 function doGet() {

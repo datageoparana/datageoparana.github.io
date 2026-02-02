@@ -211,6 +211,7 @@
           })();
 
           const visitData = {
+            origin: window.location.origin,
             page: page || window.location.pathname + window.location.hash,
             referrer: document.referrer || 'direto',
             userAgent: navigator.userAgent,
@@ -422,6 +423,7 @@
               mode: 'no-cors',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
+                origin: window.location.origin,
                 page: 'email-gate',
                 email: email,
                 timestamp: new Date().toISOString(),
@@ -465,6 +467,7 @@
               mode: 'no-cors',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
+                origin: window.location.origin,
                 page: 'bug-report',
                 bugPage: page,
                 bugDescription: desc,
