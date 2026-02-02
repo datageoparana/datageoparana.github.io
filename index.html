@@ -18,6 +18,13 @@
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="es_ES">
     <meta property="og:site_name" content="Datageo Paraná">
+    <meta property="og:image" content="https://datageoparana.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Datageo Paraná — Dashboards de Preços Agropecuários" />
+    <meta name="twitter:description" content="Painéis interativos com séries históricas de preços agropecuários, florestais e de terras no Paraná." />
+    <meta name="twitter:image" content="https://datageoparana.github.io/og-image.png" />
     <title>Datageo Paraná — Dashboard de Preços Agropecuários e BI Rural</title>
     <script type="application/ld+json">
     {
@@ -29,7 +36,7 @@
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
-      "areaServed": { "@type": "State", "name": "Paraná", "addressCountry": "BR" },
+      "areaServed": { "@type": "AdministrativeArea", "name": "Paraná", "addressCountry": "BR" },
       "author": { "@type": "Person", "name": "Avner Gomes", "url": "https://avnergomes.github.io/portfolio/" },
       "keywords": ["agricultural prices Brazil", "agribusiness dashboard", "farm BI", "cooperative management", "precios agropecuarios", "tablero agronegocios", "BI agropecuario", "gestión cooperativa"]
     }
@@ -38,14 +45,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- Google Analytics 4 (descomente e substitua GA_MEASUREMENT_ID para ativar)
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    -->
   </head>
   <body>
+    <a href="#main-content" class="sr-only focus-visible-only">Pular para o conteudo</a>
+    <noscript>
+      <style>#email-gate { display: none !important; } body.gate-locked > header, body.gate-locked > main, body.gate-locked > footer { display: block !important; }</style>
+      <div style="padding:2rem;max-width:800px;margin:0 auto;font-family:system-ui,sans-serif;text-align:center">
+        <h1>Datageo Parana</h1>
+        <p>Paineis interativos com series historicas de precos agropecuarios, florestais, de terras e producao do Parana. Dados publicos SEAB/DERAL.</p>
+        <ul style="list-style:none;padding:0">
+          <li><a href="https://avnergomes.github.io/vbp-parana/">VBP Parana — Valor Bruto da Producao</a></li>
+          <li><a href="https://avnergomes.github.io/precos-diarios/">Precos Diarios Agropecuarios</a></li>
+          <li><a href="https://avnergomes.github.io/precos-florestais/">Precos Florestais</a></li>
+          <li><a href="https://avnergomes.github.io/precos-de-terras/">Precos de Terras Rurais</a></li>
+        </ul>
+      </div>
+    </noscript>
     <div id="email-gate" class="gate-overlay">
       <div class="gate-card">
         <h1 class="gate-title">Datageo Paraná</h1>
         <p class="gate-desc">Insira seu e-mail para acessar os painéis de consulta.</p>
         <form id="gate-form" class="gate-form" autocomplete="on">
+          <label for="gate-email" class="sr-only">Seu e-mail</label>
           <input
             id="gate-email"
             type="email"
@@ -53,6 +85,7 @@
             placeholder="seu@email.com"
             required
             autocomplete="email"
+            aria-label="Seu e-mail"
           />
           <button type="submit" class="btn primary gate-btn">Acessar</button>
         </form>
@@ -71,7 +104,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section id="paineis" class="section">
         <div class="section-head">
           <h2>Painéis</h2>
@@ -140,7 +173,10 @@
         <div class="footer-col">
           <h4>Desenvolvido por</h4>
           <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener noreferrer" title="Desenvolvido por Avner Gomes">
-            <img src="logo2.png" alt="Avner Gomes" />
+            <picture>
+              <source srcset="logo2.webp" type="image/webp" />
+              <img src="logo2.png" alt="Avner Gomes" width="40" height="40" loading="lazy" />
+            </picture>
             <span>Avner Gomes</span>
           </a>
         </div>
