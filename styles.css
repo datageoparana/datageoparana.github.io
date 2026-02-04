@@ -479,9 +479,14 @@ main {
 }
 
 .bug-trigger:hover {
-  color: #dc2626;
   border-color: #fca5a5;
   transform: scale(1.1);
+}
+
+.bug-trigger img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 /* ── Bug report modal ─────────────────────────── */
