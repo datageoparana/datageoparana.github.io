@@ -62,13 +62,13 @@
     <noscript>
       <div style="padding:2rem;max-width:800px;margin:0 auto;font-family:system-ui,sans-serif;text-align:center">
         <h1>Datageo Parana</h1>
-        <p>Paineis interativos com series historicas de precos agropecuarios, florestais, de terras e producao do Parana. Dados publicos SEAB/DERAL.</p>
+        <p>Dashboards interativos com series historicas de precos agropecuarios, florestais, terras e comercio exterior do Parana.</p>
         <ul style="list-style:none;padding:0">
-          <li><a href="https://avnergomes.github.io/vbp-parana/">VBP Parana — Valor Bruto da Producao</a></li>
-          <li><a href="https://avnergomes.github.io/precos-diarios/">Precos Diarios Agropecuarios</a></li>
-          <li><a href="https://avnergomes.github.io/precos-florestais/">Precos Florestais</a></li>
-          <li><a href="https://avnergomes.github.io/precos-de-terras/">Precos de Terras Rurais</a></li>
-          <li><a href="https://avnergomes.github.io/comexstat-parana/">ComexStat Parana — Comercio Exterior</a></li>
+          <li><a href="https://avnergomes.github.io/vbp-parana/">VBP Parana — Valor Bruto da Producao (2012-2024)</a></li>
+          <li><a href="https://avnergomes.github.io/precos-diarios/">Precos Diarios — Cotacoes desde 2003</a></li>
+          <li><a href="https://avnergomes.github.io/precos-florestais/">Precos Florestais — Serie desde 1997</a></li>
+          <li><a href="https://avnergomes.github.io/precos-de-terras/">Precos de Terras — Serie desde 1998</a></li>
+          <li><a href="https://avnergomes.github.io/comexstat-parana/">ComexStat Parana — Comercio Exterior Agricola</a></li>
         </ul>
       </div>
     </noscript>
@@ -76,8 +76,8 @@
     <header class="site-header">
       <h1>Datageo Paraná</h1>
       <p class="subtitle">
-        Painéis de consulta com séries históricas de preços e produção agropecuária do Paraná.
-        Dados públicos organizados para acesso direto.
+        Séries históricas de preços agropecuários, florestais, terras e comércio exterior do Paraná.
+        Dados públicos com filtros, mapas e exportação.
       </p>
       <div class="cta-row">
         <a class="btn primary" href="#paineis">Ver painéis</a>
@@ -88,41 +88,41 @@
       <section id="paineis" class="section">
         <div class="section-head">
           <h2>Painéis</h2>
-          <p>Dados públicos organizados para consulta rápida.</p>
+          <p>Cinco dashboards com dados oficiais, filtros interativos e visualizações exportáveis.</p>
         </div>
         <div class="card-grid">
           <a class="card accent-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Produção</div>
             <h3>VBP Paraná</h3>
-            <p>Valor Bruto da Produção Agropecuária por município e produto.</p>
+            <p>Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e 200+ produtos em 25 cadeias produtivas.</p>
             <span class="card-source">Fonte: SEAB/DERAL</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
           <a class="card accent-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Mercado</div>
             <h3>Preços Diários</h3>
-            <p>Cotações diárias de produtos agropecuários no Paraná.</p>
+            <p>Cotações diárias desde 2003, com 100+ produtos em 23 regionais. Atualização automática e previsões de preços.</p>
             <span class="card-source">Fonte: SIMA/DERAL</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
           <a class="card accent-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Florestal</div>
             <h3>Preços Florestais</h3>
-            <p>Preços de produtos florestais com comparativos por região.</p>
+            <p>Série histórica desde 1997 com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</p>
             <span class="card-source">Fonte: SEAB/DERAL</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
           <a class="card accent-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Terras</div>
             <h3>Preços de Terras</h3>
-            <p>Série histórica de preços de terras por regional e categoria.</p>
+            <p>Preços de terras agrícolas desde 1998 por classe de solo e regional, com mapa interativo e busca de referências.</p>
             <span class="card-source">Fonte: DERAL</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
           <a class="card accent-comex" href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener noreferrer">
             <div class="card-tag">Comércio Exterior</div>
             <h3>ComexStat Paraná</h3>
-            <p>Exportações e importações agrícolas do Paraná por país, município e cadeia produtiva.</p>
+            <p>Exportações e importações agrícolas desde 2020 com fluxo município-país, balança comercial e 20 cadeias produtivas.</p>
             <span class="card-source">Fonte: MDIC/ComexStat</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
@@ -136,8 +136,9 @@
         <div class="about-block">
           <p>
             O Datageo Paraná reúne painéis interativos com dados públicos sobre preços e produção
-            agropecuária do estado. As fontes são oficiais (SEAB, DERAL, IDR-Paraná) e os painéis
-            permitem consulta por produto, região e período.
+            agropecuária do estado. As fontes são oficiais (SEAB/DERAL, SIMA, ComexStat) e os painéis
+            permitem consulta por produto, região, município e período, com visualizações em mapas,
+            gráficos e tabelas exportáveis.
           </p>
         </div>
       </section>
@@ -147,7 +148,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <h4>Datageo Paraná</h4>
-          <p>Consulta a séries históricas de preços e produção agropecuária do Paraná com dados públicos.</p>
+          <p>Dashboards interativos com séries históricas de preços agropecuários, florestais, terras e comércio exterior do Paraná.</p>
         </div>
         <div class="footer-col">
           <h4>Desenvolvido por</h4>
