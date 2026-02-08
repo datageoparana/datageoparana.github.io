@@ -13,6 +13,7 @@
   --accent-florestais: #3f6212;
   --accent-terras: #78350f;
   --accent-comex: #1e40af;
+  --accent-emprego: #6366f1;
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
   --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 10px 28px rgba(15, 23, 42, 0.1);
@@ -309,12 +310,14 @@ main {
 .card.accent-florestais { border-left-color: var(--accent-florestais); }
 .card.accent-terras { border-left-color: var(--accent-terras); }
 .card.accent-comex { border-left-color: var(--accent-comex); }
+.card.accent-emprego { border-left-color: var(--accent-emprego); }
 
 .card.accent-vbp:hover { border-color: var(--accent-vbp); border-left-color: var(--accent-vbp); }
 .card.accent-diarios:hover { border-color: var(--accent-diarios); border-left-color: var(--accent-diarios); }
 .card.accent-florestais:hover { border-color: var(--accent-florestais); border-left-color: var(--accent-florestais); }
 .card.accent-terras:hover { border-color: var(--accent-terras); border-left-color: var(--accent-terras); }
 .card.accent-comex:hover { border-color: var(--accent-comex); border-left-color: var(--accent-comex); }
+.card.accent-emprego:hover { border-color: var(--accent-emprego); border-left-color: var(--accent-emprego); }
 
 .card-tag {
   font-size: 0.7rem;
