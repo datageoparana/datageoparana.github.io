@@ -67,12 +67,71 @@
         background: #1e293b;
         border-radius: 12px;
         padding: 24px;
-        overflow-x: auto;
         margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .mermaid-viewport {
+        overflow: hidden;
+        cursor: grab;
+        min-height: 300px;
+      }
+      .mermaid-viewport:active {
+        cursor: grabbing;
+      }
+      .mermaid-inner {
+        transform-origin: center center;
+        transition: transform 0.1s ease-out;
+        display: flex;
+        justify-content: center;
       }
       .mermaid {
         display: flex;
         justify-content: center;
+      }
+      .zoom-controls {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        gap: 4px;
+        z-index: 10;
+      }
+      .zoom-btn {
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #e2e8f0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, color 0.15s;
+      }
+      .zoom-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+      .zoom-btn:active {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .zoom-level {
+        padding: 0 8px;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+      }
+      .zoom-hint {
+        position: absolute;
+        bottom: 8px;
+        left: 12px;
+        font-size: 0.7rem;
+        color: #64748b;
       }
       .info-table {
         width: 100%;
@@ -135,8 +194,16 @@
 
         <section class="diagram-section">
           <h2>Arquitetura Geral</h2>
-          <div class="mermaid-container">
-            <pre class="mermaid">
+          <div class="mermaid-container" data-diagram="main">
+            <div class="zoom-controls">
+              <button class="zoom-btn" data-action="out" title="Diminuir zoom">-</button>
+              <span class="zoom-level">100%</span>
+              <button class="zoom-btn" data-action="in" title="Aumentar zoom">+</button>
+              <button class="zoom-btn" data-action="reset" title="Resetar">R</button>
+            </div>
+            <div class="mermaid-viewport">
+              <div class="mermaid-inner">
+                <pre class="mermaid">
 %%{init: {'theme': 'dark'}}%%
 flowchart TB
 
@@ -234,7 +301,10 @@ GHACTIONS --> GHPAGES
 GHACTIONS --> RENDER
 LANDING --> GAPPS
 GAPPS --> CONTROLPANEL
-            </pre>
+                </pre>
+              </div>
+            </div>
+            <div class="zoom-hint">Scroll para zoom | Arraste para mover</div>
           </div>
         </section>
 
@@ -356,8 +426,16 @@ GAPPS --> CONTROLPANEL
 
         <section class="diagram-section">
           <h2>Fluxo de Filtros Interativos</h2>
-          <div class="mermaid-container">
-            <pre class="mermaid">
+          <div class="mermaid-container" data-diagram="filters">
+            <div class="zoom-controls">
+              <button class="zoom-btn" data-action="out" title="Diminuir zoom">-</button>
+              <span class="zoom-level">100%</span>
+              <button class="zoom-btn" data-action="in" title="Aumentar zoom">+</button>
+              <button class="zoom-btn" data-action="reset" title="Resetar">R</button>
+            </div>
+            <div class="mermaid-viewport">
+              <div class="mermaid-inner">
+                <pre class="mermaid">
 %%{init: {'theme': 'dark'}}%%
 flowchart LR
 
@@ -391,14 +469,25 @@ USEFILTERED --> FILTERED
 FILTERED --> USEAGG
 USEAGG --> CHARTS
 FILTERED --> CHARTS
-            </pre>
+                </pre>
+              </div>
+            </div>
+            <div class="zoom-hint">Scroll para zoom | Arraste para mover</div>
           </div>
         </section>
 
         <section class="diagram-section">
           <h2>Tracking e Analytics</h2>
-          <div class="mermaid-container">
-            <pre class="mermaid">
+          <div class="mermaid-container" data-diagram="tracking">
+            <div class="zoom-controls">
+              <button class="zoom-btn" data-action="out" title="Diminuir zoom">-</button>
+              <span class="zoom-level">100%</span>
+              <button class="zoom-btn" data-action="in" title="Aumentar zoom">+</button>
+              <button class="zoom-btn" data-action="reset" title="Resetar">R</button>
+            </div>
+            <div class="mermaid-viewport">
+              <div class="mermaid-inner">
+                <pre class="mermaid">
 %%{init: {'theme': 'dark'}}%%
 flowchart LR
 
@@ -437,7 +526,10 @@ D1 & D2 & D3 & D4 & D5 & D6 & D7 & D8 --> PROXY
 PROXY --> TRACKING
 TRACKING --> S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8
 S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 --> CP
-            </pre>
+                </pre>
+              </div>
+            </div>
+            <div class="zoom-hint">Scroll para zoom | Arraste para mover</div>
           </div>
         </section>
 
@@ -531,5 +623,154 @@ S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 --> CP
         </div>
       </div>
     </footer>
+
+    <script>
+      (function() {
+        const MIN_SCALE = 0.5;
+        const MAX_SCALE = 3;
+        const SCALE_STEP = 0.25;
+
+        document.querySelectorAll('.mermaid-container').forEach(container => {
+          const viewport = container.querySelector('.mermaid-viewport');
+          const inner = container.querySelector('.mermaid-inner');
+          const zoomLevel = container.querySelector('.zoom-level');
+
+          if (!viewport || !inner) return;
+
+          let scale = 1;
+          let panX = 0;
+          let panY = 0;
+          let isPanning = false;
+          let startX = 0;
+          let startY = 0;
+
+          function updateTransform() {
+            inner.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+            if (zoomLevel) {
+              zoomLevel.textContent = Math.round(scale * 100) + '%';
+            }
+          }
+
+          function zoom(delta, centerX, centerY) {
+            const oldScale = scale;
+            scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+
+            if (centerX !== undefined && centerY !== undefined) {
+              const rect = viewport.getBoundingClientRect();
+              const offsetX = centerX - rect.left - rect.width / 2;
+              const offsetY = centerY - rect.top - rect.height / 2;
+              const scaleFactor = scale / oldScale;
+              panX = panX * scaleFactor - offsetX * (scaleFactor - 1);
+              panY = panY * scaleFactor - offsetY * (scaleFactor - 1);
+            }
+
+            updateTransform();
+          }
+
+          function reset() {
+            scale = 1;
+            panX = 0;
+            panY = 0;
+            updateTransform();
+          }
+
+          // Zoom buttons
+          container.querySelectorAll('.zoom-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              const action = btn.dataset.action;
+              if (action === 'in') zoom(SCALE_STEP);
+              else if (action === 'out') zoom(-SCALE_STEP);
+              else if (action === 'reset') reset();
+            });
+          });
+
+          // Mouse wheel zoom
+          viewport.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -SCALE_STEP : SCALE_STEP;
+            zoom(delta, e.clientX, e.clientY);
+          }, { passive: false });
+
+          // Pan with mouse drag
+          viewport.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            isPanning = true;
+            startX = e.clientX - panX;
+            startY = e.clientY - panY;
+            viewport.style.cursor = 'grabbing';
+          });
+
+          document.addEventListener('mousemove', (e) => {
+            if (!isPanning) return;
+            panX = e.clientX - startX;
+            panY = e.clientY - startY;
+            updateTransform();
+          });
+
+          document.addEventListener('mouseup', () => {
+            if (isPanning) {
+              isPanning = false;
+              viewport.style.cursor = 'grab';
+            }
+          });
+
+          // Touch support
+          let lastTouchDistance = 0;
+          let lastTouchCenter = { x: 0, y: 0 };
+
+          viewport.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+              isPanning = true;
+              startX = e.touches[0].clientX - panX;
+              startY = e.touches[0].clientY - panY;
+            } else if (e.touches.length === 2) {
+              isPanning = false;
+              const dx = e.touches[0].clientX - e.touches[1].clientX;
+              const dy = e.touches[0].clientY - e.touches[1].clientY;
+              lastTouchDistance = Math.sqrt(dx * dx + dy * dy);
+              lastTouchCenter = {
+                x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+                y: (e.touches[0].clientY + e.touches[1].clientY) / 2
+              };
+            }
+          }, { passive: true });
+
+          viewport.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1 && isPanning) {
+              panX = e.touches[0].clientX - startX;
+              panY = e.touches[0].clientY - startY;
+              updateTransform();
+            } else if (e.touches.length === 2) {
+              e.preventDefault();
+              const dx = e.touches[0].clientX - e.touches[1].clientX;
+              const dy = e.touches[0].clientY - e.touches[1].clientY;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+              const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+              if (lastTouchDistance > 0) {
+                const scaleDelta = (distance - lastTouchDistance) * 0.01;
+                zoom(scaleDelta, centerX, centerY);
+              }
+
+              lastTouchDistance = distance;
+              lastTouchCenter = { x: centerX, y: centerY };
+            }
+          }, { passive: false });
+
+          viewport.addEventListener('touchend', () => {
+            isPanning = false;
+            lastTouchDistance = 0;
+          }, { passive: true });
+
+          // Double-click to reset
+          viewport.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            reset();
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
