@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Referencias bibliograficas e tecnicas do ecossistema Datageo Parana - Livros, artigos, APIs e fontes de dados oficiais." />
+    <meta name="author" content="Avner Gomes">
+    <link rel="canonical" href="https://datageoparana.github.io/referencias.html" />
+    <title>Referencias - Datageo Parana</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='white'%3EDG%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .content-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 6vw;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 24px;
+        transition: opacity 0.15s;
+      }
+      .back-link:hover {
+        opacity: 0.7;
+      }
+      .page-title {
+        font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 32px;
+        max-width: 640px;
+      }
+      .page-meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-bottom: 40px;
+      }
+      .ref-section {
+        margin-bottom: 40px;
+      }
+      .ref-section h2 {
+        font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--primary);
+      }
+      .ref-subsection {
+        margin-bottom: 20px;
+      }
+      .ref-subsection h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .ref-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .ref-item {
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: 8px;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+      .ref-item:hover {
+        border-color: var(--primary);
+        box-shadow: var(--shadow-sm);
+      }
+      .ref-item .title {
+        font-weight: 600;
+        color: var(--text);
+        font-size: 0.92rem;
+        line-height: 1.4;
+      }
+      .ref-item .details {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+      .ref-item .note {
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-style: italic;
+        margin-top: 4px;
+      }
+      .ref-item a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .ref-item a:hover {
+        text-decoration: underline;
+      }
+      .ref-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 6px;
+        font-size: 0.82rem;
+      }
+      .ref-link::after {
+        content: " ↗";
+        font-size: 0.75rem;
+      }
+      .toc {
+        background: var(--primary-bg);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 40px;
+      }
+      .toc h3 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+      .toc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+      }
+      .toc-list a {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+      .toc-list a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 720px) {
+        .toc-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="content-wrapper">
+        <a href="index.html" class="back-link">&larr; Voltar para Datageo Parana</a>
+        <h1 class="page-title">Referencias</h1>
+        <p class="page-subtitle">
+          Referencias bibliograficas e tecnicas que fundamentam o desenvolvimento do ecossistema Datageo Parana e seus dashboards.
+        </p>
+        <p class="page-meta">Atualizado em: 16/02/2026 | Autor: Avner Gomes</p>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="content-wrapper">
+
+        <nav class="toc">
+          <h3>Indice</h3>
+          <ul class="toc-list">
+            <li><a href="#etl">1. Engenharia de Dados e ETL</a></li>
+            <li><a href="#frontend">2. Frontend e Visualizacao</a></li>
+            <li><a href="#geo">3. Geoinformacao e Cartografia</a></li>
+            <li><a href="#seguranca">4. Seguranca Web</a></li>
+            <li><a href="#analytics">5. Analytics e Monitoramento</a></li>
+            <li><a href="#apis">6. APIs e Integracao</a></li>
+            <li><a href="#seo">7. SEO e Otimizacao</a></li>
+            <li><a href="#devops">8. DevOps e CI/CD</a></li>
+            <li><a href="#ml">9. Machine Learning</a></li>
+            <li><a href="#ux">10. Design e UX</a></li>
+            <li><a href="#economia">11. Economia e Comercio</a></li>
+            <li><a href="#agro">12. Agronegocio Paranaense</a></li>
+            <li><a href="#demografia">13. Demografia e Censos</a></li>
+            <li><a href="#florestal">14. Metodologia Embrapa Florestas</a></li>
+          </ul>
+        </nav>
+
+        <section id="etl" class="ref-section">
+          <h2>1. Engenharia de Dados e Pipelines ETL</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Designing Data-Intensive Applications</div>
+                <div class="details">Kleppmann, M. (2017). O'Reilly Media. ISBN: 978-1449373320</div>
+                <div class="note">Fundamentos de sistemas de dados, processamento batch e streaming</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Fundamentals of Data Engineering</div>
+                <div class="details">Reis, J., & Housley, M. (2022). O'Reilly Media. ISBN: 978-1098108304</div>
+                <div class="note">Arquitetura de pipelines, ingestao e transformacao de dados</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Python for Data Analysis</div>
+                <div class="details">McKinney, W. (2022). 3rd Edition. O'Reilly Media. ISBN: 978-1098104030</div>
+                <div class="note">Manipulacao de dados com Pandas, usado extensivamente nos scripts ETL</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Documentacao</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Apache Parquet Documentation</div>
+                <a class="ref-link" href="https://parquet.apache.org/docs/" target="_blank" rel="noopener">parquet.apache.org/docs</a>
+                <div class="note">Formato colunar usado para armazenamento intermediario</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Pandas IO Tools</div>
+                <a class="ref-link" href="https://pandas.pydata.org/docs/user_guide/io.html" target="_blank" rel="noopener">pandas.pydata.org/docs/user_guide/io</a>
+                <div class="note">Leitura de Excel, CSV, Parquet</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Python Requests Library</div>
+                <a class="ref-link" href="https://docs.python-requests.org/" target="_blank" rel="noopener">docs.python-requests.org</a>
+                <div class="note">Download de dados de APIs publicas como ComexStat</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="frontend" class="ref-section">
+          <h2>2. Desenvolvimento Frontend e Visualizacao de Dados</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Learning React: Modern Patterns for Developing React Apps</div>
+                <div class="details">Banks, A., & Porcello, E. (2020). 2nd Edition. O'Reilly Media. ISBN: 978-1492051725</div>
+                <div class="note">Hooks, estado, componentes funcionais</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Interactive Data Visualization for the Web</div>
+                <div class="details">Murray, S. (2017). 2nd Edition. O'Reilly Media. ISBN: 978-1491921289</div>
+                <div class="note">Fundamentos de visualizacao de dados com D3</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">The Visual Display of Quantitative Information</div>
+                <div class="details">Tufte, E. R. (2001). 2nd Edition. Graphics Press. ISBN: 978-1930824133</div>
+                <div class="note">Principios classicos de visualizacao de dados</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Show Me the Numbers</div>
+                <div class="details">Few, S. (2012). 2nd Edition. Analytics Press. ISBN: 978-0970601971</div>
+                <div class="note">Design de dashboards e graficos</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Frameworks e Documentacao</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">React Documentation</div>
+                <a class="ref-link" href="https://react.dev/" target="_blank" rel="noopener">react.dev</a>
+                <div class="note">Framework principal dos dashboards</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Vite Documentation</div>
+                <a class="ref-link" href="https://vitejs.dev/" target="_blank" rel="noopener">vitejs.dev</a>
+                <div class="note">Build tool moderno</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Tailwind CSS Documentation</div>
+                <a class="ref-link" href="https://tailwindcss.com/docs" target="_blank" rel="noopener">tailwindcss.com/docs</a>
+                <div class="note">Framework CSS utility-first</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Recharts Documentation</div>
+                <a class="ref-link" href="https://recharts.org/" target="_blank" rel="noopener">recharts.org</a>
+                <div class="note">Biblioteca de graficos React</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Leaflet Documentation</div>
+                <a class="ref-link" href="https://leafletjs.com/reference.html" target="_blank" rel="noopener">leafletjs.com/reference</a>
+                <div class="note">Mapas interativos</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Nivo Documentation</div>
+                <a class="ref-link" href="https://nivo.rocks/" target="_blank" rel="noopener">nivo.rocks</a>
+                <div class="note">Diagramas Sankey e visualizacoes avancadas</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="geo" class="ref-section">
+          <h2>3. Geoinformacao e Cartografia Digital</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Geographic Information Science and Systems</div>
+                <div class="details">Longley, P. A., et al. (2015). 4th Edition. Wiley. ISBN: 978-1118676950</div>
+                <div class="note">Fundamentos de GIS e analise espacial</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">GIS Cartography: A Guide to Effective Map Design</div>
+                <div class="details">Peterson, G. N. (2014). 2nd Edition. CRC Press. ISBN: 978-1482220674</div>
+                <div class="note">Design cartografico para web</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Dados Geograficos</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">IBGE - Malhas Territoriais</div>
+                <a class="ref-link" href="https://www.ibge.gov.br/geociencias/" target="_blank" rel="noopener">ibge.gov.br/geociencias</a>
+                <div class="note">Geometrias de municipios do Parana</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">GeoJSON Specification</div>
+                <a class="ref-link" href="https://geojson.org/" target="_blank" rel="noopener">geojson.org</a>
+                <div class="note">Formato de dados geograficos</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="seguranca" class="ref-section">
+          <h2>4. Seguranca Web e Boas Praticas</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Web Application Security</div>
+                <div class="details">Hoffman, A. (2020). O'Reilly Media. ISBN: 978-1492053118</div>
+                <div class="note">XSS, CSRF, injection, autenticacao</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Web Security for Developers</div>
+                <div class="details">McDonald, M. (2020). No Starch Press. ISBN: 978-1593279943</div>
+                <div class="note">Seguranca pratica para desenvolvedores</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Padroes e Documentacao</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">OWASP Top 10</div>
+                <a class="ref-link" href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener">owasp.org/www-project-top-ten</a>
+                <div class="note">Top 10 vulnerabilidades web</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">OWASP Cheat Sheet Series</div>
+                <a class="ref-link" href="https://cheatsheetseries.owasp.org/" target="_blank" rel="noopener">cheatsheetseries.owasp.org</a>
+                <div class="note">Guias praticos de seguranca</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">MDN - CORS</div>
+                <a class="ref-link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">developer.mozilla.org/docs/Web/HTTP/CORS</a>
+                <div class="note">Cross-Origin Resource Sharing</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="analytics" class="ref-section">
+          <h2>5. Analytics, Tracking e Monitoramento</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Web Analytics 2.0</div>
+                <div class="details">Kaushik, A. (2009). Sybex. ISBN: 978-0470529393</div>
+                <div class="note">Fundamentos de web analytics</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Advanced Web Metrics with Google Analytics</div>
+                <div class="details">Clifton, B. (2012). 3rd Edition. Sybex. ISBN: 978-1118168448</div>
+                <div class="note">Metricas web, eventos, sessoes</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>APIs e Especificacoes</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Navigation Timing API</div>
+                <a class="ref-link" href="https://www.w3.org/TR/navigation-timing-2/" target="_blank" rel="noopener">w3.org/TR/navigation-timing-2</a>
+                <div class="note">API usada para coletar metricas de performance</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Performance API</div>
+                <a class="ref-link" href="https://developer.mozilla.org/en-US/docs/Web/API/Performance" target="_blank" rel="noopener">developer.mozilla.org/docs/Web/API/Performance</a>
+                <div class="note">Medicao de First Paint, FCP, load time</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Privacidade</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">LGPD - Lei Geral de Protecao de Dados</div>
+                <a class="ref-link" href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">planalto.gov.br - Lei 13.709/2018</a>
+                <div class="note">Lei brasileira de protecao de dados</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="apis" class="ref-section">
+          <h2>6. APIs e Integracao de Dados</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">REST API Design Rulebook</div>
+                <div class="details">Masse, M. (2011). O'Reilly Media. ISBN: 978-1449310509</div>
+                <div class="note">Design de APIs REST</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">The Design of Web APIs</div>
+                <div class="details">Lauret, A. (2019). Manning Publications. ISBN: 978-1617295102</div>
+                <div class="note">Design de APIs modernas</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Fontes de Dados Oficiais</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">ComexStat - MDIC</div>
+                <a class="ref-link" href="https://comexstat.mdic.gov.br/" target="_blank" rel="noopener">comexstat.mdic.gov.br</a>
+                <div class="note">API de comercio exterior brasileiro - fonte do comexstat-parana</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">SEAB/DERAL - Precos</div>
+                <a class="ref-link" href="https://www.agricultura.pr.gov.br/deral" target="_blank" rel="noopener">agricultura.pr.gov.br/deral</a>
+                <div class="note">Dados de precos agricolas - fonte dos dashboards de precos</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">SIMA - Sistema de Informacao de Mercado Agricola</div>
+                <a class="ref-link" href="https://www.agricultura.pr.gov.br/sima" target="_blank" rel="noopener">agricultura.pr.gov.br/sima</a>
+                <div class="note">Cotacoes diarias de produtos agricolas</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">IBGE SIDRA</div>
+                <a class="ref-link" href="https://sidra.ibge.gov.br/" target="_blank" rel="noopener">sidra.ibge.gov.br</a>
+                <div class="note">Sistema de recuperacao automatica de dados</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="seo" class="ref-section">
+          <h2>7. SEO e Otimizacao para Buscadores</h2>
+
+          <div class="ref-subsection">
+            <h3>Especificacoes</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Schema.org</div>
+                <a class="ref-link" href="https://schema.org/" target="_blank" rel="noopener">schema.org</a>
+                <div class="note">Vocabulario de dados estruturados usado nos JSON-LD</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Open Graph Protocol</div>
+                <a class="ref-link" href="https://ogp.me/" target="_blank" rel="noopener">ogp.me</a>
+                <div class="note">Metadados para compartilhamento em redes sociais</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Sitemaps.org Protocol</div>
+                <a class="ref-link" href="https://www.sitemaps.org/protocol.html" target="_blank" rel="noopener">sitemaps.org/protocol</a>
+                <div class="note">Protocolo de sitemaps XML</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="devops" class="ref-section">
+          <h2>8. DevOps, CI/CD e Hospedagem</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">The DevOps Handbook</div>
+                <div class="details">Kim, G., et al. (2016). IT Revolution Press. ISBN: 978-1942788003</div>
+                <div class="note">Praticas DevOps</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Continuous Delivery</div>
+                <div class="details">Humble, J., & Farley, D. (2010). Addison-Wesley. ISBN: 978-0321601919</div>
+                <div class="note">CI/CD, automacao de deploy</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Plataformas</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">GitHub Actions Documentation</div>
+                <a class="ref-link" href="https://docs.github.com/en/actions" target="_blank" rel="noopener">docs.github.com/en/actions</a>
+                <div class="note">Automacao de CI/CD usada nos repositorios</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">GitHub Pages Documentation</div>
+                <a class="ref-link" href="https://docs.github.com/en/pages" target="_blank" rel="noopener">docs.github.com/en/pages</a>
+                <div class="note">Hospedagem estatica dos dashboards</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Google Apps Script Documentation</div>
+                <a class="ref-link" href="https://developers.google.com/apps-script" target="_blank" rel="noopener">developers.google.com/apps-script</a>
+                <div class="note">Backend serverless para tracking e APIs</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Render Documentation</div>
+                <a class="ref-link" href="https://render.com/docs" target="_blank" rel="noopener">render.com/docs</a>
+                <div class="note">Hospedagem de backends Python/Flask</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="ml" class="ref-section">
+          <h2>9. Machine Learning e Previsao de Series Temporais</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Forecasting: Principles and Practice</div>
+                <div class="details">Hyndman, R. J., & Athanasopoulos, G. (2021). 3rd Edition. OTexts. ISBN: 978-0987507136</div>
+                <a class="ref-link" href="https://otexts.com/fpp3/" target="_blank" rel="noopener">otexts.com/fpp3</a>
+                <div class="note">Referencia principal para previsao de series temporais</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow</div>
+                <div class="details">Geron, A. (2022). 3rd Edition. O'Reilly Media. ISBN: 978-1098125974</div>
+                <div class="note">XGBoost, Random Forest, LightGBM</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Bibliotecas</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Prophet Documentation</div>
+                <a class="ref-link" href="https://facebook.github.io/prophet/" target="_blank" rel="noopener">facebook.github.io/prophet</a>
+                <div class="note">Previsao de series temporais do Facebook</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Statsmodels Documentation</div>
+                <a class="ref-link" href="https://www.statsmodels.org/" target="_blank" rel="noopener">statsmodels.org</a>
+                <div class="note">ARIMA, Exponential Smoothing</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">XGBoost Documentation</div>
+                <a class="ref-link" href="https://xgboost.readthedocs.io/" target="_blank" rel="noopener">xgboost.readthedocs.io</a>
+                <div class="note">Gradient Boosting para previsoes</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="ux" class="ref-section">
+          <h2>10. Design de Interfaces e UX</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Don't Make Me Think, Revisited</div>
+                <div class="details">Krug, S. (2014). 3rd Edition. New Riders. ISBN: 978-0321965516</div>
+                <div class="note">Usabilidade web</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">The Design of Everyday Things</div>
+                <div class="details">Norman, D. (2013). Revised Edition. Basic Books. ISBN: 978-0465050659</div>
+                <div class="note">Principios de design centrado no usuario</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Refactoring UI</div>
+                <div class="details">Wathan, A., & Schoger, S. (2018)</div>
+                <a class="ref-link" href="https://www.refactoringui.com/" target="_blank" rel="noopener">refactoringui.com</a>
+                <div class="note">Design pratico para desenvolvedores - base do estilo Tailwind</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Acessibilidade</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">W3C WCAG 2.1</div>
+                <a class="ref-link" href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">w3.org/WAI/WCAG21/quickref</a>
+                <div class="note">Web Content Accessibility Guidelines</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">MDN - Accessibility</div>
+                <a class="ref-link" href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank" rel="noopener">developer.mozilla.org/docs/Web/Accessibility</a>
+                <div class="note">Guia pratico de acessibilidade</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="economia" class="ref-section">
+          <h2>11. Economia e Comercio Exterior</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">International Economics: Theory and Policy</div>
+                <div class="details">Krugman, P. R., et al. (2018). 11th Edition. Pearson. ISBN: 978-0134519579</div>
+                <div class="note">Teoria do comercio internacional</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Fontes Oficiais</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Nomenclatura Comum do Mercosul (NCM)</div>
+                <a class="ref-link" href="https://www.gov.br/siscomex/pt-br/servicos/ncm" target="_blank" rel="noopener">gov.br/siscomex/ncm</a>
+                <div class="note">Classificacao de mercadorias usada no ComexStat</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="agro" class="ref-section">
+          <h2>12. Agronegocio Paranaense (Contexto do Dominio)</h2>
+
+          <div class="ref-subsection">
+            <h3>Publicacoes Oficiais</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">SEAB/DERAL - Valor Bruto da Producao Agropecuaria Paranaense</div>
+                <a class="ref-link" href="https://www.agricultura.pr.gov.br/deral/vbp" target="_blank" rel="noopener">agricultura.pr.gov.br/deral/vbp</a>
+                <div class="note">Metodologia do VBP</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">SEAB/DERAL - Precos Pagos pelo Produtor</div>
+                <a class="ref-link" href="https://www.agricultura.pr.gov.br/deral/precos" target="_blank" rel="noopener">agricultura.pr.gov.br/deral/precos</a>
+                <div class="note">Metodologia de coleta de precos</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">IPARDES - Parana em Numeros</div>
+                <a class="ref-link" href="http://www.ipardes.pr.gov.br/" target="_blank" rel="noopener">ipardes.pr.gov.br</a>
+                <div class="note">Dados socioeconomicos do Parana</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">IBGE - Producao Agricola Municipal (PAM)</div>
+                <a class="ref-link" href="https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9117-producao-agricola-municipal-culturas-temporarias-e-permanentes.html" target="_blank" rel="noopener">ibge.gov.br/pam</a>
+                <div class="note">Estatisticas agricolas</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="demografia" class="ref-section">
+          <h2>13. Demografia e Censos Populacionais</h2>
+
+          <div class="ref-subsection">
+            <h3>Livros</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Demografia: Dinamica e Projecao Populacional</div>
+                <div class="details">Carvalho, J. A. M., et al. (2003). Editora UFMG. ISBN: 978-8570413802</div>
+                <div class="note">Fundamentos de analise demografica</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Demography: Measuring and Modeling Population Processes</div>
+                <div class="details">Preston, S. H., et al. (2000). Wiley-Blackwell. ISBN: 978-1557864512</div>
+                <div class="note">Metodos demograficos, piramides etarias</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Fontes de Dados</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">IBGE - Censos Demograficos</div>
+                <a class="ref-link" href="https://www.ibge.gov.br/estatisticas/sociais/populacao/" target="_blank" rel="noopener">ibge.gov.br/estatisticas/sociais/populacao</a>
+                <div class="note">Censos 1991, 2000, 2010, 2022 - fonte principal do Censo Parana</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">API SIDRA - IBGE</div>
+                <a class="ref-link" href="https://sidra.ibge.gov.br/" target="_blank" rel="noopener">sidra.ibge.gov.br</a>
+                <div class="note">Tabela 202: Populacao residente por sexo e situacao de domicilio (1991-2010)<br/>Tabela 9923: Populacao residente por sexo (2022)</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">IPARDES - Cadernos Municipais</div>
+                <a class="ref-link" href="http://www.ipardes.pr.gov.br/" target="_blank" rel="noopener">ipardes.pr.gov.br</a>
+                <div class="note">Dados demograficos por municipio do Parana</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Visualizacao Demografica</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">D3.js Population Pyramid Examples</div>
+                <a class="ref-link" href="https://observablehq.com/@d3/population-pyramid" target="_blank" rel="noopener">observablehq.com/@d3/population-pyramid</a>
+                <div class="note">Referencia para piramides etarias com D3</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="florestal" class="ref-section">
+          <h2>14. Metodologia Embrapa Florestas - Dados do Setor Florestal</h2>
+
+          <div class="ref-subsection">
+            <h3>Publicacao</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Metodologia de acesso e analise de dados da cadeia produtiva brasileira de florestas plantadas</div>
+                <div class="details">Moreira, J. M. P. et al. (2022). Embrapa Florestas. Colombo, PR.</div>
+                <a class="ref-link" href="https://www.embrapa.br/busca-de-noticias/-/noticia/76676809/metodologia-facilita-acesso-e-customizacao-de-dados-do-setor-florestal" target="_blank" rel="noopener">embrapa.br - Noticia</a>
+                <div class="note">Desenvolvida em parceria com a Associacao Paranaense de Empresas de Base Florestal (APRE)</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Bases de Dados Utilizadas</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">FAO - Food and Agriculture Organization</div>
+                <div class="note">Estatisticas internacionais de producao florestal</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">PEVS-IBGE - Producao da Extracao Vegetal e Silvicultura</div>
+                <div class="note">Producao florestal por UF e municipio</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">RAIS/MTE - Relacao Anual de Informacoes Sociais</div>
+                <div class="note">Vinculos empregaticios do setor florestal</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">IBA - Industria Brasileira de Arvores</div>
+                <a class="ref-link" href="https://iba.org/" target="_blank" rel="noopener">iba.org</a>
+                <div class="note">Anuarios estatisticos do setor</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ref-subsection">
+            <h3>Referencias Institucionais</h3>
+            <ul class="ref-list">
+              <li class="ref-item">
+                <div class="title">Embrapa Florestas</div>
+                <a class="ref-link" href="https://www.embrapa.br/florestas" target="_blank" rel="noopener">embrapa.br/florestas</a>
+                <div class="note">Unidade de pesquisa em recursos florestais</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">APRE - Associacao Paranaense de Empresas de Base Florestal</div>
+                <a class="ref-link" href="https://www.apreflorestas.com.br/" target="_blank" rel="noopener">apreflorestas.com.br</a>
+                <div class="note">Parceira no desenvolvimento da metodologia</div>
+              </li>
+              <li class="ref-item">
+                <div class="title">Sistema Nacional de Informacoes Florestais (SNIF)</div>
+                <a class="ref-link" href="https://www.florestal.gov.br/snif/" target="_blank" rel="noopener">florestal.gov.br/snif</a>
+                <div class="note">Dados oficiais do setor florestal brasileiro</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="content-wrapper">
+        <div class="footer-bottom">
+          <span><a href="index.html">Datageo Parana</a> &middot; Dados publicos &middot; Sem vinculo institucional</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

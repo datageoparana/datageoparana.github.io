@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Arquitetura do ecossistema Datageo Parana - Diagramas de fluxo, camadas de aplicacao, fontes de dados e infraestrutura." />
+    <meta name="author" content="Avner Gomes">
+    <link rel="canonical" href="https://datageoparana.github.io/arquitetura.html" />
+    <title>Arquitetura - Datageo Parana</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='white'%3EDG%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+      .content-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 6vw;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 24px;
+        transition: opacity 0.15s;
+      }
+      .back-link:hover {
+        opacity: 0.7;
+      }
+      .page-title {
+        font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 32px;
+        max-width: 640px;
+      }
+      .diagram-section {
+        margin-bottom: 48px;
+      }
+      .diagram-section h2 {
+        font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--primary);
+      }
+      .mermaid-container {
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 24px;
+        overflow-x: auto;
+        margin-bottom: 24px;
+      }
+      .mermaid {
+        display: flex;
+        justify-content: center;
+      }
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+        font-size: 0.9rem;
+      }
+      .info-table th,
+      .info-table td {
+        text-align: left;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--surface-border);
+      }
+      .info-table th {
+        background: var(--primary-bg);
+        font-weight: 600;
+        color: var(--text);
+      }
+      .info-table td {
+        color: var(--text-secondary);
+      }
+      .info-table tr:hover td {
+        background: rgba(15, 118, 110, 0.05);
+      }
+      .tech-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: var(--primary-bg);
+        color: var(--primary);
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin: 2px;
+      }
+      @media (max-width: 720px) {
+        .mermaid-container {
+          padding: 16px;
+        }
+        .info-table th,
+        .info-table td {
+          padding: 10px 12px;
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="content-wrapper">
+        <a href="index.html" class="back-link">&larr; Voltar para Datageo Parana</a>
+        <h1 class="page-title">Arquitetura</h1>
+        <p class="page-subtitle">
+          Visao geral do ecossistema Datageo Parana: camadas de aplicacao, fluxos de dados, fontes oficiais e infraestrutura de hospedagem.
+        </p>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="content-wrapper">
+
+        <section class="diagram-section">
+          <h2>Arquitetura Geral</h2>
+          <div class="mermaid-container">
+            <pre class="mermaid">
+%%{init: {'theme': 'dark'}}%%
+flowchart TB
+
+subgraph "User Layer"
+    LANDING[datageoparana.github.io<br/>Landing Page]
+    VBP[VBP Parana<br/>Valor Bruto Producao]
+    DIARIOS[Precos Diarios<br/>Cotacoes SIMA]
+    FLORESTAIS[Precos Florestais<br/>Serie 1997+]
+    TERRAS[Precos de Terras<br/>Serie 1998+]
+    COMEX[ComexStat Parana<br/>Comercio Exterior]
+    EMPREGO[Emprego Agro<br/>Vinculos Formais]
+    CENSO[Censo Parana<br/>Evolucao Demografica]
+    INTEGRADO[Visao Integrada<br/>Cruzamento Dados]
+end
+
+subgraph "Application Layer"
+    REACT[React 18 + Vite<br/>Tailwind CSS]
+    RECHARTS[Recharts<br/>Graficos Basicos]
+    D3[D3.js<br/>Graficos Avancados]
+    LEAFLET[Leaflet<br/>Mapas Interativos]
+    FLASK[Flask API<br/>REST + Forecast]
+end
+
+subgraph "Visualization Components"
+    RADAR[RadarChart<br/>Comparativo Top 5]
+    SUNBURST[SunburstChart<br/>Hierarquia Produtos]
+    RIDGE[RidgelineChart<br/>Distribuicao Anual]
+    TREEMAP[TreemapChart<br/>Proporcoes]
+    CONNMAP[ConnectionMap<br/>Fluxos Geograficos]
+    SANKEY[SankeyChart<br/>Fluxos Exportacao]
+    LOLLIPOP[LollipopChart<br/>Rankings]
+    BUMP[BumpChart<br/>Evolucao Rankings]
+    PYRAMID[PyramidChart<br/>Piramide Etaria]
+end
+
+subgraph "Processing Layer"
+    DOWNLOAD[download_data.py<br/>Coleta Arquivos]
+    SCRAPER[scraper.py<br/>Web Scraping]
+    ETL[etl_process.py<br/>Transformacao]
+    PREPROCESS[preprocess_data.py<br/>Geracao JSON]
+    FORECAST[forecast.py<br/>ML Predictions]
+    PIPELINE[pipeline.py<br/>Orquestrador]
+    INTEGRATE[prepare_integrated_data.py<br/>Cruzamento Multi-fonte]
+end
+
+subgraph "Data Sources"
+    DERAL[DERAL/SEAB<br/>VBP + Precos + Terras]
+    SIMA[SIMA<br/>Cotacoes Diarias]
+    MDIC[ComexStat/MDIC<br/>Exp/Imp Agricolas]
+    MTE[RAIS/MTE<br/>Emprego Formal]
+    IBGE[IBGE<br/>Malhas + Censos]
+    SIDRA[API SIDRA<br/>Censos 1991-2022]
+end
+
+subgraph "Data Storage"
+    RAW[data/raw<br/>ZIP/RAR/Excel]
+    PROCESSED[data/processed<br/>CSV + Parquet]
+    JSON[public/data<br/>JSON Otimizado]
+    GEOJSON[GeoJSON<br/>399 Municipios PR]
+end
+
+subgraph "Infrastructure"
+    GHPAGES[GitHub Pages<br/>Hosting Estatico]
+    RENDER[Render<br/>API + Cron Jobs]
+    GHACTIONS[GitHub Actions<br/>CI/CD Automatico]
+    GAPPS[Google Apps Script<br/>Analytics + Bug Report]
+    CONTROLPANEL[Control Panel<br/>Monitoramento]
+end
+
+LANDING --> VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & INTEGRADO
+VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & INTEGRADO --> REACT
+REACT --> RECHARTS & D3 & LEAFLET
+DIARIOS --> FLASK
+D3 --> RADAR & SUNBURST & RIDGE & TREEMAP & CONNMAP & SANKEY & LOLLIPOP & BUMP & PYRAMID
+FLASK --> PIPELINE
+REACT --> JSON
+LEAFLET --> GEOJSON
+PIPELINE --> DOWNLOAD & SCRAPER
+DOWNLOAD --> ETL
+SCRAPER --> ETL
+ETL --> PREPROCESS
+ETL --> FORECAST
+PREPROCESS --> JSON
+INTEGRATE --> JSON
+DOWNLOAD --> DERAL & SIMA & MDIC & MTE
+SCRAPER --> SIMA
+IBGE --> GEOJSON
+SIDRA --> CENSO
+DOWNLOAD --> RAW
+ETL --> PROCESSED
+JSON --> GHPAGES
+GEOJSON --> GHPAGES
+FLASK --> RENDER
+GHACTIONS --> GHPAGES
+GHACTIONS --> RENDER
+LANDING --> GAPPS
+GAPPS --> CONTROLPANEL
+            </pre>
+          </div>
+        </section>
+
+        <section class="diagram-section">
+          <h2>Resumo das Camadas</h2>
+          <table class="info-table">
+            <thead>
+              <tr>
+                <th>Camada</th>
+                <th>Componentes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>User Layer</strong></td>
+                <td>Landing page + 8 dashboards (VBP, Precos Diarios, Florestais, Terras, ComexStat, Emprego, Censo, Integrado)</td>
+              </tr>
+              <tr>
+                <td><strong>Application Layer</strong></td>
+                <td>
+                  <span class="tech-badge">React 18</span>
+                  <span class="tech-badge">Vite</span>
+                  <span class="tech-badge">Tailwind CSS</span>
+                  <span class="tech-badge">Recharts</span>
+                  <span class="tech-badge">D3.js</span>
+                  <span class="tech-badge">Leaflet</span>
+                  <span class="tech-badge">Flask API</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Visualization</strong></td>
+                <td>RadarChart, SunburstChart, RidgelineChart, TreemapChart, ConnectionMap, SankeyChart, LollipopChart, BumpChart, PyramidChart</td>
+              </tr>
+              <tr>
+                <td><strong>Processing Layer</strong></td>
+                <td>
+                  <span class="tech-badge">Python ETL</span>
+                  <span class="tech-badge">Pandas</span>
+                  <span class="tech-badge">OpenPyXL</span>
+                  <span class="tech-badge">Web Scraper</span>
+                  <span class="tech-badge">ML Forecasting</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Data Sources</strong></td>
+                <td>DERAL/SEAB, SIMA, ComexStat/MDIC, RAIS/MTE, IBGE, API SIDRA</td>
+              </tr>
+              <tr>
+                <td><strong>Data Storage</strong></td>
+                <td>
+                  <span class="tech-badge">JSON</span>
+                  <span class="tech-badge">GeoJSON</span>
+                  <span class="tech-badge">Parquet</span>
+                  <span class="tech-badge">CSV</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Infrastructure</strong></td>
+                <td>
+                  <span class="tech-badge">GitHub Pages</span>
+                  <span class="tech-badge">Render</span>
+                  <span class="tech-badge">GitHub Actions</span>
+                  <span class="tech-badge">Google Apps Script</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="diagram-section">
+          <h2>Dashboards</h2>
+          <table class="info-table">
+            <thead>
+              <tr>
+                <th>Dashboard</th>
+                <th>Descricao</th>
+                <th>Graficos D3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://datageoparana.github.io/vbp-parana/" target="_blank" rel="noopener">VBP Parana</a></td>
+                <td>Valor Bruto da Producao Agropecuaria</td>
+                <td>RadarChart, SunburstChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/precos-diarios/" target="_blank" rel="noopener">Precos Diarios</a></td>
+                <td>Cotacoes diarias SIMA com previsao ML</td>
+                <td>RidgelineChart, CircularBarChart, LollipopChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/precos-florestais/" target="_blank" rel="noopener">Precos Florestais</a></td>
+                <td>Serie historica desde 1997</td>
+                <td>TreemapChart, LollipopChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/precos-de-terras/" target="_blank" rel="noopener">Precos de Terras</a></td>
+                <td>Serie historica desde 1998</td>
+                <td>RadarChart, LollipopChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/comexstat-parana/" target="_blank" rel="noopener">ComexStat Parana</a></td>
+                <td>Comercio exterior agricola</td>
+                <td>ConnectionMap, SankeyChart, HeatmapChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/emprego-agro-parana/" target="_blank" rel="noopener">Emprego Agro</a></td>
+                <td>Vinculos formais no agronegocio</td>
+                <td>BumpChart, CircularBarChart, LollipopChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://datageoparana.github.io/censo-parana/" target="_blank" rel="noopener">Censo Parana</a></td>
+                <td>Evolucao demografica 1991-2022</td>
+                <td>PyramidChart, PopulationMap</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="diagram-section">
+          <h2>Fluxo de Filtros Interativos</h2>
+          <div class="mermaid-container">
+            <pre class="mermaid">
+%%{init: {'theme': 'dark'}}%%
+flowchart LR
+
+subgraph "User Interaction"
+    CLICK[Clique no Grafico]
+    DROPDOWN[Filtros Dropdown]
+end
+
+subgraph "State Management"
+    FILTERS[filters state]
+    INTERACTIVE[interactiveFilters state]
+    MERGED[mergedFilters]
+end
+
+subgraph "Data Processing"
+    USEFILTERED[useFilteredData]
+    USEAGG[useAggregations]
+    FILTERED[filteredData]
+end
+
+subgraph "Visualization"
+    CHARTS[Todos os Graficos<br/>Recharts + D3]
+end
+
+CLICK --> INTERACTIVE
+DROPDOWN --> FILTERS
+FILTERS --> MERGED
+INTERACTIVE --> MERGED
+MERGED --> USEFILTERED
+USEFILTERED --> FILTERED
+FILTERED --> USEAGG
+USEAGG --> CHARTS
+FILTERED --> CHARTS
+            </pre>
+          </div>
+        </section>
+
+        <section class="diagram-section">
+          <h2>Tracking e Analytics</h2>
+          <div class="mermaid-container">
+            <pre class="mermaid">
+%%{init: {'theme': 'dark'}}%%
+flowchart LR
+
+subgraph "Dashboards"
+    D1[VBP Parana]
+    D2[Precos Diarios]
+    D3[Precos Florestais]
+    D4[Precos de Terras]
+    D5[ComexStat]
+    D6[Emprego Agro]
+    D7[Censo Parana]
+    D8[Portfolio]
+end
+
+subgraph "Google Apps Script"
+    PROXY[Proxy Router]
+    TRACKING[Tracking Unified]
+end
+
+subgraph "Google Sheets"
+    S1[Sheet VBP]
+    S2[Sheet Precos Diarios]
+    S3[Sheet Florestais]
+    S4[Sheet Terras]
+    S5[Sheet ComexStat]
+    S6[Sheet Emprego]
+    S7[Sheet Censo]
+    S8[Sheet Portfolio]
+end
+
+subgraph "Control Panel"
+    CP[controlpanel<br/>Visualizacao Unificada]
+end
+
+D1 & D2 & D3 & D4 & D5 & D6 & D7 & D8 --> PROXY
+PROXY --> TRACKING
+TRACKING --> S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8
+S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 --> CP
+            </pre>
+          </div>
+        </section>
+
+        <section class="diagram-section">
+          <h2>Tecnologias Principais</h2>
+          <table class="info-table">
+            <thead>
+              <tr>
+                <th>Categoria</th>
+                <th>Tecnologia</th>
+                <th>Uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Frontend</strong></td>
+                <td><span class="tech-badge">React 18</span></td>
+                <td>SPA Framework</td>
+              </tr>
+              <tr>
+                <td><strong>Build</strong></td>
+                <td><span class="tech-badge">Vite</span></td>
+                <td>Bundler + Dev Server</td>
+              </tr>
+              <tr>
+                <td><strong>Styling</strong></td>
+                <td><span class="tech-badge">Tailwind CSS</span></td>
+                <td>Utility-first CSS</td>
+              </tr>
+              <tr>
+                <td><strong>Charts</strong></td>
+                <td><span class="tech-badge">Recharts</span></td>
+                <td>Graficos basicos (Line, Bar, Area)</td>
+              </tr>
+              <tr>
+                <td><strong>Advanced Charts</strong></td>
+                <td><span class="tech-badge">D3.js</span></td>
+                <td>Graficos customizados</td>
+              </tr>
+              <tr>
+                <td><strong>Maps</strong></td>
+                <td><span class="tech-badge">Leaflet</span></td>
+                <td>Mapas interativos</td>
+              </tr>
+              <tr>
+                <td><strong>Backend</strong></td>
+                <td><span class="tech-badge">Flask</span></td>
+                <td>API REST + ML</td>
+              </tr>
+              <tr>
+                <td><strong>ML</strong></td>
+                <td><span class="tech-badge">Prophet</span> <span class="tech-badge">scikit-learn</span></td>
+                <td>Forecasting</td>
+              </tr>
+              <tr>
+                <td><strong>ETL</strong></td>
+                <td><span class="tech-badge">Pandas</span> <span class="tech-badge">OpenPyXL</span></td>
+                <td>Processamento de dados</td>
+              </tr>
+              <tr>
+                <td><strong>Hosting</strong></td>
+                <td><span class="tech-badge">GitHub Pages</span></td>
+                <td>Sites estaticos</td>
+              </tr>
+              <tr>
+                <td><strong>API Hosting</strong></td>
+                <td><span class="tech-badge">Render</span></td>
+                <td>Flask API</td>
+              </tr>
+              <tr>
+                <td><strong>CI/CD</strong></td>
+                <td><span class="tech-badge">GitHub Actions</span></td>
+                <td>Automacao</td>
+              </tr>
+              <tr>
+                <td><strong>Analytics</strong></td>
+                <td><span class="tech-badge">Google Apps Script</span></td>
+                <td>Tracking LGPD-compliant</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="content-wrapper">
+        <div class="footer-bottom">
+          <span><a href="index.html">Datageo Parana</a> &middot; Dados publicos &middot; Sem vinculo institucional</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
