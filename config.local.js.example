@@ -1,0 +1,6 @@
+// Copie este arquivo para config.local.js e configure a URL do tracking
+// NÃO comitar config.local.js - ele está no .gitignore
+
+window.TRACKING_CONFIG = {
+  url: "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"
+};
