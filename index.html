@@ -234,12 +234,12 @@
         </form>
       </div>
     </div>
-    <!-- Configure TRACKING_CONFIG.url via config.local.js ou CI -->
+    <!-- Analytics Tracking URL -->
     <script>
-      // URL do Google Apps Script para tracking - configure em config.local.js
-      window.TRACKING_CONFIG = window.TRACKING_CONFIG || { url: '' };
+      window.TRACKING_CONFIG = {
+        url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
+      };
     </script>
-    <script src="config.local.js" onerror=""></script>
     <script>
       (function () {
         function hasLGPDConsent() {
