@@ -456,7 +456,7 @@
               fetch(TRACKING_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(visitData),
                 keepalive: true
               }).catch(() => {
@@ -508,7 +508,7 @@
             fetch(BUG_TRACKING_URL, {
               method: 'POST',
               mode: 'no-cors',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 'Content-Type': 'text/plain' },
               body: JSON.stringify({
                 origin: window.location.origin,
                 page: 'bug-report',
