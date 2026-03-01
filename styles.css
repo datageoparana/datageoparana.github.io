@@ -14,7 +14,6 @@
   --accent-terras: #78350f;
   --accent-comex: #1e40af;
   --accent-emprego: #6366f1;
-  --accent-integrado: #059669;
   --accent-censo: #7c3aed;
   --accent-credito: #0369a1;
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
@@ -314,7 +313,6 @@ main {
 .card.accent-terras { border-left-color: var(--accent-terras); }
 .card.accent-comex { border-left-color: var(--accent-comex); }
 .card.accent-emprego { border-left-color: var(--accent-emprego); }
-.card.accent-integrado { border-left-color: var(--accent-integrado); }
 .card.accent-censo { border-left-color: var(--accent-censo); }
 .card.accent-credito { border-left-color: var(--accent-credito); }
 
@@ -324,7 +322,6 @@ main {
 .card.accent-terras:hover { border-color: var(--accent-terras); border-left-color: var(--accent-terras); }
 .card.accent-comex:hover { border-color: var(--accent-comex); border-left-color: var(--accent-comex); }
 .card.accent-emprego:hover { border-color: var(--accent-emprego); border-left-color: var(--accent-emprego); }
-.card.accent-integrado:hover { border-color: var(--accent-integrado); border-left-color: var(--accent-integrado); }
 .card.accent-censo:hover { border-color: var(--accent-censo); border-left-color: var(--accent-censo); }
 .card.accent-credito:hover { border-color: var(--accent-credito); border-left-color: var(--accent-credito); }
 

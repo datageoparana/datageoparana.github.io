@@ -217,7 +217,6 @@ subgraph "User Layer"
     EMPREGO[Emprego Agro<br/>Vinculos Formais]
     CENSO[Censo Parana<br/>Evolucao Demografica]
     CREDITO[Credito Rural<br/>BCB/SICOR]
-    INTEGRADO[Visao Integrada<br/>Cruzamento Dados]
 end
 
 subgraph "Application Layer"
@@ -247,7 +246,6 @@ subgraph "Processing Layer"
     PREPROCESS[preprocess_data.py<br/>Geracao JSON]
     FORECAST[forecast.py<br/>ML Predictions]
     PIPELINE[pipeline.py<br/>Orquestrador]
-    INTEGRATE[prepare_integrated_data.py<br/>Cruzamento Multi-fonte]
 end
 
 subgraph "Data Sources"
@@ -275,8 +273,8 @@ subgraph "Infrastructure"
     CONTROLPANEL[Control Panel<br/>Monitoramento]
 end
 
-LANDING --> VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO & INTEGRADO
-VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO & INTEGRADO --> REACT
+LANDING --> VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO
+VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO --> REACT
 REACT --> RECHARTS & D3 & LEAFLET
 DIARIOS --> FLASK
 D3 --> RADAR & SUNBURST & RIDGE & TREEMAP & CONNMAP & SANKEY & LOLLIPOP & BUMP & PYRAMID
@@ -289,7 +287,6 @@ SCRAPER --> ETL
 ETL --> PREPROCESS
 ETL --> FORECAST
 PREPROCESS --> JSON
-INTEGRATE --> JSON
 DOWNLOAD --> DERAL & SIMA & MDIC & MTE
 SCRAPER --> SIMA
 IBGE --> GEOJSON
@@ -323,7 +320,7 @@ GAPPS --> CONTROLPANEL
             <tbody>
               <tr>
                 <td><strong>User Layer</strong></td>
-                <td>Landing page + 9 dashboards (VBP, Precos Diarios, Florestais, Terras, ComexStat, Emprego, Censo, Credito Rural, Integrado)</td>
+                <td>Landing page + 8 dashboards (VBP, Precos Diarios, Florestais, Terras, ComexStat, Emprego, Censo, Credito Rural)</td>
               </tr>
               <tr>
                 <td><strong>Application Layer</strong></td>
