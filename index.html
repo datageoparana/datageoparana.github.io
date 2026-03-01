@@ -271,8 +271,8 @@
             return;
           }
 
-          const perfTiming = performance.timing;
-          const perfEntries = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+          // Navigation Timing Level 2 API (replaces deprecated performance.timing)
+          const navEntry = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
           const paintEntries = performance.getEntriesByType ? performance.getEntriesByType('paint') : [];
 
           const urlParams = new URLSearchParams(window.location.search);
@@ -333,23 +333,23 @@
             queryString: window.location.search || '',
             pageTitle: document.title,
 
-            loadTime: performance.timing.loadEventEnd > 0
-              ? performance.timing.loadEventEnd - performance.timing.navigationStart
+            loadTime: navEntry && navEntry.loadEventEnd > 0
+              ? Math.round(navEntry.loadEventEnd)
               : null,
 
             screenOrientation: screen.orientation?.type || 'unknown',
             timezoneOffset: new Date().getTimezoneOffset(),
 
-            dnsLookupTime: perfTiming.domainLookupEnd > 0 ? perfTiming.domainLookupEnd - perfTiming.domainLookupStart : null,
-            tcpConnectionTime: perfTiming.connectEnd > 0 ? perfTiming.connectEnd - perfTiming.connectStart : null,
-            serverResponseTime: perfTiming.responseEnd > 0 ? perfTiming.responseEnd - perfTiming.requestStart : null,
-            domContentLoadedTime: perfTiming.domContentLoadedEventEnd > 0 ? perfTiming.domContentLoadedEventEnd - perfTiming.navigationStart : null,
-            domInteractiveTime: perfTiming.domInteractive > 0 ? perfTiming.domInteractive - perfTiming.navigationStart : null,
+            dnsLookupTime: navEntry && navEntry.domainLookupEnd > 0 ? Math.round(navEntry.domainLookupEnd - navEntry.domainLookupStart) : null,
+            tcpConnectionTime: navEntry && navEntry.connectEnd > 0 ? Math.round(navEntry.connectEnd - navEntry.connectStart) : null,
+            serverResponseTime: navEntry && navEntry.responseEnd > 0 ? Math.round(navEntry.responseEnd - navEntry.requestStart) : null,
+            domContentLoadedTime: navEntry && navEntry.domContentLoadedEventEnd > 0 ? Math.round(navEntry.domContentLoadedEventEnd) : null,
+            domInteractiveTime: navEntry && navEntry.domInteractive > 0 ? Math.round(navEntry.domInteractive) : null,
             firstPaint: paintEntries.find((e) => e.name === 'first-paint')?.startTime || null,
             firstContentfulPaint: paintEntries.find((e) => e.name === 'first-contentful-paint')?.startTime || null,
-            transferSize: perfEntries?.transferSize || null,
-            encodedBodySize: perfEntries?.encodedBodySize || null,
-            decodedBodySize: perfEntries?.decodedBodySize || null,
+            transferSize: navEntry?.transferSize || null,
+            encodedBodySize: navEntry?.encodedBodySize || null,
+            decodedBodySize: navEntry?.decodedBodySize || null,
 
             connectionRTT: navigator.connection?.rtt || null,
             connectionDownlinkMax: navigator.connection?.downlinkMax || null,
