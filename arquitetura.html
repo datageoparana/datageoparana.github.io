@@ -217,6 +217,7 @@ subgraph "User Layer"
     EMPREGO[Emprego Agro<br/>Vinculos Formais]
     CENSO[Censo Parana<br/>Evolucao Demografica]
     CREDITO[Credito Rural<br/>BCB/SICOR]
+    SEGURANCA[Seguranca Parana<br/>Criminalidade]
 end
 
 subgraph "Application Layer"
@@ -256,6 +257,8 @@ subgraph "Data Sources"
     IBGE[IBGE<br/>Malhas + Censos]
     SIDRA[API SIDRA<br/>Censos 1991-2022]
     BCB[BCB/SICOR<br/>Credito Rural]
+    SESP[SESP-PR/CAPE<br/>Ocorrencias Criminais]
+    SINESP[SINESP/MJ<br/>Indicadores Municipais]
 end
 
 subgraph "Data Storage"
@@ -273,8 +276,8 @@ subgraph "Infrastructure"
     CONTROLPANEL[Control Panel<br/>Monitoramento]
 end
 
-LANDING --> VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO
-VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO --> REACT
+LANDING --> VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO & SEGURANCA
+VBP & DIARIOS & FLORESTAIS & TERRAS & COMEX & EMPREGO & CENSO & CREDITO & SEGURANCA --> REACT
 REACT --> RECHARTS & D3 & LEAFLET
 DIARIOS --> FLASK
 D3 --> RADAR & SUNBURST & RIDGE & TREEMAP & CONNMAP & SANKEY & LOLLIPOP & BUMP & PYRAMID
@@ -292,6 +295,8 @@ SCRAPER --> SIMA
 IBGE --> GEOJSON
 SIDRA --> CENSO
 BCB --> CREDITO
+SESP --> SEGURANCA
+SINESP --> SEGURANCA
 DOWNLOAD --> RAW
 ETL --> PROCESSED
 JSON --> GHPAGES
@@ -320,7 +325,7 @@ GAPPS --> CONTROLPANEL
             <tbody>
               <tr>
                 <td><strong>User Layer</strong></td>
-                <td>Landing page + 8 dashboards (VBP, Precos Diarios, Florestais, Terras, ComexStat, Emprego, Censo, Credito Rural)</td>
+                <td>Landing page + 10 dashboards (VBP, Precos Diarios, Florestais, Terras, ComexStat, Emprego, Censo, Credito Rural, Saude, Seguranca)</td>
               </tr>
               <tr>
                 <td><strong>Application Layer</strong></td>
@@ -350,7 +355,7 @@ GAPPS --> CONTROLPANEL
               </tr>
               <tr>
                 <td><strong>Data Sources</strong></td>
-                <td>DERAL/SEAB, SIMA, ComexStat/MDIC, RAIS/MTE, IBGE, API SIDRA, BCB/SICOR</td>
+                <td>DERAL/SEAB, SIMA, ComexStat/MDIC, RAIS/MTE, IBGE, API SIDRA, BCB/SICOR, DATASUS/MS, SESP-PR/CAPE, SINESP/MJ</td>
               </tr>
               <tr>
                 <td><strong>Data Storage</strong></td>
@@ -429,6 +434,11 @@ GAPPS --> CONTROLPANEL
                 <td><a href="https://avnergomes.github.io/saude-parana/" target="_blank" rel="noopener">Saude Parana</a></td>
                 <td>Indicadores de saude publica DATASUS</td>
                 <td>ChoroplethMap, PyramidChart, TreemapChart, SankeyChart</td>
+              </tr>
+              <tr>
+                <td><a href="https://avnergomes.github.io/seguranca-parana/" target="_blank" rel="noopener">Seguranca Parana</a></td>
+                <td>Indicadores de seguranca publica SESP-PR/SINESP</td>
+                <td>ChoroplethMap, Recharts (Line, Bar, Area)</td>
               </tr>
             </tbody>
           </table>
@@ -511,6 +521,8 @@ subgraph "Dashboards"
     D7[Censo Parana]
     D8[Credito Rural]
     D9[Portfolio]
+    D10[Saude Parana]
+    D11[Seguranca Parana]
 end
 
 subgraph "Google Apps Script"
@@ -528,16 +540,18 @@ subgraph "Google Sheets"
     S7[Sheet Censo]
     S8[Sheet Credito Rural]
     S9[Sheet Portfolio]
+    S10[Sheet Saude]
+    S11[Sheet Seguranca]
 end
 
 subgraph "Control Panel"
     CP[controlpanel<br/>Visualizacao Unificada]
 end
 
-D1 & D2 & D3 & D4 & D5 & D6 & D7 & D8 & D9 --> PROXY
+D1 & D2 & D3 & D4 & D5 & D6 & D7 & D8 & D9 & D10 & D11 --> PROXY
 PROXY --> TRACKING
-TRACKING --> S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9
-S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 --> CP
+TRACKING --> S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 & S10 & S11
+S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 & S10 & S11 --> CP
                 </pre>
               </div>
             </div>

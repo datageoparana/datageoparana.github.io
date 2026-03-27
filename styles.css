@@ -17,6 +17,7 @@
   --accent-censo: #7c3aed;
   --accent-credito: #0369a1;
   --accent-saude: #dc2626;
+  --accent-seguranca: #475569;
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
   --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 10px 28px rgba(15, 23, 42, 0.1);
@@ -348,6 +349,7 @@ main {
 .card.accent-censo { --_accent: var(--accent-censo); }
 .card.accent-credito { --_accent: var(--accent-credito); }
 .card.accent-saude { --_accent: var(--accent-saude); }
+.card.accent-seguranca { --_accent: var(--accent-seguranca); }
 
 .card-tag {
   display: inline-block;
