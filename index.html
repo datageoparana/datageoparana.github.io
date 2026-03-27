@@ -290,6 +290,14 @@
             return;
           }
 
+          // Throttle: max 1 tracking request per page per session
+          var trackingKey = 'dg_tracked_' + (page || window.location.pathname);
+          if (sessionStorage.getItem(trackingKey)) {
+            log('Tracking já enviado para esta página nesta sessão');
+            return;
+          }
+          sessionStorage.setItem(trackingKey, '1');
+
           // Navigation Timing Level 2 API (replaces deprecated performance.timing)
           const navEntry = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
           const paintEntries = performance.getEntriesByType ? performance.getEntriesByType('paint') : [];
@@ -513,10 +521,16 @@
         closeBtn.addEventListener('click', close);
         backdrop.addEventListener('click', close);
 
+        function sanitizeHTML(str) {
+          var div = document.createElement('div');
+          div.appendChild(document.createTextNode(str));
+          return div.innerHTML;
+        }
+
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          var page = document.getElementById('bug-page').value;
-          var desc = document.getElementById('bug-desc').value.trim();
+          var page = sanitizeHTML(document.getElementById('bug-page').value);
+          var desc = sanitizeHTML(document.getElementById('bug-desc').value.trim());
           if (!page || !desc) return;
 
           var BUG_TRACKING_URL = window.TRACKING_CONFIG?.url || '';
