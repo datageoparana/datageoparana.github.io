@@ -47,6 +47,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- Auth gate - lock body antes de renderizar para evitar flash de conteudo -->
+    <style>html.gate-pre-lock body { visibility: hidden; }</style>
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem('dg_auth_session');
+          var ok = false;
+          if (raw) {
+            var s = JSON.parse(raw);
+            if (s && s.email && s.expiresAt && new Date(s.expiresAt).getTime() > Date.now()) ok = true;
+          }
+          if (!ok) {
+            document.documentElement.classList.add('gate-pre-lock');
+          }
+        } catch (e) {
+          document.documentElement.classList.add('gate-pre-lock');
+        }
+      })();
+    </script>
     <!-- Google Analytics 4 (descomente e substitua GA_MEASUREMENT_ID para ativar)
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -100,70 +119,70 @@
           <p>Dez dashboards com dados oficiais, filtros interativos e visualizações exportáveis.</p>
         </div>
         <div class="card-grid">
-          <a class="card accent-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Produção</div>
             <h3>VBP Paraná</h3>
             <p>Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e 200+ produtos em 25 cadeias produtivas.</p>
             <span class="card-source">Fonte: DERAL/SEAB</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener">
             <div class="card-tag">Mercado</div>
             <h3>Preços Diários</h3>
             <p>Cotações diárias desde 2003, com 100+ produtos em 23 regionais. Atualização automática e previsões de preços.</p>
             <span class="card-source">Fonte: DERAL/SEAB (SIMA)</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener">
             <div class="card-tag">Florestal</div>
             <h3>Preços Florestais</h3>
             <p>Série histórica desde 1997 com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</p>
             <span class="card-source">Fonte: DERAL/SEAB</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener">
             <div class="card-tag">Terras</div>
             <h3>Preços de Terras</h3>
             <p>Preços de terras agrícolas desde 1998 por classe de solo e regional, com mapa interativo e busca de referências.</p>
             <span class="card-source">Fonte: DERAL/SEAB</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-comex" href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-comex" href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Comércio Exterior</div>
             <h3>ComexStat Paraná</h3>
             <p>Exportações e importações agrícolas desde 2020 com fluxo município-país, balança comercial e 20 cadeias produtivas.</p>
             <span class="card-source">Fonte: MDIC/ComexStat</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-emprego" href="https://avnergomes.github.io/emprego-agro-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-emprego" href="https://avnergomes.github.io/emprego-agro-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Emprego</div>
             <h3>Emprego Agro Paraná</h3>
             <p>Empregos formais no agronegócio paranaense desde 2002. Vínculos por cadeia produtiva, município, gênero, idade e escolaridade.</p>
             <span class="card-source">Fonte: RAIS/MTE</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-censo" href="https://avnergomes.github.io/censo-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-censo" href="https://avnergomes.github.io/censo-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Demografia</div>
             <h3>Censo Paraná</h3>
             <p>Evolução demográfica dos 399 municípios paranaenses de 1991 a 2022. Êxodo rural, urbanização e ranking de crescimento/evasão.</p>
             <span class="card-source">Fonte: IBGE/Censos</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-credito" href="https://avnergomes.github.io/credito-rural-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-credito" href="https://avnergomes.github.io/credito-rural-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Crédito</div>
             <h3>Crédito Rural</h3>
             <p>Financiamentos agropecuários desde 2013 com R$ 444 bi em 2,7 milhões de contratos. PRONAF, PRONAMP e demais programas por município e produto.</p>
             <span class="card-source">Fonte: BCB/SICOR</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-saude" href="https://avnergomes.github.io/saude-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-saude" href="https://avnergomes.github.io/saude-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Saúde</div>
             <h3>Saúde Paraná</h3>
             <p>Indicadores de saúde pública: mortalidade, internações SUS, vacinação, infraestrutura e financiamento por município e região de saúde. Dados de 2010 a 2024.</p>
             <span class="card-source">Fonte: DATASUS/MS</span>
             <span class="card-link">Abrir painel &rarr;</span>
           </a>
-          <a class="card accent-seguranca" href="https://avnergomes.github.io/seguranca-parana/" target="_blank" rel="noopener noreferrer">
+          <a class="card accent-seguranca" href="https://avnergomes.github.io/seguranca-parana/" target="_blank" rel="noopener">
             <div class="card-tag">Segurança</div>
             <h3>Segurança Paraná</h3>
             <p>Indicadores de segurança pública: ocorrências criminais, violência letal, crimes patrimoniais e taxas por 100 mil hab. nos 399 municípios paranaenses.</p>
@@ -206,7 +225,7 @@
         </div>
         <div class="footer-col">
           <h4>Desenvolvido por</h4>
-          <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener noreferrer" title="Desenvolvido por Avner Gomes">
+          <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener" title="Desenvolvido por Avner Gomes">
             <picture>
               <source srcset="logo2.webp" type="image/webp" />
               <img src="logo2.png" alt="Avner Gomes" width="40" height="40" loading="lazy" />
@@ -261,6 +280,16 @@
       window.TRACKING_CONFIG = {
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
       };
+    </script>
+    <!-- Auth gate (login + cadastro) -->
+    <script src="auth.js" defer></script>
+    <script>
+      document.addEventListener('dg:auth:unlocked', function () {
+        document.documentElement.classList.remove('gate-pre-lock');
+      });
+      document.addEventListener('dg:auth:ready', function () {
+        document.documentElement.classList.remove('gate-pre-lock');
+      });
     </script>
     <!-- Analytics Tracking Script - Dados anonimizados (Art. 12 LGPD) -->
     <script>

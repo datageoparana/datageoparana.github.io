@@ -52,4 +52,6 @@ CLAUDE.md
 config.local.js
 *.tmp
 *.temp
+# Apps Script source — contém URLs de deploy e credenciais
 *.gs
+proxy.gs.*
