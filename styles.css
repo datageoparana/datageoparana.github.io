@@ -101,17 +101,6 @@ body.gate-locked {
   overflow: hidden;
 }
 
-body.gate-locked > header,
-body.gate-locked > main,
-body.gate-locked > footer,
-body.gate-locked > .content-wrapper,
-body.gate-locked > .container,
-body.gate-locked > #bug-trigger,
-body.gate-locked > #bug-modal,
-body.gate-locked > #lgpd-banner {
-  display: none !important;
-}
-
 .gate-overlay {
   position: fixed;
   inset: 0;
@@ -119,8 +108,9 @@ body.gate-locked > #lgpd-banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e8f5f2;
-  background-image: linear-gradient(160deg, #d5f0ea 0%, #e4eeeb 30%, #eae8df 65%, #e8f5f2 100%);
+  background: rgba(15, 23, 42, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   padding: 24px;
   overflow-y: auto;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -133,16 +123,43 @@ body.gate-locked > #lgpd-banner {
 }
 
 .gate-card {
+  position: relative;
   width: 100%;
   max-width: 440px;
   padding: 36px 32px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(120, 140, 130, 0.18);
   border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.18);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+.gate-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.gate-close:hover {
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--text);
+}
+
+.gate-close:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .gate-brand {

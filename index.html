@@ -47,25 +47,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
-    <!-- Auth gate - lock body antes de renderizar para evitar flash de conteudo -->
-    <style>html.gate-pre-lock body { visibility: hidden; }</style>
-    <script>
-      (function () {
-        try {
-          var raw = localStorage.getItem('dg_auth_session');
-          var ok = false;
-          if (raw) {
-            var s = JSON.parse(raw);
-            if (s && s.email && s.expiresAt && new Date(s.expiresAt).getTime() > Date.now()) ok = true;
-          }
-          if (!ok) {
-            document.documentElement.classList.add('gate-pre-lock');
-          }
-        } catch (e) {
-          document.documentElement.classList.add('gate-pre-lock');
-        }
-      })();
-    </script>
     <!-- Google Analytics 4 (descomente e substitua GA_MEASUREMENT_ID para ativar)
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -281,16 +262,8 @@
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
       };
     </script>
-    <!-- Auth gate (login + cadastro) -->
+    <!-- Auth gate — gate ativa apenas em clique de painel ou redirect ?from= -->
     <script src="auth.js" defer></script>
-    <script>
-      document.addEventListener('dg:auth:unlocked', function () {
-        document.documentElement.classList.remove('gate-pre-lock');
-      });
-      document.addEventListener('dg:auth:ready', function () {
-        document.documentElement.classList.remove('gate-pre-lock');
-      });
-    </script>
     <!-- Analytics Tracking Script - Dados anonimizados (Art. 12 LGPD) -->
     <script>
       (function () {

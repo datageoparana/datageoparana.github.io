@@ -80,14 +80,15 @@
     overlay.setAttribute('aria-label', 'Acesso ao Datageo Paraná');
     overlay.innerHTML = [
       '<div class="gate-card">',
+      '  <button type="button" class="gate-close" aria-label="Fechar e voltar para a página inicial">&times;</button>',
       '  <div class="gate-brand" aria-hidden="true">',
       '    <svg viewBox="0 0 32 32" width="40" height="40">',
       '      <rect width="32" height="32" rx="8" fill="#0f766e"/>',
       '      <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="14" fill="#fff">DG</text>',
       '    </svg>',
       '  </div>',
-      '  <h1 class="gate-title">Datageo Paraná</h1>',
-      '  <p class="gate-desc">Acesso restrito. Entre com seu email cadastrado ou solicite acesso.</p>',
+      '  <h1 class="gate-title">Acesso aos painéis</h1>',
+      '  <p class="gate-desc">Os painéis exigem cadastro. Entre com seu email cadastrado ou solicite acesso.</p>',
       '  <div class="gate-tabs" role="tablist">',
       '    <button type="button" class="gate-tab is-active" role="tab" aria-selected="true" data-tab="login">Entrar</button>',
       '    <button type="button" class="gate-tab" role="tab" aria-selected="false" data-tab="signup">Solicitar acesso</button>',
@@ -350,8 +351,11 @@
   }
 
   var overlayEl = null;
+  var pendingNavigationUrl = null;
 
   function closeOverlayAndUnlock() {
+    var nextUrl = pendingNavigationUrl;
+    pendingNavigationUrl = null;
     if (overlayEl) {
       overlayEl.classList.add('gate-hidden');
       setTimeout(function () {
@@ -359,39 +363,126 @@
           overlayEl.parentNode.removeChild(overlayEl);
           overlayEl = null;
         }
+        if (nextUrl) {
+          window.location.href = nextUrl;
+        }
       }, 350);
     }
     unlockBody();
     document.dispatchEvent(new CustomEvent('dg:auth:unlocked'));
   }
 
+  function dismissOverlay() {
+    pendingNavigationUrl = null;
+    cleanFromParam();
+    closeOverlayAndUnlock();
+  }
+
   function showOverlay() {
-    if (overlayEl) return;
+    if (overlayEl) {
+      var existingInput = overlayEl.querySelector('input[type="email"]');
+      if (existingInput) existingInput.focus();
+      return;
+    }
     lockBody();
     overlayEl = buildOverlay();
     document.body.appendChild(overlayEl);
     attachTabHandlers(overlayEl);
     attachLoginHandler(overlayEl);
     attachSignupHandler(overlayEl);
+    attachDismissHandlers(overlayEl);
     var firstInput = overlayEl.querySelector('input[type="email"]');
     if (firstInput) firstInput.focus();
   }
 
+  function attachDismissHandlers(overlay) {
+    var closeBtn = overlay.querySelector('.gate-close');
+    if (closeBtn) closeBtn.addEventListener('click', dismissOverlay);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) dismissOverlay();
+    });
+    document.addEventListener('keydown', escClose);
+  }
+
+  function escClose(e) {
+    if (e.key === 'Escape' && overlayEl) {
+      document.removeEventListener('keydown', escClose);
+      dismissOverlay();
+    }
+  }
+
+  function attachCardInterceptors() {
+    var links = document.querySelectorAll('a[href*="avnergomes.github.io/"]');
+    Array.prototype.forEach.call(links, function (link) {
+      // Skip the developer-link footer (portfolio) — it's not a gated dashboard
+      if (link.classList.contains('developer-link')) return;
+      link.addEventListener('click', function (e) {
+        if (readSession()) return;
+        e.preventDefault();
+        e.stopPropagation();
+        pendingNavigationUrl = link.href;
+        showOverlay();
+      });
+    });
+  }
+
+  function getFromParamUrl() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var raw = params.get('from');
+      if (!raw) return null;
+      var decoded = decodeURIComponent(raw);
+      if (!/^[a-z0-9.\-]+\.[a-z]{2,}\//i.test(decoded)) return null;
+      return 'https://' + decoded.replace(/^\/+/, '');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function cleanFromParam() {
+    try {
+      if (window.history && window.history.replaceState) {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('from')) {
+          params.delete('from');
+          var qs = params.toString();
+          var newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+          window.history.replaceState({}, '', newUrl);
+        }
+      }
+    } catch (e) {}
+  }
+
   function bootstrap() {
+    attachCardInterceptors();
+
     var session = readSession();
+    var fromUrl = getFromParamUrl();
+
     if (session) {
       sessionStorage.setItem('dg_access_email', session.email);
-      unlockBody();
+      if (fromUrl) {
+        cleanFromParam();
+        window.location.href = fromUrl;
+        return;
+      }
+      cleanFromParam();
       document.dispatchEvent(new CustomEvent('dg:auth:ready', { detail: { email: session.email } }));
       return;
     }
-    showOverlay();
+
+    if (fromUrl) {
+      pendingNavigationUrl = fromUrl;
+      showOverlay();
+    }
+    // Else: landing fica aberta, sem overlay. Gate só ativa em clique de painel.
   }
 
   // expose minimal API for debugging / manual logout
   window.DatageoAuth = {
     logout: function () { clearSession(); window.location.reload(); },
-    session: function () { return readSession(); }
+    session: function () { return readSession(); },
+    open: function (url) { pendingNavigationUrl = url || null; showOverlay(); }
   };
 
   if (document.readyState === 'loading') {

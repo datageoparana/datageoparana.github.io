@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    html.gate-pre-lock body { visibility: hidden; }
     body { font-family: 'Inter', system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
     .container { text-align: center; max-width: 480px; padding: 2rem; }
     .container h1 { font-size: 4rem; margin: 0; color: #0f766e; }
@@ -20,28 +19,11 @@
     .container a:hover { text-decoration: underline; }
   </style>
   <script>
-    (function () {
-      try {
-        var raw = localStorage.getItem('dg_auth_session');
-        var ok = false;
-        if (raw) {
-          var s = JSON.parse(raw);
-          if (s && s.email && s.expiresAt && new Date(s.expiresAt).getTime() > Date.now()) ok = true;
-        }
-        if (!ok) document.documentElement.classList.add('gate-pre-lock');
-      } catch (e) {
-        document.documentElement.classList.add('gate-pre-lock');
-      }
-    })();
     window.TRACKING_CONFIG = window.TRACKING_CONFIG || {
       url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
     };
   </script>
   <script src="auth.js" defer></script>
-  <script>
-    document.addEventListener('dg:auth:unlocked', function () { document.documentElement.classList.remove('gate-pre-lock'); });
-    document.addEventListener('dg:auth:ready', function () { document.documentElement.classList.remove('gate-pre-lock'); });
-  </script>
 </head>
 <body>
   <div class="container">
