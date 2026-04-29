@@ -271,14 +271,81 @@
       };
 
       submitSignup(payload).then(function () {
-        setMessage(msg, 'Solicitação enviada. Você receberá email quando o acesso for aprovado.', 'success');
-        form.reset();
+        showSignupSuccess(overlay, emailVal);
       }).catch(function () {
         setMessage(msg, 'Falha ao enviar. Tente novamente em instantes.', 'error');
-      }).then(function () {
         btn.disabled = false;
         btn.textContent = 'Solicitar acesso';
       });
+    });
+  }
+
+  function showSignupSuccess(overlay, email) {
+    var loginPanel = overlay.querySelector('[data-panel="login"]');
+    var signupPanel = overlay.querySelector('[data-panel="signup"]');
+    var tabs = overlay.querySelector('.gate-tabs');
+    if (loginPanel) loginPanel.classList.add('is-hidden');
+    if (signupPanel) signupPanel.classList.add('is-hidden');
+    if (tabs) tabs.classList.add('is-hidden');
+
+    var card = overlay.querySelector('.gate-card');
+    var success = document.createElement('div');
+    success.className = 'gate-success';
+    success.innerHTML = [
+      '<div class="gate-success-icon" aria-hidden="true">',
+      '  <svg viewBox="0 0 24 24" width="42" height="42">',
+      '    <circle cx="12" cy="12" r="11" fill="#0f766e"/>',
+      '    <path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+      '  </svg>',
+      '</div>',
+      '<h2 class="gate-success-title">Solicitação recebida</h2>',
+      '<p class="gate-success-desc">Seu cadastro para <strong>' + escapeHtml(email) + '</strong> foi registrado. Para liberar o acesso, escolha um plano e pague via PIX. A aprovação acontece após a confirmação do pagamento.</p>',
+      '<div class="gate-pricing">',
+      '  <div class="gate-price">',
+      '    <div class="gate-price-tag">Avulso</div>',
+      '    <div class="gate-price-value">R$ 10</div>',
+      '    <div class="gate-price-period">acesso único</div>',
+      '  </div>',
+      '  <div class="gate-price is-featured">',
+      '    <div class="gate-price-tag">Mensal</div>',
+      '    <div class="gate-price-value">R$ 50</div>',
+      '    <div class="gate-price-period">por mês</div>',
+      '  </div>',
+      '  <div class="gate-price">',
+      '    <div class="gate-price-tag">Anual</div>',
+      '    <div class="gate-price-value">R$ 500</div>',
+      '    <div class="gate-price-period">por ano</div>',
+      '  </div>',
+      '</div>',
+      '<div class="gate-pix">',
+      '  <div class="gate-pix-label">Pague via PIX</div>',
+      '  <a class="gate-pix-qr" href="qrcode_pix.png" download="datageo-parana-pix.png" title="Clique para baixar o QR Code">',
+      '    <img src="qrcode_pix.png" alt="QR Code PIX para pagamento" width="180" height="180" />',
+      '    <span class="gate-pix-hint">Clique para baixar</span>',
+      '  </a>',
+      '  <p class="gate-pix-note">Após o pagamento, você receberá um email quando o acesso for aprovado.</p>',
+      '</div>',
+      '<div class="gate-success-actions">',
+      '  <button type="button" class="btn primary gate-btn" id="dg-success-back">Voltar ao login</button>',
+      '</div>'
+    ].join('');
+    card.appendChild(success);
+
+    var backBtn = success.querySelector('#dg-success-back');
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        if (success.parentNode) success.parentNode.removeChild(success);
+        if (tabs) tabs.classList.remove('is-hidden');
+        if (loginPanel) loginPanel.classList.remove('is-hidden');
+        var loginTab = overlay.querySelector('.gate-tab[data-tab="login"]');
+        if (loginTab) loginTab.click();
+      });
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
 

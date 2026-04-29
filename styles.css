@@ -291,6 +291,175 @@ body.gate-locked > #lgpd-banner {
   line-height: 1.45;
 }
 
+/* ── Signup success: pricing + PIX ─────────────── */
+
+.gate-success {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.gate-success-icon {
+  margin-top: 4px;
+}
+
+.gate-success-title {
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+}
+
+.gate-success-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.gate-pricing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.gate-price {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(120, 140, 130, 0.22);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gate-price.is-featured {
+  background: linear-gradient(160deg, rgba(15, 118, 110, 0.1), rgba(15, 118, 110, 0.04));
+  border-color: rgba(15, 118, 110, 0.4);
+  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.08);
+}
+
+.gate-price-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.gate-price.is-featured .gate-price-tag {
+  color: var(--primary);
+}
+
+.gate-price-value {
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.gate-price.is-featured .gate-price-value {
+  color: var(--primary);
+}
+
+.gate-price-period {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.gate-pix {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(120, 140, 130, 0.28);
+}
+
+.gate-pix-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.gate-pix-qr {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(120, 140, 130, 0.2);
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gate-pix-qr:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.gate-pix-qr img {
+  display: block;
+  width: 180px;
+  height: 180px;
+  image-rendering: pixelated;
+}
+
+.gate-pix-hint {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.gate-pix-note {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  max-width: 360px;
+}
+
+.gate-success-actions {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.gate-tabs.is-hidden {
+  display: none;
+}
+
+@media (max-width: 380px) {
+  .gate-pricing {
+    grid-template-columns: 1fr;
+  }
+  .gate-price {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  .gate-pix-qr img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
 /* ── Layout centering ─────────────────────────── */
 
 .site-header,
