@@ -1,6 +1,6 @@
 # Datageo Paraná — Setup do Login Gate
 
-Este documento descreve o sistema de **login gate** com cadastro e aprovação manual implementado no `datageoparana.github.io`. O sistema bloqueia o acesso a todas as páginas até que o visitante (a) faça login com email aprovado ou (b) solicite cadastro e seja aprovado manualmente.
+Este documento descreve o sistema de **login gate** com cadastro + **trial gratuito de 30 dias** implementado no `datageoparana.github.io`. O usuário se cadastra, ganha 30 dias de acesso completo na hora (sem cobrança) e, terminado o trial, vê a tela de pagamento (R$ 10 avulso / R$ 50 mês / R$ 500 ano) via PIX para continuar.
 
 ## Como funciona
 
@@ -18,11 +18,11 @@ Este documento descreve o sistema de **login gate** com cadastro e aprovação m
    ▼             ▼
  Libera     [ Overlay com 2 abas: Entrar | Solicitar acesso ]
  site             │
-                  ├── Entrar ─► GET ?action=check&email=… ─► status approved? Libera. Senão, mostra mensagem.
-                  └── Solicitar ─► POST page=cadastro ─► linha PENDENTE na aba "Cadastros" + email para o admin
+                  ├── Entrar ─► GET ?action=check&email=… ─► approved? Libera 30d. trial_expired? Paywall PIX. Senão, mensagem.
+                  └── Solicitar ─► POST page=cadastro ─► linha APROVADA (trial 30d) + emails de boas-vindas/admin + sessão local imediata
 ```
 
-A sessão é armazenada em `localStorage.dg_auth_session` por **30 dias**.
+A sessão é armazenada em `localStorage.dg_auth_session` por **30 dias** (limitada pelo fim do trial, se aplicável). A data do trial fica em `localStorage.dg_trial_record` para reabrir o paywall depois que a sessão expirar. No backend, a aba `Cadastros` ganha as colunas **Trial Expira Em** e **Plano** (`trial` | `paid`); aprovações manuais para usuários pagantes devem deixar `Plano = paid` e limpar `Trial Expira Em`.
 
 ## Componentes
 
