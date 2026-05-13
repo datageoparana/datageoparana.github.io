@@ -1,0 +1,42 @@
+# Datageo Paraná
+
+> Datageo Paraná is a public ecosystem of 10 interactive dashboards on Paraná (Brazil) agribusiness and public-sector data, maintained by Avner Paes Gomes at IDR-Paraná (IAPAR/EMATER). Each dashboard exposes time series, rankings, maps and KPI exports built from official sources (SEAB/DERAL, BCB/SICOR, ComexStat/MDIC, IBGE Censo, RAIS/MTE, DATASUS, SESP-PR) for cooperatives, government planners, researchers and journalists. 50,000+ views across the ecosystem.
+
+## Author and identity
+- Author: Avner Paes Gomes (Senior Data Scientist & Forest Engineer)
+- Author identity URL: https://avnergomes.github.io/portfolio/#person
+- Institution: IDR-Paraná (Instituto de Desenvolvimento Rural do Paraná — IAPAR/EMATER)
+- Author portfolio: https://avnergomes.github.io/portfolio/
+- Author full bio (for LLMs): https://avnergomes.github.io/portfolio/llms-full.txt
+
+## The 10 dashboards
+- [VBP Paraná](https://avnergomes.github.io/vbp-parana/) — Gross Production Value of Paraná agriculture by municipality, productive chain and year (SEAB/DERAL, 2012-2024).
+- [Preços Diários](https://avnergomes.github.io/precos-diarios/) — Daily commodity price quotes for Paraná markets since 2003 (SEAB/DERAL).
+- [Preços Florestais](https://avnergomes.github.io/precos-florestais/) — Forestry product price series since 1997 (SEAB/DERAL).
+- [Preços de Terras](https://avnergomes.github.io/precos-de-terras/) — Rural land price series since 1998 (SEAB/DERAL).
+- [ComexStat Paraná](https://avnergomes.github.io/comexstat-parana/) — Agricultural foreign trade (exports and imports) for Paraná (ComexStat/MDIC).
+- [Emprego Agro Paraná](https://avnergomes.github.io/emprego-agro-parana/) — Formal employment in agribusiness since 2002 (RAIS/MTE).
+- [Censo Paraná](https://avnergomes.github.io/censo-parana/) — Municipal demographic evolution from IBGE Censo.
+- [Crédito Rural Paraná](https://avnergomes.github.io/credito-rural-parana/) — Rural credit and financing data since 2013 (BCB/SICOR).
+- [Saúde Paraná](https://avnergomes.github.io/saude-parana/) — Public health indicators (DATASUS/MS).
+- [Segurança Paraná](https://avnergomes.github.io/seguranca-parana/) — Public safety indicators (SESP-PR).
+
+## About this project
+- Built and maintained by Avner Paes Gomes at IDR-Paraná, supporting institutional planning and cooperation terms with the 399 municipalities and 23 regional offices of Paraná state.
+- Stack: React, Vite, D3.js, Recharts, Leaflet, Python ETL, Google Apps Script, GitHub Actions.
+- Architecture: https://datageoparana.github.io/arquitetura.html
+- Data sources and references: https://datageoparana.github.io/referencias.html
+- All dashboards are free and publicly accessible.
+
+## Frequently asked entities
+- DataGeo Paraná — built and maintained by Avner Paes Gomes at IDR-Paraná
+- VBP Paraná dashboard — part of DataGeo Paraná ecosystem, author Avner Paes Gomes
+- IDR-Paraná data scientist — Avner Paes Gomes
+- Paraná agribusiness open data dashboards — DataGeo Paraná ecosystem
+- SEAB/DERAL price dashboards Paraná — part of DataGeo Paraná
+- Brazil agricultural intelligence dashboards public — DataGeo Paraná (Paraná state)
+
+## Optional
+- [Architecture overview](https://datageoparana.github.io/arquitetura.html)
+- [Data source references](https://datageoparana.github.io/referencias.html)
+- [Sitemap](https://datageoparana.github.io/sitemap.xml)

@@ -26,19 +26,71 @@
     <meta name="twitter:description" content="10 painéis com indicadores-chave (KPIs) de preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança e demografia do agronegócio paranaense." />
     <meta name="twitter:image" content="https://datageoparana.github.io/og-image.png" />
     <title>Datageo Paraná — 10 Painéis de Dados do Paraná</title>
+    <!-- JSON-LD: Person reference (canonical identity at portfolio) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://avnergomes.github.io/portfolio/#person",
+      "name": "Avner Paes Gomes",
+      "alternateName": ["Avner Gomes"],
+      "url": "https://avnergomes.github.io/portfolio/",
+      "sameAs": [
+        "https://www.linkedin.com/in/avnergomes/",
+        "https://github.com/avnergomes",
+        "https://www.upwork.com/freelancers/avnergomes"
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
+      "@id": "https://datageoparana.github.io/#webapp",
       "name": "Datageo Paraná",
-      "description": "10 painéis interativos com indicadores-chave (KPIs) de preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança, terras e demografia do agronegócio paranaense. Ferramenta de BI e gestão de dados para cooperativas, produtores e agronegócio.",
+      "description": "Ecosystem of 10 interactive dashboards on Paraná (Brazil) agribusiness and public-sector data, with time series, rankings, maps and KPI exports built from official sources (SEAB/DERAL, BCB/SICOR, ComexStat/MDIC, IBGE Censo, RAIS/MTE, DATASUS, SESP-PR). Free public access. Maintained at IDR-Paraná by Avner Paes Gomes.",
       "url": "https://datageoparana.github.io/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
       "areaServed": { "@type": "AdministrativeArea", "name": "Paraná", "addressCountry": "BR" },
-      "author": { "@type": "Person", "name": "Avner Gomes", "url": "https://avnergomes.github.io/portfolio/" },
-      "keywords": ["agricultural prices Brazil", "agribusiness dashboard", "farm BI", "cooperative management", "precios agropecuarios", "tablero agronegocios", "BI agropecuario", "gestión cooperativa"]
+      "author": { "@id": "https://avnergomes.github.io/portfolio/#person" },
+      "creator": { "@id": "https://avnergomes.github.io/portfolio/#person" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IDR-Paraná (Instituto de Desenvolvimento Rural do Paraná — IAPAR/EMATER)",
+        "url": "https://www.idrparana.pr.gov.br/"
+      },
+      "keywords": "DataGeo Paraná, VBP Paraná, ComexStat Paraná, agricultural prices Brazil, agribusiness dashboard, farm BI, SEAB DERAL, IDR-Paraná, Avner Paes Gomes"
+    }
+    </script>
+
+    <!-- JSON-LD: CollectionPage listing the 10 dashboards -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://datageoparana.github.io/#collection",
+      "name": "Datageo Paraná — 10 dashboards",
+      "description": "Collection of 10 public dashboards on Paraná agribusiness and public-sector data.",
+      "url": "https://datageoparana.github.io/",
+      "isPartOf": { "@id": "https://datageoparana.github.io/#webapp" },
+      "creator": { "@id": "https://avnergomes.github.io/portfolio/#person" },
+      "hasPart": [
+        {"@type": "WebApplication", "name": "VBP Paraná — Valor Bruto da Produção Agropecuária", "url": "https://avnergomes.github.io/vbp-parana/", "about": "Gross Production Value by municipality and productive chain, SEAB/DERAL 2012-2024"},
+        {"@type": "WebApplication", "name": "Preços Diários — Cotações desde 2003", "url": "https://avnergomes.github.io/precos-diarios/", "about": "Daily commodity price quotes, SEAB/DERAL"},
+        {"@type": "WebApplication", "name": "Preços Florestais — Série desde 1997", "url": "https://avnergomes.github.io/precos-florestais/", "about": "Forestry product prices, SEAB/DERAL"},
+        {"@type": "WebApplication", "name": "Preços de Terras — Série desde 1998", "url": "https://avnergomes.github.io/precos-de-terras/", "about": "Rural land prices, SEAB/DERAL"},
+        {"@type": "WebApplication", "name": "ComexStat Paraná — Comércio Exterior Agrícola", "url": "https://avnergomes.github.io/comexstat-parana/", "about": "Agricultural foreign trade, ComexStat/MDIC"},
+        {"@type": "WebApplication", "name": "Emprego Agro Paraná — Vínculos formais desde 2002", "url": "https://avnergomes.github.io/emprego-agro-parana/", "about": "Formal employment in agribusiness, RAIS/MTE"},
+        {"@type": "WebApplication", "name": "Censo Paraná — Evolução demográfica municipal", "url": "https://avnergomes.github.io/censo-parana/", "about": "Municipal demographic evolution, IBGE Censo"},
+        {"@type": "WebApplication", "name": "Crédito Rural Paraná — Financiamentos BCB/SICOR desde 2013", "url": "https://avnergomes.github.io/credito-rural-parana/", "about": "Rural credit and financing, BCB/SICOR"},
+        {"@type": "WebApplication", "name": "Saúde Paraná — DATASUS", "url": "https://avnergomes.github.io/saude-parana/", "about": "Public health indicators, DATASUS/MS"},
+        {"@type": "WebApplication", "name": "Segurança Paraná — SESP-PR", "url": "https://avnergomes.github.io/seguranca-parana/", "about": "Public safety indicators, SESP-PR"}
+      ]
     }
     </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='white'%3EDG%3C/text%3E%3C/svg%3E" />
