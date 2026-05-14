@@ -93,10 +93,10 @@
       ]
     }
     </script>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='white'%3EDG%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f1e9d6'/%3E%3Crect x='1' y='1' width='30' height='30' fill='none' stroke='%2314110c' stroke-width='1'/%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='400' font-size='15' fill='%2314110c'%3EDg%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
     <!-- Google Analytics 4 (descomente e substitua GA_MEASUREMENT_ID para ativar)
@@ -110,7 +110,7 @@
     -->
   </head>
   <body>
-    <a href="#main-content" class="sr-only focus-visible-only">Pular para o conteudo</a>
+    <a href="#main-content" class="sr-only focus-visible-only">Pular para o conteúdo</a>
     <noscript>
       <div style="padding:2rem;max-width:800px;margin:0 auto;font-family:system-ui,sans-serif;text-align:center">
         <h1>Datageo Parana</h1>
@@ -130,147 +130,341 @@
       </div>
     </noscript>
 
-    <header class="site-header">
-      <h1>Datageo Paraná</h1>
-      <p class="subtitle">
-        Séries históricas de preços, produção, comércio exterior e emprego rural do Paraná.
-        Dados públicos com filtros, mapas e exportação.
-      </p>
-      <div class="dashboard-count">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        10 painéis interativos &middot; 8 fontes oficiais
-      </div>
-      <div class="cta-row">
-        <a class="btn primary" href="#paineis">Ver painéis</a>
-      </div>
-    </header>
+    <div class="page">
 
-    <main id="main-content">
-      <section id="paineis" class="section">
-        <div class="section-head">
-          <h2>Painéis</h2>
-          <p>Dez dashboards com dados oficiais, filtros interativos e visualizações exportáveis.</p>
-        </div>
-        <div class="card-grid">
-          <a class="card accent-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Produção</div>
-            <h3>VBP Paraná</h3>
-            <p>Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e 200+ produtos em 25 cadeias produtivas.</p>
-            <span class="card-source">Fonte: DERAL/SEAB</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener">
-            <div class="card-tag">Mercado</div>
-            <h3>Preços Diários</h3>
-            <p>Cotações diárias desde 2003, com 100+ produtos em 23 regionais. Atualização automática e previsões de preços.</p>
-            <span class="card-source">Fonte: DERAL/SEAB (SIMA)</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener">
-            <div class="card-tag">Florestal</div>
-            <h3>Preços Florestais</h3>
-            <p>Série histórica desde 1997 com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</p>
-            <span class="card-source">Fonte: DERAL/SEAB</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener">
-            <div class="card-tag">Terras</div>
-            <h3>Preços de Terras</h3>
-            <p>Preços de terras agrícolas desde 1998 por classe de solo e regional, com mapa interativo e busca de referências.</p>
-            <span class="card-source">Fonte: DERAL/SEAB</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-comex" href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Comércio Exterior</div>
-            <h3>ComexStat Paraná</h3>
-            <p>Exportações e importações agrícolas desde 2020 com fluxo município-país, balança comercial e 20 cadeias produtivas.</p>
-            <span class="card-source">Fonte: MDIC/ComexStat</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-emprego" href="https://avnergomes.github.io/emprego-agro-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Emprego</div>
-            <h3>Emprego Agro Paraná</h3>
-            <p>Empregos formais no agronegócio paranaense desde 2002. Vínculos por cadeia produtiva, município, gênero, idade e escolaridade.</p>
-            <span class="card-source">Fonte: RAIS/MTE</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-censo" href="https://avnergomes.github.io/censo-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Demografia</div>
-            <h3>Censo Paraná</h3>
-            <p>Evolução demográfica dos 399 municípios paranaenses de 1991 a 2022. Êxodo rural, urbanização e ranking de crescimento/evasão.</p>
-            <span class="card-source">Fonte: IBGE/Censos</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-credito" href="https://avnergomes.github.io/credito-rural-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Crédito</div>
-            <h3>Crédito Rural</h3>
-            <p>Financiamentos agropecuários desde 2013 com R$ 444 bi em 2,7 milhões de contratos. PRONAF, PRONAMP e demais programas por município e produto.</p>
-            <span class="card-source">Fonte: BCB/SICOR</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-saude" href="https://avnergomes.github.io/saude-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Saúde</div>
-            <h3>Saúde Paraná</h3>
-            <p>Indicadores de saúde pública: mortalidade, internações SUS, vacinação, infraestrutura e financiamento por município e região de saúde. Dados de 2010 a 2024.</p>
-            <span class="card-source">Fonte: DATASUS/MS</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-          <a class="card accent-seguranca" href="https://avnergomes.github.io/seguranca-parana/" target="_blank" rel="noopener">
-            <div class="card-tag">Segurança</div>
-            <h3>Segurança Paraná</h3>
-            <p>Indicadores de segurança pública: ocorrências criminais, violência letal, crimes patrimoniais e taxas por 100 mil hab. nos 399 municípios paranaenses.</p>
-            <span class="card-source">Fonte: SESP-PR/CAPE, SINESP/MJ, IBGE</span>
-            <span class="card-link">Abrir painel &rarr;</span>
-          </a>
-        </div>
-      </section>
+      <div class="meta-strip" role="presentation">
+        <span><span class="dot" aria-hidden="true"></span> Atlas Datageo · Ed. 2026</span>
+        <span>PR · 25.4°S × 51.5°W</span>
+        <span>X | 10 placas, 8 fontes oficiais</span>
+      </div>
 
-      <section id="sobre" class="section">
-        <div class="section-head">
-          <h2>Sobre</h2>
+      <header class="masthead">
+        <div class="masthead-bg" aria-hidden="true">
+          <!-- Estilização de isolinhas / silhueta paranaense -->
+          <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <g fill="none" stroke="#14110c" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M70,260 Q130,150 240,130 Q360,108 460,170 Q540,222 530,300 Q510,380 410,400 Q300,420 200,395 Q100,372 70,310 Z"/>
+              <path d="M100,265 Q160,175 250,160 Q360,140 445,195 Q510,238 500,300 Q480,365 395,380 Q300,395 215,375 Q130,355 100,310 Z"/>
+              <path d="M130,272 Q190,200 260,190 Q360,175 430,220 Q480,255 470,300 Q455,345 380,360 Q300,372 230,355 Q160,338 130,308 Z"/>
+              <path d="M160,280 Q220,225 270,220 Q360,210 415,242 Q450,268 440,300 Q428,330 365,340 Q300,348 245,335 Q190,320 160,304 Z"/>
+              <path d="M190,290 Q240,250 285,250 Q355,245 400,265 Q425,282 415,302 Q400,322 350,328 Q300,332 260,322 Q220,310 190,300 Z"/>
+            </g>
+            <!-- Marcador Curitiba -->
+            <circle cx="395" cy="318" r="4" fill="#a8482c"/>
+            <text x="405" y="322" font-family="JetBrains Mono, monospace" font-size="11" fill="#14110c" letter-spacing="1.5">CWB</text>
+            <!-- Rosa dos ventos minimalista -->
+            <g transform="translate(510,80)" fill="#14110c">
+              <circle r="22" fill="none" stroke="#14110c" stroke-width="1"/>
+              <path d="M0,-18 L4,0 L0,18 L-4,0 Z" fill="#14110c"/>
+              <path d="M-18,0 L0,4 L18,0 L0,-4 Z" fill="none" stroke="#14110c"/>
+              <text x="0" y="-26" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9">N</text>
+            </g>
+          </svg>
         </div>
-        <div class="about-block">
-          <p>
-            O Datageo Paraná reúne 10 painéis interativos com dados públicos sobre preços, produção,
-            crédito rural, comércio exterior, emprego, saúde, segurança e demografia no estado. As fontes são oficiais (DERAL/SEAB,
-            SIMA, BCB/SICOR, ComexStat/MDIC, RAIS/MTE, DATASUS/MS, SESP-PR, IBGE) e os painéis permitem consulta por produto, região, município
-            e período, com visualizações em mapas, gráficos e tabelas exportáveis.
-          </p>
-          <div class="about-links">
-            <a href="arquitetura.html" class="about-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              Arquitetura
-            </a>
-            <a href="referencias.html" class="about-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              Referências
-            </a>
+
+        <div class="masthead-inner">
+          <span class="eyebrow">Datageo · Paraná · Brasil</span>
+          <h1 class="wordmark">
+            <span class="stroke">Datageo</span>
+            <span class="stroke place">Paraná</span>
+          </h1>
+
+          <div class="masthead-foot">
+            <p class="lede">
+              <span class="drop">U</span>m atlas vivo de dados públicos sobre <em>preços, produção, crédito, comércio exterior, emprego, saúde, segurança e demografia</em> do segundo maior celeiro do Brasil. Dez placas interativas montadas sobre fontes oficiais, com filtros, mapas e exportação.
+            </p>
+            <div class="coords">
+              <b>10</b> placas interativas
+              <span class="sep" aria-hidden="true"></span>
+              <b>8</b> fontes oficiais
+              <span class="sep" aria-hidden="true"></span>
+              <b>399</b> municípios
+              <span class="sep" aria-hidden="true"></span>
+              Séries: <b>1991 → 2025</b>
+            </div>
+            <div class="cta-row">
+              <a class="btn primary" href="#placas">Abrir o índice</a>
+            </div>
           </div>
         </div>
-      </section>
-    </main>
+      </header>
 
-    <footer class="site-footer">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4>Datageo Paraná</h4>
-          <p>10 painéis com indicadores-chave (KPIs) de preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança e demografia do Paraná.</p>
+      <main id="main-content">
+
+        <section id="placas" class="section">
+          <div class="running-head">
+            <span>§ I</span>
+            <span class="rule" aria-hidden="true"></span>
+            <span>Placas 01–10</span>
+          </div>
+          <h2 class="section-title">As dez <b>placas.</b></h2>
+          <p class="section-deck">
+            Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social.
+          </p>
+
+          <div class="plates">
+
+            <a class="plate p-vbp" href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">01<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Produção</span>
+                <h3 class="plate-title">VBP Paraná, valor bruto da produção agropecuária.</h3>
+                <p class="plate-desc">Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e mais de 200 produtos em 25 cadeias produtivas.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">2012/24</span><span class="stat-lbl">Série</span></div>
+                <div class="stat"><span class="stat-num">200+</span><span class="stat-lbl">Produtos</span></div>
+                <div class="stat"><span class="stat-num">25</span><span class="stat-lbl">Cadeias</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">DERAL · SEAB</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-diarios" href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener">
+              <div class="plate-folio">02<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Mercado</span>
+                <h3 class="plate-title">Preços diários, cotações desde 2003.</h3>
+                <p class="plate-desc">Cotações diárias com mais de 100 produtos em 23 regionais. Atualização automática e modelos de previsão de preços.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">2003→</span><span class="stat-lbl">Início</span></div>
+                <div class="stat"><span class="stat-num">100+</span><span class="stat-lbl">Produtos</span></div>
+                <div class="stat"><span class="stat-num">23</span><span class="stat-lbl">Regionais</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">DERAL · SEAB · SIMA</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-florestais" href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener">
+              <div class="plate-folio">03<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Florestal</span>
+                <h3 class="plate-title">Preços florestais, série desde 1997.</h3>
+                <p class="plate-desc">Série histórica com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">1997→</span><span class="stat-lbl">Início</span></div>
+                <div class="stat"><span class="stat-num">22</span><span class="stat-lbl">Regiões</span></div>
+                <div class="stat"><span class="stat-num">ML</span><span class="stat-lbl">Previsões</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">DERAL · SEAB</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-terras" href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener">
+              <div class="plate-folio">04<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Terras</span>
+                <h3 class="plate-title">Preços de terras, série desde 1998.</h3>
+                <p class="plate-desc">Preços de terras agrícolas por classe de solo e regional, com mapa interativo e busca de referências cadastrais.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">1998→</span><span class="stat-lbl">Início</span></div>
+                <div class="stat"><span class="stat-num">Mapa</span><span class="stat-lbl">Interativo</span></div>
+                <div class="stat"><span class="stat-num">Classes</span><span class="stat-lbl">de solo</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">DERAL · SEAB</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-comex" href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">05<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Comércio Exterior</span>
+                <h3 class="plate-title">ComexStat Paraná, comércio exterior agrícola.</h3>
+                <p class="plate-desc">Exportações e importações agrícolas desde 2020, com fluxo município-país, balança comercial e 20 cadeias produtivas.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">2020→</span><span class="stat-lbl">Início</span></div>
+                <div class="stat"><span class="stat-num">20</span><span class="stat-lbl">Cadeias</span></div>
+                <div class="stat"><span class="stat-num">Mun→País</span><span class="stat-lbl">Fluxo</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">MDIC · ComexStat</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-emprego" href="https://avnergomes.github.io/emprego-agro-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">06<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Emprego</span>
+                <h3 class="plate-title">Emprego agro Paraná, vínculos formais desde 2002.</h3>
+                <p class="plate-desc">Empregos formais no agronegócio paranaense, com vínculos por cadeia produtiva, município, gênero, idade e escolaridade.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">2002→</span><span class="stat-lbl">Início</span></div>
+                <div class="stat"><span class="stat-num">399</span><span class="stat-lbl">Municípios</span></div>
+                <div class="stat"><span class="stat-num">CBO</span><span class="stat-lbl">Ocupação</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">RAIS · MTE</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-censo" href="https://avnergomes.github.io/censo-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">07<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Demografia</span>
+                <h3 class="plate-title">Censo Paraná, evolução demográfica municipal.</h3>
+                <p class="plate-desc">Evolução demográfica dos 399 municípios paranaenses de 1991 a 2022. Êxodo rural, urbanização e ranking de crescimento e evasão.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">1991→22</span><span class="stat-lbl">Censos</span></div>
+                <div class="stat"><span class="stat-num">399</span><span class="stat-lbl">Municípios</span></div>
+                <div class="stat"><span class="stat-num">Rural⇄Urb.</span><span class="stat-lbl">Análise</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">IBGE · Censos</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-credito" href="https://avnergomes.github.io/credito-rural-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">08<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Crédito Rural</span>
+                <h3 class="plate-title">Crédito rural, financiamentos BCB / SICOR desde 2013.</h3>
+                <p class="plate-desc">Financiamentos agropecuários com R$ 444 bi em 2,7 milhões de contratos. PRONAF, PRONAMP e demais programas por município e produto.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">R$ 444 bi</span><span class="stat-lbl">Contratado</span></div>
+                <div class="stat"><span class="stat-num">2,7 mi</span><span class="stat-lbl">Contratos</span></div>
+                <div class="stat"><span class="stat-num">2013→</span><span class="stat-lbl">Série</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">BCB · SICOR</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-saude" href="https://avnergomes.github.io/saude-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">09<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Saúde Pública</span>
+                <h3 class="plate-title">Saúde Paraná, indicadores DATASUS.</h3>
+                <p class="plate-desc">Mortalidade, internações SUS, vacinação, infraestrutura e financiamento por município e região de saúde. Dados de 2010 a 2024.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">2010/24</span><span class="stat-lbl">Série</span></div>
+                <div class="stat"><span class="stat-num">22</span><span class="stat-lbl">Regiões</span></div>
+                <div class="stat"><span class="stat-num">SIM/SIH</span><span class="stat-lbl">Bases</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">DATASUS · MS</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+            <a class="plate p-seguranca" href="https://avnergomes.github.io/seguranca-parana/" target="_blank" rel="noopener">
+              <div class="plate-folio">10<sup>/10</sup></div>
+              <div class="plate-body">
+                <span class="plate-cat">Segurança Pública</span>
+                <h3 class="plate-title">Segurança Paraná, indicadores SESP-PR.</h3>
+                <p class="plate-desc">Ocorrências criminais, violência letal, crimes patrimoniais e taxas por 100 mil habitantes nos 399 municípios paranaenses.</p>
+              </div>
+              <div class="plate-stats">
+                <div class="stat"><span class="stat-num">399</span><span class="stat-lbl">Municípios</span></div>
+                <div class="stat"><span class="stat-num">/100mil</span><span class="stat-lbl">Taxas</span></div>
+                <div class="stat"><span class="stat-num">CAPE</span><span class="stat-lbl">Fonte</span></div>
+              </div>
+              <div class="plate-end">
+                <span class="plate-source">SESP-PR · SINESP · IBGE</span>
+                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+              </div>
+            </a>
+
+          </div>
+        </section>
+
+        <section id="sobre" class="section">
+          <div class="running-head">
+            <span>§ II</span>
+            <span class="rule" aria-hidden="true"></span>
+            <span>Sobre o projeto</span>
+          </div>
+          <h2 class="section-title">Um atlas público, <b>independente.</b></h2>
+
+          <div class="colophon">
+            <div class="colophon-body">
+              <p>
+                O <em>Datageo Paraná</em> reúne dez painéis interativos sobre preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança e demografia no estado. Tudo é construído a partir de fontes oficiais: DERAL/SEAB, SIMA, BCB/SICOR, ComexStat/MDIC, RAIS/MTE, DATASUS/MS, SESP-PR e IBGE.
+              </p>
+              <p>
+                Cada placa permite consulta por produto, região, município e período, com visualizações em mapas, gráficos e tabelas exportáveis. O projeto é gratuito, sem vínculo institucional, e mantém o código e a documentação abertos.
+              </p>
+            </div>
+            <aside class="colophon-aside">
+              <div class="aside-block">
+                <span class="aside-label">Documentação</span>
+                <a href="arquitetura.html" class="aside-link">Arquitetura</a>
+                <a href="referencias.html" class="aside-link">Referências</a>
+              </div>
+              <div class="aside-block">
+                <span class="aside-label">Fontes oficiais</span>
+                <ul class="aside-list">
+                  <li>DERAL · SEAB · SIMA</li>
+                  <li>BCB · SICOR</li>
+                  <li>MDIC · ComexStat</li>
+                  <li>RAIS · MTE</li>
+                  <li>DATASUS · MS</li>
+                  <li>SESP-PR · CAPE · SINESP</li>
+                  <li>IBGE · Censos</li>
+                </ul>
+              </div>
+              <div class="aside-block">
+                <span class="aside-label">Cobertura</span>
+                <ul class="aside-list">
+                  <li>399 municípios paranaenses</li>
+                  <li>22 regiões de saúde</li>
+                  <li>23 regionais SEAB</li>
+                  <li>25 cadeias produtivas</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="colophon-rule">Colofão</div>
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Datageo Paraná</h4>
+            <p>Dez placas com indicadores-chave (KPIs) de preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança e demografia do Paraná. Composto em Fraunces, IBM Plex Sans e JetBrains Mono.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Editor</h4>
+            <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener" title="Desenvolvido por Avner Gomes">
+              <picture>
+                <source srcset="logo2.webp" type="image/webp" />
+                <img src="logo2.png" alt="Avner Gomes" width="40" height="40" loading="lazy" />
+              </picture>
+              <span>Avner Gomes</span>
+            </a>
+          </div>
+          <div class="footer-col">
+            <h4>Catálogo</h4>
+            <p>ATL · DGPR · ED. 2026 · v.10</p>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>Desenvolvido por</h4>
-          <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener" title="Desenvolvido por Avner Gomes">
-            <picture>
-              <source srcset="logo2.webp" type="image/webp" />
-              <img src="logo2.png" alt="Avner Gomes" width="40" height="40" loading="lazy" />
-            </picture>
-            <span>Avner Gomes</span>
-          </a>
+        <div class="footer-bottom">
+          <span>Dados públicos · Sem vínculo institucional</span>
+          <span>Curitiba · Paraná · Brasil</span>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <span>Dados públicos &middot; Sem vínculo institucional</span>
-      </div>
-    </footer>
+      </footer>
+
+    </div>
 
     <!-- Bug report -->
     <button id="bug-trigger" class="bug-trigger" type="button" title="Encontrei um BUG!">
@@ -616,19 +810,17 @@
     </script>
 
 <!-- LGPD Notice Banner (informativo - dados anonimizados) -->
-<div id="lgpd-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1e293b; color:#e2e8f0; padding:1rem 1.5rem; z-index:9999; font-family:system-ui,sans-serif; font-size:0.875rem; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
-  <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-    <p style="margin:0; flex:1; min-width:280px; line-height:1.5;">
-      Este site coleta dados anonimizados de navegacao (timestamp, pagina visitada, tipo de dispositivo) para fins estatisticos.
-      Nenhum dado pessoal identificavel e coletado. Saiba mais na
-      <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener" style="color:#60a5fa; text-decoration:underline;">LGPD (Art. 12)</a>.
+<div id="lgpd-banner" class="lgpd-banner" style="display:none;">
+  <div class="lgpd-inner">
+    <p class="lgpd-text">
+      Este site coleta dados anonimizados de navegação (timestamp, página visitada, tipo de dispositivo) para fins estatísticos.
+      Nenhum dado pessoal identificável é coletado. Saiba mais na
+      <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">LGPD (Art. 12)</a>.
     </p>
-    <div style="display:flex; gap:0.5rem; flex-shrink:0;">
-      <button onclick="document.getElementById('lgpd-banner').style.display='none'; localStorage.setItem('lgpd-informed','true');"
-        style="padding:0.5rem 1rem; border:none; border-radius:6px; background:#3b82f6; color:white; cursor:pointer; font-size:0.8rem; font-weight:500;">
-        Entendi
-      </button>
-    </div>
+    <button type="button" class="lgpd-btn"
+      onclick="document.getElementById('lgpd-banner').style.display='none'; localStorage.setItem('lgpd-informed','true');">
+      Entendi
+    </button>
   </div>
 </div>
 <script>

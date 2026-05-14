@@ -55,3 +55,6 @@ config.local.js
 # Apps Script source — contém URLs de deploy e credenciais
 *.gs
 proxy.gs.*
+
+# Atlas theme staging — not deployed
+.atlas-theme/
