@@ -108,9 +108,14 @@
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
     -->
+  
+    <!-- ATLAS-I18N-V1 -->
+    <link rel="stylesheet" href=".i18n/i18n-switcher.css" />
+    <script defer src=".i18n/i18n-dict.js"></script>
+    <script defer src=".i18n/i18n.js"></script>
   </head>
   <body>
-    <a href="#main-content" class="sr-only focus-visible-only">Pular para o conteúdo</a>
+    <a href="#main-content" class="sr-only focus-visible-only" data-i18n="nav.skipToContent">Pular para o conteúdo</a>
     <noscript>
       <div style="padding:2rem;max-width:800px;margin:0 auto;font-family:system-ui,sans-serif;text-align:center">
         <h1>Datageo Parana</h1>
@@ -133,9 +138,10 @@
     <div class="page">
 
       <div class="meta-strip" role="presentation">
-        <span><span class="dot" aria-hidden="true"></span> Atlas Datageo · Ed. 2026</span>
+        <span><span class="dot" aria-hidden="true"></span> <span data-i18n="masthead.kicker">Atlas Datageo · Ed. 2026</span></span>
         <span>PR · 25.4°S × 51.5°W</span>
         <span>X | 10 placas, 8 fontes oficiais</span>
+        <span class="meta-strip-switcher" data-i18n-switcher></span>
       </div>
 
       <header class="masthead">
@@ -163,7 +169,7 @@
         </div>
 
         <div class="masthead-inner">
-          <span class="eyebrow">Datageo · Paraná · Brasil</span>
+          <span class="eyebrow" data-i18n="nav.brand">Datageo · Paraná · Brasil</span>
           <h1 class="wordmark">
             <span class="stroke">Datageo</span>
             <span class="stroke place">Paraná</span>
@@ -183,7 +189,7 @@
               Séries: <b>1991 → 2025</b>
             </div>
             <div class="cta-row">
-              <a class="btn primary" href="#placas">Abrir o índice</a>
+              <a class="btn primary" href="#placas" data-i18n="masthead.cta">Abrir o índice</a>
             </div>
           </div>
         </div>
@@ -195,11 +201,11 @@
           <div class="running-head">
             <span>§ I</span>
             <span class="rule" aria-hidden="true"></span>
-            <span>Placas 01–10</span>
+            <span data-i18n="section.platesTitle">Placas 01–10</span>
           </div>
-          <h2 class="section-title">As dez <b>placas.</b></h2>
+          <h2 class="section-title"><span data-i18n="section.platesTitle">As dez placas.</span></h2>
           <p class="section-deck">
-            Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social.
+            <span data-i18n="section.platesDeck">Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social.</span>
           </p>
 
           <div class="plates">
@@ -208,8 +214,8 @@
               <div class="plate-folio">01<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Produção</span>
-                <h3 class="plate-title">VBP Paraná, valor bruto da produção agropecuária.</h3>
-                <p class="plate-desc">Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e mais de 200 produtos em 25 cadeias produtivas.</p>
+                <h3 class="plate-title" data-i18n="plates.vbp.title">VBP Paraná, valor bruto da produção agropecuária.</h3>
+                <p class="plate-desc"><span data-i18n="plates.vbp.desc">Valor Bruto da Produção Agropecuária de 2012 a 2024, com 399 municípios e mais de 200 produtos em 25 cadeias produtivas.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">2012/24</span><span class="stat-lbl">Série</span></div>
@@ -218,7 +224,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -226,8 +232,8 @@
               <div class="plate-folio">02<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Mercado</span>
-                <h3 class="plate-title">Preços diários, cotações desde 2003.</h3>
-                <p class="plate-desc">Cotações diárias com mais de 100 produtos em 23 regionais. Atualização automática e modelos de previsão de preços.</p>
+                <h3 class="plate-title" data-i18n="plates.diarios.title">Preços diários, cotações desde 2003.</h3>
+                <p class="plate-desc"><span data-i18n="plates.diarios.desc">Cotações diárias com mais de 100 produtos em 23 regionais. Atualização automática e modelos de previsão de preços.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">2003→</span><span class="stat-lbl">Início</span></div>
@@ -236,7 +242,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB · SIMA</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -244,8 +250,8 @@
               <div class="plate-folio">03<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Florestal</span>
-                <h3 class="plate-title">Preços florestais, série desde 1997.</h3>
-                <p class="plate-desc">Série histórica com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</p>
+                <h3 class="plate-title" data-i18n="plates.florestais.title">Preços florestais, série desde 1997.</h3>
+                <p class="plate-desc"><span data-i18n="plates.florestais.desc">Série histórica com mudas, toras, lenha e cavacos em 22 regiões. Inclui previsões com machine learning.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">1997→</span><span class="stat-lbl">Início</span></div>
@@ -254,7 +260,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -262,8 +268,8 @@
               <div class="plate-folio">04<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Terras</span>
-                <h3 class="plate-title">Preços de terras, série desde 1998.</h3>
-                <p class="plate-desc">Preços de terras agrícolas por classe de solo e regional, com mapa interativo e busca de referências cadastrais.</p>
+                <h3 class="plate-title" data-i18n="plates.terras.title">Preços de terras, série desde 1998.</h3>
+                <p class="plate-desc"><span data-i18n="plates.terras.desc">Preços de terras agrícolas por classe de solo e regional, com mapa interativo e busca de referências cadastrais.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">1998→</span><span class="stat-lbl">Início</span></div>
@@ -272,7 +278,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -280,8 +286,8 @@
               <div class="plate-folio">05<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Comércio Exterior</span>
-                <h3 class="plate-title">ComexStat Paraná, comércio exterior agrícola.</h3>
-                <p class="plate-desc">Exportações e importações agrícolas desde 2020, com fluxo município-país, balança comercial e 20 cadeias produtivas.</p>
+                <h3 class="plate-title" data-i18n="plates.comex.title">ComexStat Paraná, comércio exterior agrícola.</h3>
+                <p class="plate-desc"><span data-i18n="plates.comex.desc">Exportações e importações agrícolas desde 2020, com fluxo município-país, balança comercial e 20 cadeias produtivas.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">2020→</span><span class="stat-lbl">Início</span></div>
@@ -290,7 +296,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">MDIC · ComexStat</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -298,8 +304,8 @@
               <div class="plate-folio">06<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Emprego</span>
-                <h3 class="plate-title">Emprego agro Paraná, vínculos formais desde 2002.</h3>
-                <p class="plate-desc">Empregos formais no agronegócio paranaense, com vínculos por cadeia produtiva, município, gênero, idade e escolaridade.</p>
+                <h3 class="plate-title" data-i18n="plates.emprego.title">Emprego agro Paraná, vínculos formais desde 2002.</h3>
+                <p class="plate-desc"><span data-i18n="plates.emprego.desc">Empregos formais no agronegócio paranaense, com vínculos por cadeia produtiva, município, gênero, idade e escolaridade.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">2002→</span><span class="stat-lbl">Início</span></div>
@@ -308,7 +314,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">RAIS · MTE</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -316,8 +322,8 @@
               <div class="plate-folio">07<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Demografia</span>
-                <h3 class="plate-title">Censo Paraná, evolução demográfica municipal.</h3>
-                <p class="plate-desc">Evolução demográfica dos 399 municípios paranaenses de 1991 a 2022. Êxodo rural, urbanização e ranking de crescimento e evasão.</p>
+                <h3 class="plate-title" data-i18n="plates.censo.title">Censo Paraná, evolução demográfica municipal.</h3>
+                <p class="plate-desc"><span data-i18n="plates.censo.desc">Evolução demográfica dos 399 municípios paranaenses de 1991 a 2022. Êxodo rural, urbanização e ranking de crescimento e evasão.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">1991→22</span><span class="stat-lbl">Censos</span></div>
@@ -326,7 +332,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">IBGE · Censos</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -334,8 +340,8 @@
               <div class="plate-folio">08<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Crédito Rural</span>
-                <h3 class="plate-title">Crédito rural, financiamentos BCB / SICOR desde 2013.</h3>
-                <p class="plate-desc">Financiamentos agropecuários com R$ 444 bi em 2,7 milhões de contratos. PRONAF, PRONAMP e demais programas por município e produto.</p>
+                <h3 class="plate-title" data-i18n="plates.credito.title">Crédito rural, financiamentos BCB / SICOR desde 2013.</h3>
+                <p class="plate-desc"><span data-i18n="plates.credito.desc">Financiamentos agropecuários com R$ 444 bi em 2,7 milhões de contratos. PRONAF, PRONAMP e demais programas por município e produto.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">R$ 444 bi</span><span class="stat-lbl">Contratado</span></div>
@@ -344,7 +350,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">BCB · SICOR</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -352,8 +358,8 @@
               <div class="plate-folio">09<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Saúde Pública</span>
-                <h3 class="plate-title">Saúde Paraná, indicadores DATASUS.</h3>
-                <p class="plate-desc">Mortalidade, internações SUS, vacinação, infraestrutura e financiamento por município e região de saúde. Dados de 2010 a 2024.</p>
+                <h3 class="plate-title" data-i18n="plates.saude.title">Saúde Paraná, indicadores DATASUS.</h3>
+                <p class="plate-desc"><span data-i18n="plates.saude.desc">Mortalidade, internações SUS, vacinação, infraestrutura e financiamento por município e região de saúde. Dados de 2010 a 2024.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">2010/24</span><span class="stat-lbl">Série</span></div>
@@ -362,7 +368,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DATASUS · MS</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -370,8 +376,8 @@
               <div class="plate-folio">10<sup>/10</sup></div>
               <div class="plate-body">
                 <span class="plate-cat">Segurança Pública</span>
-                <h3 class="plate-title">Segurança Paraná, indicadores SESP-PR.</h3>
-                <p class="plate-desc">Ocorrências criminais, violência letal, crimes patrimoniais e taxas por 100 mil habitantes nos 399 municípios paranaenses.</p>
+                <h3 class="plate-title" data-i18n="plates.seguranca.title">Segurança Paraná, indicadores SESP-PR.</h3>
+                <p class="plate-desc"><span data-i18n="plates.seguranca.desc">Ocorrências criminais, violência letal, crimes patrimoniais e taxas por 100 mil habitantes nos 399 municípios paranaenses.</span></p>
               </div>
               <div class="plate-stats">
                 <div class="stat"><span class="stat-num">399</span><span class="stat-lbl">Municípios</span></div>
@@ -380,7 +386,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">SESP-PR · SINESP · IBGE</span>
-                <span class="plate-arrow">Abrir placa <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -391,9 +397,9 @@
           <div class="running-head">
             <span>§ II</span>
             <span class="rule" aria-hidden="true"></span>
-            <span>Sobre o projeto</span>
+            <span data-i18n="colofao.title">Sobre o projeto</span>
           </div>
-          <h2 class="section-title">Um atlas público, <b>independente.</b></h2>
+          <h2 class="section-title"><span data-i18n="colofao.title">Um atlas público, independente.</span></h2>
 
           <div class="colophon">
             <div class="colophon-body">
