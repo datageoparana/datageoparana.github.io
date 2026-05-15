@@ -133,8 +133,8 @@
       '      <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="14" fill="#fff">DG</text>',
       '    </svg>',
       '  </div>',
-      '  <h1 class="gate-title">Acesso aos painéis</h1>',
-      '  <p class="gate-desc">Os painéis exigem cadastro. Entre com seu email cadastrado ou solicite acesso.</p>',
+      '  <h1 class="gate-title">Acesso aos painéis · grátis vitalício</h1>',
+      '  <p class="gate-desc">Cadastro único para liberar os painéis. Sem paywall, sem trial: o Datageo Paraná é gratuito para sempre. Código e dados abertos.</p>',
       '  <div class="gate-tabs" role="tablist">',
       '    <button type="button" class="gate-tab is-active" role="tab" aria-selected="true" data-tab="login">Entrar</button>',
       '    <button type="button" class="gate-tab" role="tab" aria-selected="false" data-tab="signup">Solicitar acesso</button>',
@@ -281,7 +281,11 @@
           setMessage(msg, 'Acesso liberado. Redirecionando...', 'success');
           setTimeout(closeOverlayAndUnlock, 600);
         } else if (status === 'trial_expired') {
-          setMessage(msg, 'Seu período gratuito de 30 dias expirou. Escolha um plano abaixo para continuar.', 'info');
+          // Modelo antigo de trial expirado: agora todos têm acesso vitalício gratuito.
+          writeSession(email, { trial: false, plan: 'free' });
+          try { localStorage.removeItem(TRIAL_KEY); } catch (e) {}
+          setMessage(msg, 'Acesso liberado. O Datageo Paraná agora é grátis vitalício.', 'success');
+          setTimeout(closeOverlayAndUnlock, 600);
           showPaywall(overlayEl || document.querySelector('#dg-auth-overlay'), email);
         } else if (status === 'pending') {
           setMessage(msg, 'Seu cadastro está aguardando aprovação. Você receberá email quando for aprovado.', 'info');
@@ -346,20 +350,13 @@
     if (signupPanel) signupPanel.classList.add('is-hidden');
     if (tabs) tabs.classList.add('is-hidden');
 
-    // Concede o trial de 30 dias na hora
-    var trialRec = recordTrial(email);
-    writeSession(email, {
-      trial: true,
-      trialUntil: trialRec ? trialRec.trialUntil : null,
-      plan: 'trial'
-    });
+    // Acesso vitalício e gratuito — sem trial, sem paywall.
+    writeSession(email, { trial: false, plan: 'free' });
+    try { localStorage.removeItem(TRIAL_KEY); } catch (e) {}
 
     var card = overlay.querySelector('.gate-card');
     var success = document.createElement('div');
     success.className = 'gate-success';
-    var trialEndsText = trialRec
-      ? new Date(trialRec.trialUntil).toLocaleDateString('pt-BR')
-      : '';
     success.innerHTML = [
       '<div class="gate-success-icon" aria-hidden="true">',
       '  <svg viewBox="0 0 24 24" width="42" height="42">',
@@ -367,27 +364,16 @@
       '    <path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
       '  </svg>',
       '</div>',
-      '<h2 class="gate-success-title">30 dias grátis liberados</h2>',
-      '<p class="gate-success-desc">Cadastro confirmado para <strong>' + escapeHtml(email) + '</strong>. Você tem acesso completo aos painéis até <strong>' + escapeHtml(trialEndsText) + '</strong>, sem nenhuma cobrança.</p>',
-      '<p class="gate-success-desc"><strong>Após o trial</strong>, para continuar acessando, escolha um dos planos:</p>',
-      '<div class="gate-pricing">',
-      '  <div class="gate-price">',
-      '    <div class="gate-price-tag">Avulso</div>',
-      '    <div class="gate-price-value">R$ 10</div>',
-      '    <div class="gate-price-period">acesso único</div>',
-      '  </div>',
-      '  <div class="gate-price is-featured">',
-      '    <div class="gate-price-tag">Mensal</div>',
-      '    <div class="gate-price-value">R$ 50</div>',
-      '    <div class="gate-price-period">por mês</div>',
-      '  </div>',
-      '  <div class="gate-price">',
-      '    <div class="gate-price-tag">Anual</div>',
-      '    <div class="gate-price-value">R$ 500</div>',
-      '    <div class="gate-price-period">por ano</div>',
-      '  </div>',
+      '<h2 class="gate-success-title">Acesso liberado · grátis vitalício</h2>',
+      '<p class="gate-success-desc">Cadastro confirmado para <strong>' + escapeHtml(email) + '</strong>. O Datageo Paraná é gratuito para sempre, sem paywall e sem período de teste. Código e dados abertos.</p>',
+      '<div class="gate-pix">',
+      '  <div class="gate-pix-label">Apoie com uma doação (opcional)</div>',
+      '  <a class="gate-pix-qr" href="qrcode_pix.png" download="datageo-parana-pix.png" title="Baixar QR Code PIX">',
+      '    <img src="qrcode_pix.png" alt="QR Code PIX para doação" width="160" height="160" />',
+      '    <span class="gate-pix-hint">Clique para baixar</span>',
+      '  </a>',
+      '  <p class="gate-pix-note">Doações via PIX ajudam a custear domínios, armazenamento e novas placas. Nada é condição de acesso.</p>',
       '</div>',
-      '<p class="gate-pix-note">A cobrança só começa depois dos 30 dias. Você receberá um aviso antes do fim do período gratuito.</p>',
       '<div class="gate-success-actions">',
       '  <button type="button" class="btn primary gate-btn" id="dg-success-enter">Acessar painéis agora</button>',
       '</div>'
@@ -620,10 +606,18 @@
       return;
     }
 
+    // Migra usuários antigos de trial: o acesso passou a ser grátis vitalício.
     if (expiredTrial && trialRec && trialRec.email) {
-      pendingNavigationUrl = fromUrl || pendingNavigationUrl;
-      showOverlay();
-      showPaywall(overlayEl, trialRec.email);
+      writeSession(trialRec.email, { trial: false, plan: 'free' });
+      try { localStorage.removeItem(TRIAL_KEY); } catch (e) {}
+      sessionStorage.setItem('dg_access_email', trialRec.email);
+      if (fromUrl) {
+        cleanFromParam();
+        window.location.href = fromUrl;
+        return;
+      }
+      cleanFromParam();
+      document.dispatchEvent(new CustomEvent('dg:auth:ready', { detail: { email: trialRec.email } }));
       return;
     }
 
