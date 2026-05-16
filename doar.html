@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,follow" />
+    <meta name="description" content="Página de doação do Datageo Paraná — contribua via PIX para manter o atlas público de dados do agronegócio paranaense." />
+    <meta name="author" content="Avner Gomes" />
+    <link rel="canonical" href="https://datageoparana.github.io/doar.html" />
+    <title>Contribua com o Datageo Paraná</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="i18n/i18n-switcher.css" />
+    <script defer src="i18n/i18n-dict.js"></script>
+    <script defer src="i18n/i18n-text-map.js"></script>
+    <script defer src="i18n/i18n.js"></script>
+    <script defer src="i18n/i18n-runtime.js"></script>
+    <style>
+      .donate-page {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 40px);
+      }
+      .donate-back {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+        text-decoration: none;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+      .donate-back:hover { color: var(--clay); }
+      .donate-back::before { content: "←"; }
+      .donate-title {
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        margin: 0 0 16px;
+      }
+      .donate-lede {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        margin: 0 0 32px;
+      }
+      .donate-qr-wrap {
+        border: 1px solid var(--rule);
+        background: var(--paper-warm);
+        padding: clamp(20px, 4vw, 32px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .donate-qr {
+        display: inline-block;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid var(--rule);
+        line-height: 0;
+      }
+      .donate-qr img { display: block; width: 260px; height: 260px; max-width: 100%; }
+      .donate-qr-caption {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+        margin: 0;
+      }
+      .donate-note {
+        font-family: var(--serif);
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: var(--ink-soft);
+        font-style: italic;
+        border-left: 2px solid var(--clay);
+        padding-left: 16px;
+      }
+      .donate-list {
+        list-style: none;
+        padding: 0;
+        font-family: var(--serif);
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--ink-soft);
+        margin: 24px 0 0;
+      }
+      .donate-list li { display: flex; gap: 10px; align-items: baseline; }
+      .donate-list li::before { content: "·"; font-family: var(--mono); color: var(--clay); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="meta-strip" role="presentation">
+        <span><span class="dot" aria-hidden="true"></span> Atlas Datageo · Contribuição</span>
+        <span>PR · 25.4°S × 51.5°W</span>
+        <span class="meta-strip-switcher" data-i18n-switcher></span>
+      </div>
+
+      <main class="donate-page">
+        <a href="index.html" class="donate-back" data-i18n="donate.back">Voltar ao atlas</a>
+
+        <h1 class="donate-title" data-i18n="donate.title">Contribua com o projeto</h1>
+
+        <p class="donate-lede" data-i18n="donate.lede">
+          O Datageo Paraná é gratuito, sem paywall e sem período de teste. Se o atlas for útil no seu trabalho e você puder contribuir, doações via PIX ajudam a custear domínios, armazenamento, atualização das séries e novas placas.
+        </p>
+
+        <div class="donate-qr-wrap">
+          <a class="donate-qr" href="qrcode_pix.png" download="datageo-parana-pix.png" title="Baixar QR Code PIX">
+            <img src="qrcode_pix.png" alt="QR Code PIX para doação ao Datageo Paraná" width="260" height="260" />
+          </a>
+          <p class="donate-qr-caption" data-i18n="donate.qrCaption">Escaneie com o app do seu banco</p>
+        </div>
+
+        <p class="donate-note" data-i18n="donate.note">
+          Qualquer valor faz diferença, e nada é condição de uso. O acesso ao atlas continua livre mesmo sem doação.
+        </p>
+
+        <ul class="donate-list">
+          <li data-i18n="donate.use1">Domínios e armazenamento das placas interativas</li>
+          <li data-i18n="donate.use2">Atualização periódica das séries oficiais</li>
+          <li data-i18n="donate.use3">Desenvolvimento de novas placas e visualizações</li>
+        </ul>
+      </main>
+
+      <footer class="site-footer">
+        <div class="colophon-rule">Colofão</div>
+        <div class="footer-bottom">
+          <span>Dados públicos · Sem vínculo institucional</span>
+          <span>Curitiba · Paraná · Brasil</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
