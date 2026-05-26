@@ -1,0 +1,54 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# .pnpm-store/
+# .vite/
+# .env
+# .env.local
+# .env.*.local
+# *.pyc
+# *.pyo
+# *.swp
+# *.swo
+# *~
+# .DS_Store
+# Thumbs.db
+# desktop.ini
+# npm-debug.log*
+# .nyc_output/
+# .claude/
+# CLAUDE.md
+# .claudeignore
+# *.tgz
+# config.local.js
+# *.tmp
+# *.temp
+# *.gs
+# proxy.gs.*
+# .atlas-theme/
+# .understand-anything/intermediate/
+# .understand-anything/diff-overlay.json
+
+# --- Activated exclusions (datageo) ---
+# Apps Script backend: gitignored, contains deploy URLs/credentials
+*.gs
+proxy.gs.*
+# Local-only config
+config.local.js
+.claude/
+.understand-anything/
+# Binary/data assets and noise (no analyzable structure)
+*.webp
+*.topojson
+.nojekyll
+.gitattributes
+googlee*.html
+config.local.js.example
+
+# --- Test file patterns ---
+
+# *.test.*
+# *.spec.*
+# *.snap

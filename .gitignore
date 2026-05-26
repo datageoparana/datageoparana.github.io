@@ -58,3 +58,7 @@ proxy.gs.*
 
 # Atlas theme staging — not deployed
 .atlas-theme/
+
+# Understand-Anything — ignore intermediários e overlay; o grafo pode ser commitado
+.understand-anything/intermediate/
+.understand-anything/diff-overlay.json

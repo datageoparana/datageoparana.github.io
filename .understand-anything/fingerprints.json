@@ -1,0 +1,354 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "2b12e01ecfe66246e3b729c1b382face6d756115",
+  "generatedAt": "2026-05-26T13:54:44.798Z",
+  "files": {
+    ".github/dependabot.yml": {
+      "filePath": ".github/dependabot.yml",
+      "contentHash": "c4aed7cf542077ddebd4225bd9462b024643d6506768b97223fca500137ad1db",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    ".github/lighthouse-budget.json": {
+      "filePath": ".github/lighthouse-budget.json",
+      "contentHash": "2f86f5b2176bfbb135a2a79da12a1963735b5ef93bff97d9e747d40ef8d50d59",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/deploy.yml": {
+      "filePath": ".github/workflows/deploy.yml",
+      "contentHash": "4dae6cd5255ba5c1943c53645e987c59e96c6788ba99602af4605f5aa83555a9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/lighthouse.yml": {
+      "filePath": ".github/workflows/lighthouse.yml",
+      "contentHash": "104ead4c4a0f87a816b69833b49929ff8c23e49a28c44a21027fdebb68ed00a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/link-check.yml": {
+      "filePath": ".github/workflows/link-check.yml",
+      "contentHash": "7da3ef31965de8137dd6b5c4449aec866854d3fd818465f861403f61f0564b1a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/seo-check.yml": {
+      "filePath": ".github/workflows/seo-check.yml",
+      "contentHash": "e116726e4fa22189b525966deadd148f244f4c64fd17db9ad9bc32a7cd31c604",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "404.html": {
+      "filePath": "404.html",
+      "contentHash": "a29ec314496f8ed7a04029b8f288cc8070c68316ac375954371bd89c1dfa6dbc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": false
+    },
+    "arquitetura.html": {
+      "filePath": "arquitetura.html",
+      "contentHash": "1155c0f37b0601c8171cd7c50563bc7a401b1d7b6012c44a7a6e4e373ab74bd2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 809,
+      "hasStructuralAnalysis": false
+    },
+    "auth.js": {
+      "filePath": "auth.js",
+      "contentHash": "e0516cecc151df31da72ca5dba8485f399b570c0df99783126c249d25bcb8af6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 644,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard-gate.js": {
+      "filePath": "dashboard-gate.js",
+      "contentHash": "20ad99ae0192158eaecbffccc147890121618abd2b5b9cf8d61fd20003a4cc49",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "doar.html": {
+      "filePath": "doar.html",
+      "contentHash": "63fc032e168484566c9d261cf3d54f49ad447cff8ca2118e6291bdd14d4f77e5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 151,
+      "hasStructuralAnalysis": false
+    },
+    "i18n/apply_landing_i18n.py": {
+      "filePath": "i18n/apply_landing_i18n.py",
+      "contentHash": "d04a35f5bd2fca5118c82bb1fbeb1d58d82e3d90502fcc28b4f084596a579a7c",
+      "functions": [
+        {
+          "name": "patch",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "patch"
+      ],
+      "totalLines": 145,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/apply_panel_i18n.py": {
+      "filePath": "i18n/apply_panel_i18n.py",
+      "contentHash": "98c4b11625a8ad8b81003e8265ca171f3589ceb019bf3d541663de4ade58dabc",
+      "functions": [
+        {
+          "name": "patch_panel",
+          "params": [
+            "repo"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "patch_panel"
+      ],
+      "totalLines": 106,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/i18n-dict.js": {
+      "filePath": "i18n/i18n-dict.js",
+      "contentHash": "649e6e60725e0fb437135af9914f2af8a7458fc217aeea904bd5ef80220ef0aa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 493,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/i18n-runtime.js": {
+      "filePath": "i18n/i18n-runtime.js",
+      "contentHash": "0fd094818b94cfd9d1cc9de025d1bb6b13ab5fad6dff0fa7f340d47baa9a0c53",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 268,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/i18n-switcher.css": {
+      "filePath": "i18n/i18n-switcher.css",
+      "contentHash": "fa1d98eac36c67c743ffa00553567ab9f8c51c42b7967a7a944ff52289732456",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": false
+    },
+    "i18n/i18n-text-map.js": {
+      "filePath": "i18n/i18n-text-map.js",
+      "contentHash": "daba5886d5622b5ad033fd9788d55bae1a88081c800ac882b3204a1b2dbc6161",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 660,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/i18n.js": {
+      "filePath": "i18n/i18n.js",
+      "contentHash": "84b8b43938a4367108a2752830293b9a0a843a9ea128c1aa824524b8c53dd0d7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 175,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/LangSwitcher.jsx": {
+      "filePath": "i18n/LangSwitcher.jsx",
+      "contentHash": "7d761407e6519ec0483f844bf58d8207895948c881133b49f6e521aa46d11113",
+      "functions": [
+        {
+          "name": "detect",
+          "params": [],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "LangSwitcher",
+          "params": [],
+          "exported": true,
+          "lineCount": 45
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        }
+      ],
+      "exports": [
+        "LangSwitcher"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "index.html": {
+      "filePath": "index.html",
+      "contentHash": "add2424bc95d15b0740d623f1a5f936424b9ea5c96e26e756db4a3aa67eadb8a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 851,
+      "hasStructuralAnalysis": false
+    },
+    "llms.txt": {
+      "filePath": "llms.txt",
+      "contentHash": "ebbe5e2f357c16ab3d82eada5763f49985854d2acd46f1953e68c0c717ed7a1b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 43,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "b1de2df3cf378524e3d8e95245de2102d24051908d4ff1c823385a1b997aa027",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 120,
+      "hasStructuralAnalysis": true
+    },
+    "referencias.html": {
+      "filePath": "referencias.html",
+      "contentHash": "eb787e8ff72186979ca28dae00078e6c53455ffcd37b3ba6dfc54dbe1507fbca",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1007,
+      "hasStructuralAnalysis": false
+    },
+    "robots.txt": {
+      "filePath": "robots.txt",
+      "contentHash": "0fa419191ecab2098df342441af445af9a5210581a2125a723d6fbcf5fd5dcf2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 54,
+      "hasStructuralAnalysis": false
+    },
+    "SETUP_AUTH.md": {
+      "filePath": "SETUP_AUTH.md",
+      "contentHash": "b741a239de129ddf31d44a99da142abe9f469b0b05f80761ecae334e506430b0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 194,
+      "hasStructuralAnalysis": true
+    },
+    "sitemap.xml": {
+      "filePath": "sitemap.xml",
+      "contentHash": "284fd4306e92e59bc3928ae29ec4360770fb399ff692a5a399a40ac37046301a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": false
+    },
+    "styles.css": {
+      "filePath": "styles.css",
+      "contentHash": "0738b160b5d87b152117c1ada3ece2607e55736e406dbf60e68e5bcfff373a9c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1165,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

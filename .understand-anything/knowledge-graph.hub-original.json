@@ -1,0 +1,1573 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Datageo Paraná",
+    "languages": [
+      "javascript",
+      "html",
+      "css",
+      "python",
+      "yaml"
+    ],
+    "frameworks": [],
+    "description": "Landing page e hub central do ecossistema Datageo Paraná — site estático (HTML/CSS/JS vanilla, sem build) no GitHub Pages que reúne 10 dashboards de dados públicos do Paraná, com i18n PT/EN/ES, gate de acesso por cadastro gratuito e página de doação PIX.",
+    "analyzedAt": "2026-05-26T13:53:34.869Z",
+    "gitCommitHash": "2b12e01ecfe66246e3b729c1b382face6d756115"
+  },
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/deploy.yml",
+      "type": "pipeline",
+      "name": "deploy.yml",
+      "filePath": ".github/workflows/deploy.yml",
+      "summary": "Workflow do GitHub Actions que publica o site estatico no GitHub Pages a cada push na branch main; gera o config.local.js a partir do secret TRACKING_URL, empacota o conteudo como artefato e faz o deploy.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "github-pages",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Usa permissoes OIDC (id-token: write) e grupo de concorrencia 'pages' com cancel-in-progress para evitar deploys simultaneos."
+    },
+    {
+      "id": "step:.github/workflows/deploy.yml:Generate config.local.js",
+      "type": "pipeline",
+      "name": "Generate config.local.js",
+      "summary": "Gera o arquivo config.local.js em tempo de build, injetando a URL de tracking a partir do secret TRACKING_URL para manter a credencial fora do repositorio.",
+      "tags": [
+        "ci-cd",
+        "configuration",
+        "secrets"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/deploy.yml:Deploy to GitHub Pages",
+      "type": "pipeline",
+      "name": "Deploy to GitHub Pages",
+      "summary": "Realiza o deploy do artefato empacotado para o ambiente github-pages usando a action actions/deploy-pages e expoe a URL publicada.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "github-pages"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/lighthouse.yml",
+      "type": "pipeline",
+      "name": "lighthouse.yml",
+      "filePath": ".github/workflows/lighthouse.yml",
+      "summary": "Workflow agendado (cron semanal as segundas) que roda o Lighthouse CI contra o site publicado, comparando metricas com o budget definido em .github/lighthouse-budget.json e fazendo upload dos relatorios.",
+      "tags": [
+        "ci-cd",
+        "monitoring",
+        "performance",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Disparado por schedule cron '0 10 * * 1' e workflow_dispatch; usa treosh/lighthouse-ci-action."
+    },
+    {
+      "id": "pipeline:.github/workflows/link-check.yml",
+      "type": "pipeline",
+      "name": "link-check.yml",
+      "filePath": ".github/workflows/link-check.yml",
+      "summary": "Workflow que valida links quebrados em arquivos HTML e Markdown usando o lychee, rodando em pull requests para main e em cron semanal; falha o job se o lychee retornar erros.",
+      "tags": [
+        "ci-cd",
+        "monitoring",
+        "validation",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Excluindo mailto e URLs do script.google.com; aceita codigos HTTP 200,204,301,302,403."
+    },
+    {
+      "id": "pipeline:.github/workflows/seo-check.yml",
+      "type": "pipeline",
+      "name": "seo-check.yml",
+      "filePath": ".github/workflows/seo-check.yml",
+      "summary": "Workflow de verificacao de SEO que valida, em PRs e pushes para main, a existencia de robots.txt, sitemap.xml e 404.html e confirma que o robots.txt referencia o sitemap.",
+      "tags": [
+        "ci-cd",
+        "validation",
+        "seo",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Usa comandos de anotacao do GitHub Actions (::error:: e ::warning::) para reportar arquivos ausentes."
+    },
+    {
+      "id": "file:404.html",
+      "type": "file",
+      "name": "404.html",
+      "filePath": "404.html",
+      "summary": "Página de erro 404 do GitHub Pages com estilos inline e link de retorno à home; marcada como noindex e reutiliza a folha de estilos principal e o favicon SVG da marca.",
+      "tags": [
+        "error-page",
+        "markup",
+        "landing",
+        "static-site"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Documentação de entrada do projeto descrevendo o ecossistema de dashboards, tecnologias vanilla (HTML/CSS/JS), estrutura de arquivos, funcionalidades e instruções de desenvolvimento local.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview",
+        "static-site"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:SETUP_AUTH.md",
+      "type": "document",
+      "name": "SETUP_AUTH.md",
+      "filePath": "SETUP_AUTH.md",
+      "summary": "Guia técnico do login gate por cadastro gratuito: integração com Google Apps Script, fluxo de aprovação manual, gate de referer nos dashboards externos, logout e limitações conhecidas.",
+      "tags": [
+        "documentation",
+        "authentication",
+        "setup",
+        "security"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:arquitetura.html",
+      "type": "file",
+      "name": "arquitetura.html",
+      "filePath": "arquitetura.html",
+      "summary": "Página estática que descreve a arquitetura técnica do ecossistema Datageo Paraná (fontes de dados, pipeline ETL e stack), com i18n PT/EN/ES e estilos compartilhados.",
+      "tags": [
+        "markup",
+        "documentation",
+        "architecture",
+        "i18n",
+        "static-site"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:doar.html",
+      "type": "file",
+      "name": "doar.html",
+      "filePath": "doar.html",
+      "summary": "Página de doação via PIX com QR Code para download, explicando o modelo gratuito sem paywall do atlas; inclui i18n e estilos próprios para o bloco de doação.",
+      "tags": [
+        "markup",
+        "donation",
+        "pix",
+        "i18n",
+        "static-site"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "Landing page e hub principal do Datageo Paraná, listando os dashboards do ecossistema, com gate de acesso por cadastro, sistema i18n PT/EN/ES e seções de SEO/meta tags.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "landing",
+        "i18n",
+        "static-site"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:llms.txt",
+      "type": "document",
+      "name": "llms.txt",
+      "filePath": "llms.txt",
+      "summary": "Arquivo llms.txt voltado a crawlers de IA, descrevendo o ecossistema, autor, instituição e a lista dos 10 dashboards com fontes oficiais para citação e retrieval.",
+      "tags": [
+        "documentation",
+        "llm-discovery",
+        "seo",
+        "metadata"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:referencias.html",
+      "type": "file",
+      "name": "referencias.html",
+      "filePath": "referencias.html",
+      "summary": "Página estática de referências e fontes de dados (SEAB/DERAL, IBGE, BCB, ComexStat etc.) usadas pelos dashboards, com i18n PT/EN/ES e estilos compartilhados.",
+      "tags": [
+        "markup",
+        "documentation",
+        "references",
+        "i18n",
+        "static-site"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "robots.txt",
+      "summary": "Configuração de robots para crawlers de busca e LLM, permitindo indexação ampla e citação por bots de IA, com referência ao sitemap.",
+      "tags": [
+        "seo",
+        "configuration",
+        "crawler",
+        "metadata"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:sitemap.xml",
+      "type": "config",
+      "name": "sitemap.xml",
+      "filePath": "sitemap.xml",
+      "summary": "Sitemap XML listando as URLs públicas do site (home, arquitetura, referências) com prioridade e frequência de atualização para indexação por buscadores.",
+      "tags": [
+        "seo",
+        "configuration",
+        "sitemap",
+        "metadata"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:styles.css",
+      "type": "file",
+      "name": "styles.css",
+      "filePath": "styles.css",
+      "summary": "Folha de estilos principal do ecossistema, definindo o sistema visual atlas-editorial (paleta cream/ink/clay, tipografia Fraunces/Inter), layout responsivo e componentes compartilhados por todas as páginas.",
+      "tags": [
+        "markup",
+        "stylesheet",
+        "design-system",
+        "responsive",
+        "shared"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.github/dependabot.yml",
+      "type": "config",
+      "name": "dependabot.yml",
+      "filePath": ".github/dependabot.yml",
+      "summary": "Configuração do Dependabot que define a política de atualização automática de dependências do repositório (ecossistema, diretório e frequência de checagem).",
+      "tags": [
+        "configuration",
+        "ci-cd",
+        "security",
+        "automation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.github/lighthouse-budget.json",
+      "type": "config",
+      "name": "lighthouse-budget.json",
+      "filePath": ".github/lighthouse-budget.json",
+      "summary": "Orçamento de performance do Lighthouse que define limites de tamanho de recursos e métricas de tempo para auditoria de qualidade das páginas estáticas.",
+      "tags": [
+        "configuration",
+        "monitoring",
+        "ci-cd",
+        "performance"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "auth.js",
+      "summary": "Núcleo de autenticação da landing page: monta o overlay de gate (login/cadastro gratuito vitalício), valida email, gerencia sessão em localStorage/sessionStorage, integra com backend Google Apps Script e exibe um paywall PIX opcional para contas legadas de trial.",
+      "tags": [
+        "entry-point",
+        "service",
+        "validation",
+        "event-handler",
+        "authentication"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Código vanilla em IIFE, sem ES modules; usa fetch com timeout via AbortController e POST em modo no-cors para o Apps Script."
+    },
+    {
+      "id": "function:auth.js:writeSession",
+      "type": "function",
+      "name": "writeSession",
+      "filePath": "auth.js",
+      "lineRange": [
+        45,
+        65
+      ],
+      "summary": "Persiste a sessão do usuário (email, plano, expiração) em localStorage e marca acesso liberado em sessionStorage.",
+      "tags": [
+        "service",
+        "session",
+        "serialization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:checkAccess",
+      "type": "function",
+      "name": "checkAccess",
+      "filePath": "auth.js",
+      "lineRange": [
+        197,
+        209
+      ],
+      "summary": "Consulta o backend Google Apps Script via GET (com timeout) para verificar o status de acesso de um email.",
+      "tags": [
+        "service",
+        "api-handler",
+        "async"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:submitSignup",
+      "type": "function",
+      "name": "submitSignup",
+      "filePath": "auth.js",
+      "lineRange": [
+        212,
+        230
+      ],
+      "summary": "Envia os dados de solicitação de cadastro ao backend via POST em modo no-cors, anexando metadados de origem da navegação.",
+      "tags": [
+        "service",
+        "api-handler",
+        "async"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:buildOverlay",
+      "type": "function",
+      "name": "buildOverlay",
+      "filePath": "auth.js",
+      "lineRange": [
+        120,
+        176
+      ],
+      "summary": "Cria o elemento de overlay do gate com markup de login, cadastro e nota LGPD, configurando atributos de acessibilidade.",
+      "tags": [
+        "component",
+        "dom",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:attachLoginHandler",
+      "type": "function",
+      "name": "attachLoginHandler",
+      "filePath": "auth.js",
+      "lineRange": [
+        252,
+        302
+      ],
+      "summary": "Vincula o submit do formulário de login, valida o email e trata os status retornados pelo backend (approved, pending, denied, trial_expired).",
+      "tags": [
+        "event-handler",
+        "validation",
+        "authentication"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:auth.js:attachSignupHandler",
+      "type": "function",
+      "name": "attachSignupHandler",
+      "filePath": "auth.js",
+      "lineRange": [
+        306,
+        342
+      ],
+      "summary": "Vincula o submit do formulário de cadastro, coleta e valida os campos e dispara o envio ao backend exibindo a tela de sucesso.",
+      "tags": [
+        "event-handler",
+        "validation",
+        "authentication"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:auth.js:showSignupSuccess",
+      "type": "function",
+      "name": "showSignupSuccess",
+      "filePath": "auth.js",
+      "lineRange": [
+        345,
+        388
+      ],
+      "summary": "Renderiza a tela de confirmação de cadastro com QR Code PIX de doação opcional e botão para acessar os painéis.",
+      "tags": [
+        "component",
+        "dom",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:showPaywall",
+      "type": "function",
+      "name": "showPaywall",
+      "filePath": "auth.js",
+      "lineRange": [
+        392,
+        470
+      ],
+      "summary": "Exibe o paywall legado com tabela de preços e QR Code PIX para contas de trial expirado, com botão de verificação de pagamento.",
+      "tags": [
+        "component",
+        "dom",
+        "payment"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:auth.js:showOverlay",
+      "type": "function",
+      "name": "showOverlay",
+      "filePath": "auth.js",
+      "lineRange": [
+        510,
+        525
+      ],
+      "summary": "Trava o corpo da página, injeta o overlay no DOM e vincula todos os handlers de abas, login, cadastro e fechamento.",
+      "tags": [
+        "ui",
+        "dom",
+        "orchestration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:attachCardInterceptors",
+      "type": "function",
+      "name": "attachCardInterceptors",
+      "filePath": "auth.js",
+      "lineRange": [
+        543,
+        558
+      ],
+      "summary": "Intercepta cliques em cards de painéis bloqueados, exibindo o overlay de gate ou o paywall quando não há sessão válida.",
+      "tags": [
+        "event-handler",
+        "gate",
+        "dom"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:auth.js:bootstrap",
+      "type": "function",
+      "name": "bootstrap",
+      "filePath": "auth.js",
+      "lineRange": [
+        589,
+        627
+      ],
+      "summary": "Ponto de entrada da auth: avalia parâmetros de URL e sessão existente para decidir entre liberar acesso, limpar parâmetros ou exibir o overlay.",
+      "tags": [
+        "entry-point",
+        "orchestration",
+        "session"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:dashboard-gate.js",
+      "type": "file",
+      "name": "dashboard-gate.js",
+      "filePath": "dashboard-gate.js",
+      "summary": "Gate de acesso aos dashboards: verifica a presença de uma sessão válida em sessionStorage e redireciona à landing page com o parâmetro de origem quando o usuário não está autenticado.",
+      "tags": [
+        "entry-point",
+        "gate",
+        "authentication",
+        "redirect"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Script vanilla em IIFE executado no topo de cada dashboard antes do conteúdo."
+    },
+    {
+      "id": "file:i18n/apply_landing_i18n.py",
+      "type": "file",
+      "name": "apply_landing_i18n.py",
+      "filePath": "i18n/apply_landing_i18n.py",
+      "summary": "Script Python que aplica atributos i18n e injeta o runtime de internacionalização no HTML da landing page por meio de substituições de string e regex.",
+      "tags": [
+        "script",
+        "build-system",
+        "i18n",
+        "automation"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Usa pathlib e re para patch idempotente do arquivo HTML."
+    },
+    {
+      "id": "function:i18n/apply_landing_i18n.py:patch",
+      "type": "function",
+      "name": "patch",
+      "filePath": "i18n/apply_landing_i18n.py",
+      "lineRange": [
+        98,
+        140
+      ],
+      "summary": "Lê o HTML da landing, injeta scripts/atributos i18n via substituições e regex e grava o resultado, retornando notas das alterações aplicadas.",
+      "tags": [
+        "script",
+        "i18n",
+        "serialization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:i18n/apply_panel_i18n.py",
+      "type": "file",
+      "name": "apply_panel_i18n.py",
+      "filePath": "i18n/apply_panel_i18n.py",
+      "summary": "Script Python que copia os assets de i18n para a pasta pública de um dashboard e injeta o runtime de internacionalização no index.html do painel.",
+      "tags": [
+        "script",
+        "build-system",
+        "i18n",
+        "automation"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Usa shutil.copy2 e regex para patch idempotente dos painéis."
+    },
+    {
+      "id": "function:i18n/apply_panel_i18n.py:patch_panel",
+      "type": "function",
+      "name": "patch_panel",
+      "filePath": "i18n/apply_panel_i18n.py",
+      "lineRange": [
+        64,
+        100
+      ],
+      "summary": "Copia os arquivos i18n para o diretório público do painel e injeta os scripts no index.html, evitando duplicação quando já aplicado.",
+      "tags": [
+        "script",
+        "i18n",
+        "build-system"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:i18n/i18n-dict.js",
+      "type": "file",
+      "name": "i18n-dict.js",
+      "filePath": "i18n/i18n-dict.js",
+      "summary": "Dicionário de traduções PT/EN/ES exposto globalmente, contendo os pares chave-valor consumidos pelo runtime de internacionalização.",
+      "tags": [
+        "data-model",
+        "i18n",
+        "configuration",
+        "dictionary"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Objeto literal estático sem funções; atribuído a uma global window."
+    },
+    {
+      "id": "file:i18n/i18n-runtime.js",
+      "type": "file",
+      "name": "i18n-runtime.js",
+      "filePath": "i18n/i18n-runtime.js",
+      "summary": "Runtime de tradução baseado em mapa de texto: percorre o DOM com TreeWalker, traduz nós de texto e atributos, restaura o PT como fallback e observa mutações para reaplicar traduções.",
+      "tags": [
+        "service",
+        "i18n",
+        "dom",
+        "runtime"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Usa MutationObserver e requestIdleCallback/requestAnimationFrame para reaplicar traduções de forma incremental."
+    },
+    {
+      "id": "function:i18n/i18n-runtime.js:walk",
+      "type": "function",
+      "name": "walk",
+      "filePath": "i18n/i18n-runtime.js",
+      "lineRange": [
+        184,
+        224
+      ],
+      "summary": "Percorre os nós de texto e atributos traduzíveis do DOM aplicando o mapa de tradução, pulando subárvores marcadas para ignorar.",
+      "tags": [
+        "i18n",
+        "dom",
+        "traversal"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:i18n/i18n-runtime.js:translateOne",
+      "type": "function",
+      "name": "translateOne",
+      "filePath": "i18n/i18n-runtime.js",
+      "lineRange": [
+        82,
+        115
+      ],
+      "summary": "Traduz um único nó (texto ou atributo) consultando o mapa do idioma ativo e guardando o original para restauração.",
+      "tags": [
+        "i18n",
+        "dom"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/i18n-runtime.js:restorePt",
+      "type": "function",
+      "name": "restorePt",
+      "filePath": "i18n/i18n-runtime.js",
+      "lineRange": [
+        120,
+        135
+      ],
+      "summary": "Restaura o conteúdo original em português dos nós e atributos previamente traduzidos (fallback de idioma).",
+      "tags": [
+        "i18n",
+        "dom",
+        "fallback"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/i18n-runtime.js:start",
+      "type": "function",
+      "name": "start",
+      "filePath": "i18n/i18n-runtime.js",
+      "lineRange": [
+        240,
+        260
+      ],
+      "summary": "Inicializa o runtime: aplica a tradução inicial, registra um MutationObserver e ouve a troca de idioma para reagendar a varredura.",
+      "tags": [
+        "entry-point",
+        "i18n",
+        "runtime"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:i18n/i18n-switcher.css",
+      "type": "file",
+      "name": "i18n-switcher.css",
+      "filePath": "i18n/i18n-switcher.css",
+      "summary": "Estilos do seletor de idioma (chips de bandeira/código) com variantes para temas claro, escuro e modo OBS.",
+      "tags": [
+        "markup",
+        "stylesheet",
+        "i18n",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:i18n/i18n-text-map.js",
+      "type": "file",
+      "name": "i18n-text-map.js",
+      "filePath": "i18n/i18n-text-map.js",
+      "summary": "Mapa extenso de strings em PT para suas traduções em EN/ES, usado pelo runtime para traduzir texto literal do DOM sem atributos data-i18n.",
+      "tags": [
+        "data-model",
+        "i18n",
+        "dictionary",
+        "configuration"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Objeto literal grande exposto como global; sem lógica executável."
+    },
+    {
+      "id": "file:i18n/i18n.js",
+      "type": "file",
+      "name": "i18n.js",
+      "filePath": "i18n/i18n.js",
+      "summary": "Núcleo do i18n baseado em atributos data-i18n: detecta o idioma (URL, localStorage, navegador), resolve chaves no dicionário, aplica traduções ao DOM e constrói/vincula o seletor de idioma.",
+      "tags": [
+        "service",
+        "i18n",
+        "dom",
+        "runtime"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Vanilla em IIFE; persiste o idioma escolhido em localStorage e na query string."
+    },
+    {
+      "id": "function:i18n/i18n.js:detect",
+      "type": "function",
+      "name": "detect",
+      "filePath": "i18n/i18n.js",
+      "lineRange": [
+        26,
+        37
+      ],
+      "summary": "Detecta o idioma ativo priorizando o parâmetro de URL, depois localStorage e por fim o idioma do navegador, limitado aos idiomas suportados.",
+      "tags": [
+        "i18n",
+        "detection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/i18n.js:applyDom",
+      "type": "function",
+      "name": "applyDom",
+      "filePath": "i18n/i18n.js",
+      "lineRange": [
+        60,
+        107
+      ],
+      "summary": "Aplica as traduções ao DOM percorrendo elementos com atributos data-i18n, placeholder, aria, title e html, e atualiza o estado dos botões de idioma.",
+      "tags": [
+        "i18n",
+        "dom"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:i18n/i18n.js:setLang",
+      "type": "function",
+      "name": "setLang",
+      "filePath": "i18n/i18n.js",
+      "lineRange": [
+        111,
+        124
+      ],
+      "summary": "Define o idioma ativo, persiste em localStorage e na URL, reaplica as traduções e dispara o evento de troca de idioma.",
+      "tags": [
+        "i18n",
+        "state",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/i18n.js:buildSwitcher",
+      "type": "function",
+      "name": "buildSwitcher",
+      "filePath": "i18n/i18n.js",
+      "lineRange": [
+        145,
+        158
+      ],
+      "summary": "Constrói o markup do seletor de idioma (chips com bandeira e código) dentro do host e vincula os handlers de clique.",
+      "tags": [
+        "i18n",
+        "component",
+        "dom"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/i18n.js:init",
+      "type": "function",
+      "name": "init",
+      "filePath": "i18n/i18n.js",
+      "lineRange": [
+        160,
+        165
+      ],
+      "summary": "Inicializa o i18n: detecta o idioma, monta os seletores presentes na página e aplica as traduções iniciais.",
+      "tags": [
+        "entry-point",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:i18n/LangSwitcher.jsx",
+      "type": "file",
+      "name": "LangSwitcher.jsx",
+      "filePath": "i18n/LangSwitcher.jsx",
+      "summary": "Componente React do seletor de idioma com estado local, detecção inicial de idioma, persistência em localStorage/URL e variantes de tema (dark/obs).",
+      "tags": [
+        "component",
+        "i18n",
+        "hook",
+        "react"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Usa useState e useEffect; export default do componente."
+    },
+    {
+      "id": "function:i18n/LangSwitcher.jsx:LangSwitcher",
+      "type": "function",
+      "name": "LangSwitcher",
+      "filePath": "i18n/LangSwitcher.jsx",
+      "lineRange": [
+        33,
+        77
+      ],
+      "summary": "Componente React que renderiza os botões de idioma, sincroniza o idioma ativo com documento/localStorage/URL e notifica a troca via callback.",
+      "tags": [
+        "component",
+        "i18n",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:i18n/LangSwitcher.jsx:detect",
+      "type": "function",
+      "name": "detect",
+      "filePath": "i18n/LangSwitcher.jsx",
+      "lineRange": [
+        19,
+        31
+      ],
+      "summary": "Detecta o idioma inicial do componente a partir da URL, localStorage e idioma do navegador, restrito aos idiomas suportados.",
+      "tags": [
+        "i18n",
+        "detection"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:.github/workflows/deploy.yml",
+      "target": "step:.github/workflows/deploy.yml:Generate config.local.js",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "pipeline:.github/workflows/deploy.yml",
+      "target": "step:.github/workflows/deploy.yml:Deploy to GitHub Pages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:index.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:styles.css",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:arquitetura.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:referencias.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:SETUP_AUTH.md",
+      "target": "file:index.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:llms.txt",
+      "target": "file:index.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:sitemap.xml",
+      "target": "file:index.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:sitemap.xml",
+      "target": "file:arquitetura.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:sitemap.xml",
+      "target": "file:referencias.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:robots.txt",
+      "target": "config:sitemap.xml",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:styles.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:404.html",
+      "target": "file:styles.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:arquitetura.html",
+      "target": "file:styles.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:doar.html",
+      "target": "file:styles.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:referencias.html",
+      "target": "file:styles.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:doar.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:arquitetura.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:referencias.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:writeSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:checkAccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:submitSignup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:buildOverlay",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:attachLoginHandler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:attachSignupHandler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:showSignupSuccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:showPaywall",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:showOverlay",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:attachCardInterceptors",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:auth.js",
+      "target": "function:auth.js:bootstrap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:auth.js:attachLoginHandler",
+      "target": "function:auth.js:checkAccess",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachLoginHandler",
+      "target": "function:auth.js:writeSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachLoginHandler",
+      "target": "function:auth.js:showPaywall",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachSignupHandler",
+      "target": "function:auth.js:submitSignup",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachSignupHandler",
+      "target": "function:auth.js:showSignupSuccess",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:showPaywall",
+      "target": "function:auth.js:checkAccess",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:showOverlay",
+      "target": "function:auth.js:buildOverlay",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:showOverlay",
+      "target": "function:auth.js:attachLoginHandler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:showOverlay",
+      "target": "function:auth.js:attachSignupHandler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachCardInterceptors",
+      "target": "function:auth.js:showOverlay",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:attachCardInterceptors",
+      "target": "function:auth.js:showPaywall",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:bootstrap",
+      "target": "function:auth.js:attachCardInterceptors",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:bootstrap",
+      "target": "function:auth.js:writeSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:auth.js:bootstrap",
+      "target": "function:auth.js:showOverlay",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/apply_landing_i18n.py",
+      "target": "function:i18n/apply_landing_i18n.py:patch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/apply_landing_i18n.py",
+      "target": "function:i18n/apply_landing_i18n.py:patch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/apply_panel_i18n.py",
+      "target": "function:i18n/apply_panel_i18n.py:patch_panel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/apply_panel_i18n.py",
+      "target": "function:i18n/apply_panel_i18n.py:patch_panel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/i18n-runtime.js",
+      "target": "function:i18n/i18n-runtime.js:walk",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n-runtime.js",
+      "target": "function:i18n/i18n-runtime.js:translateOne",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n-runtime.js",
+      "target": "function:i18n/i18n-runtime.js:restorePt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n-runtime.js",
+      "target": "function:i18n/i18n-runtime.js:start",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:i18n/i18n-runtime.js:walk",
+      "target": "function:i18n/i18n-runtime.js:translateOne",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:i18n/i18n-runtime.js:walk",
+      "target": "function:i18n/i18n-runtime.js:restorePt",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:i18n/i18n-runtime.js:start",
+      "target": "function:i18n/i18n-runtime.js:walk",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/i18n-runtime.js",
+      "target": "file:i18n/i18n-text-map.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "function:i18n/i18n.js:detect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "function:i18n/i18n.js:applyDom",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "function:i18n/i18n.js:setLang",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "function:i18n/i18n.js:buildSwitcher",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "function:i18n/i18n.js:init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:i18n/i18n.js:init",
+      "target": "function:i18n/i18n.js:detect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:i18n/i18n.js:init",
+      "target": "function:i18n/i18n.js:buildSwitcher",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:i18n/i18n.js:init",
+      "target": "function:i18n/i18n.js:applyDom",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:i18n/i18n.js:setLang",
+      "target": "function:i18n/i18n.js:applyDom",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/i18n.js",
+      "target": "file:i18n/i18n-dict.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:i18n/LangSwitcher.jsx",
+      "target": "function:i18n/LangSwitcher.jsx:LangSwitcher",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:i18n/LangSwitcher.jsx",
+      "target": "function:i18n/LangSwitcher.jsx:LangSwitcher",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/LangSwitcher.jsx",
+      "target": "function:i18n/LangSwitcher.jsx:detect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:i18n/LangSwitcher.jsx:LangSwitcher",
+      "target": "function:i18n/LangSwitcher.jsx:detect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:i18n/apply_landing_i18n.py",
+      "target": "file:i18n/i18n-runtime.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:i18n/apply_landing_i18n.py",
+      "target": "file:i18n/i18n.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:i18n/apply_panel_i18n.py",
+      "target": "file:i18n/i18n-runtime.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.github/lighthouse-budget.json",
+      "target": "file:auth.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:dashboard-gate.js",
+      "target": "file:auth.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:i18n/i18n-switcher.css",
+      "target": "file:i18n/i18n.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:i18n/i18n-switcher.css",
+      "target": "file:i18n/LangSwitcher.jsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:ui",
+      "name": "Camada de Apresentação",
+      "description": "Páginas HTML estáticas do hub (landing, arquitetura, referências, doação, erro 404) e a folha de estilos atlas-editorial que define o sistema visual compartilhado.",
+      "nodeIds": [
+        "file:index.html",
+        "file:arquitetura.html",
+        "file:referencias.html",
+        "file:doar.html",
+        "file:404.html",
+        "file:styles.css"
+      ]
+    },
+    {
+      "id": "layer:auth",
+      "name": "Autenticação e Gate de Acesso",
+      "description": "Lógica client-side de cadastro/login gratuito, gestão de sessão em localStorage/sessionStorage e o gate que protege o acesso aos dashboards externos.",
+      "nodeIds": [
+        "file:auth.js",
+        "file:dashboard-gate.js"
+      ]
+    },
+    {
+      "id": "layer:i18n",
+      "name": "Internacionalização",
+      "description": "Runtime de tradução PT/EN/ES (dicionários, mapas de texto, walker de DOM, seletor de idioma) e os scripts Python que injetam o i18n na landing e nos painéis.",
+      "nodeIds": [
+        "file:i18n/i18n.js",
+        "file:i18n/i18n-runtime.js",
+        "file:i18n/i18n-dict.js",
+        "file:i18n/i18n-text-map.js",
+        "file:i18n/i18n-switcher.css",
+        "file:i18n/LangSwitcher.jsx",
+        "file:i18n/apply_landing_i18n.py",
+        "file:i18n/apply_panel_i18n.py"
+      ]
+    },
+    {
+      "id": "layer:ci-cd",
+      "name": "CI/CD e Infraestrutura",
+      "description": "Workflows do GitHub Actions (deploy no Pages, auditoria Lighthouse, verificação de links e SEO) e configs de automação como Dependabot e o orçamento de performance.",
+      "nodeIds": [
+        "pipeline:.github/workflows/deploy.yml",
+        "pipeline:.github/workflows/lighthouse.yml",
+        "pipeline:.github/workflows/link-check.yml",
+        "pipeline:.github/workflows/seo-check.yml",
+        "config:.github/dependabot.yml",
+        "config:.github/lighthouse-budget.json",
+        "step:.github/workflows/deploy.yml:Generate config.local.js",
+        "step:.github/workflows/deploy.yml:Deploy to GitHub Pages"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentação e SEO",
+      "description": "Documentos do projeto (README, guia de setup de autenticação) e artefatos de descoberta/indexação como llms.txt, robots.txt e sitemap.xml.",
+      "nodeIds": [
+        "document:README.md",
+        "document:SETUP_AUTH.md",
+        "document:llms.txt",
+        "document:robots.txt",
+        "config:sitemap.xml"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Visão Geral do Projeto",
+      "description": "Comece pelo README.md para entender o que é o Datageo Paraná: a landing page e o hub central de um ecossistema de dashboards de dados públicos do estado. O documento descreve a stack vanilla (HTML/CSS/JS, sem build nem npm), a estrutura de arquivos e o fluxo de desenvolvimento local, servindo de mapa para todo o resto do tour.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Ponto de Entrada: o Hub",
+      "description": "O index.html é a porta de entrada em tempo de execução: a landing page que lista todos os dashboards do ecossistema e amarra as demais peças do site. É aqui que se encontram o gate de acesso por cadastro, o sistema i18n PT/EN/ES e as meta tags de SEO. Por ter o maior fan-out entre as páginas, ele é o melhor ponto para enxergar a estrutura geral antes de mergulhar nas camadas.",
+      "nodeIds": [
+        "file:index.html"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Sistema Visual Compartilhado",
+      "description": "Construindo sobre o hub do Passo 2, o styles.css é a folha de estilos com maior fan-in do projeto (consumida por praticamente todas as páginas). Ele define o sistema visual atlas-editorial: a paleta cream/ink/clay, a tipografia Fraunces/Inter, o layout responsivo e os componentes reutilizados em todo o ecossistema, garantindo identidade consistente sem framework de CSS.",
+      "nodeIds": [
+        "file:styles.css"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Páginas Estáticas do Hub",
+      "description": "A camada de apresentação se completa com as páginas satélite linkadas a partir do index: arquitetura.html descreve fontes de dados, pipeline ETL e stack; referencias.html cataloga as fontes oficiais (SEAB/DERAL, IBGE, BCB, ComexStat); e doar.html apresenta o modelo gratuito sem paywall com QR Code PIX. Todas reaproveitam o styles.css do Passo 3 e o mesmo runtime i18n.",
+      "nodeIds": [
+        "file:arquitetura.html",
+        "file:referencias.html",
+        "file:doar.html"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Núcleo de Autenticação",
+      "description": "Entrando na camada de Autenticação e Gate de Acesso, o auth.js é o coração do cadastro gratuito vitalício. Ele monta dinamicamente o overlay de login/cadastro sobre a landing, valida o e-mail, persiste a sessão em localStorage/sessionStorage, conversa com um backend em Google Apps Script e ainda exibe um paywall PIX opcional para contas legadas de trial. É a lógica que decide quem pode abrir os dashboards listados no hub.",
+      "nodeIds": [
+        "file:auth.js"
+      ],
+      "languageLesson": "Em JavaScript vanilla, o gate é desenhado como uma IIFE/bootstrap que injeta o overlay no DOM e usa localStorage (persistente) versus sessionStorage (some ao fechar a aba) para separar credencial de longo prazo da sessão ativa de navegação."
+    },
+    {
+      "order": 6,
+      "title": "Gate dos Dashboards",
+      "description": "O dashboard-gate.js é o complemento client-side do auth.js: roda dentro de cada dashboard externo e verifica se existe uma sessão válida em sessionStorage. Sem sessão, ele redireciona o visitante de volta à landing carregando um parâmetro de origem, fechando o ciclo de proteção que começa no cadastro do Passo 5. Isso mostra como um site estático sem servidor consegue restringir acesso apenas com o referer e o storage do navegador.",
+      "nodeIds": [
+        "file:dashboard-gate.js"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Núcleo da Internacionalização",
+      "description": "A camada de Internacionalização oferece dois núcleos complementares. O i18n.js trabalha por atributos data-i18n: detecta o idioma (URL, localStorage, navegador), resolve chaves no dicionário i18n-dict.js e constrói o seletor de idioma. O i18n-runtime.js cobre o texto literal sem atributos, percorrendo o DOM com um TreeWalker e traduzindo via i18n-text-map.js, com o PT como fallback. Juntos, eles internacionalizam páginas estáticas sem qualquer build.",
+      "nodeIds": [
+        "file:i18n/i18n.js",
+        "file:i18n/i18n-dict.js",
+        "file:i18n/i18n-runtime.js",
+        "file:i18n/i18n-text-map.js"
+      ],
+      "languageLesson": "O TreeWalker do DOM permite varrer apenas nós de texto de forma eficiente, e um MutationObserver reaplica as traduções quando o conteúdo muda dinamicamente, evitando reescrever o HTML inteiro a cada troca de idioma."
+    },
+    {
+      "order": 8,
+      "title": "Seletor de Idioma e Estilos",
+      "description": "Completando o i18n, o i18n-switcher.css estiliza os chips de bandeira/código do seletor, com variantes para tema claro, escuro e modo OBS. O LangSwitcher.jsx é uma versão React do mesmo seletor, com estado local e persistência em localStorage/URL, pensada para os dashboards que rodam em React em vez do runtime vanilla da landing.",
+      "nodeIds": [
+        "file:i18n/i18n-switcher.css",
+        "file:i18n/LangSwitcher.jsx"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Injeção do i18n via Python",
+      "description": "Como o site não tem build, a aplicação do i18n é feita por scripts Python em tempo de manutenção. O apply_landing_i18n.py adiciona atributos i18n e injeta o runtime de tradução no HTML da landing por substituições de string e regex; o apply_panel_i18n.py faz o equivalente para cada dashboard, copiando os assets de i18n para a pasta pública do painel e injetando o runtime no index.html dele. É a cola que propaga a tradução por todo o ecossistema.",
+      "nodeIds": [
+        "file:i18n/apply_landing_i18n.py",
+        "file:i18n/apply_panel_i18n.py"
+      ],
+      "languageLesson": "Esses scripts são patchers idempotentes: usam regex/replace para inserir tags somente se ainda não existirem, evitando duplicação ao rodar várias vezes sobre o mesmo HTML."
+    },
+    {
+      "order": 10,
+      "title": "Deploy no GitHub Pages",
+      "description": "A camada de CI/CD começa pelo deploy.yml, o workflow do GitHub Actions que publica o site a cada push na branch main. Antes do deploy, ele gera o config.local.js a partir do secret TRACKING_URL (mantendo a credencial fora do repositório), empacota o conteúdo estático como artefato e o envia para o ambiente github-pages. É assim que tudo o que vimos do Passo 2 ao 9 chega ao ar.",
+      "nodeIds": [
+        "pipeline:.github/workflows/deploy.yml"
+      ],
+      "languageLesson": "Em GitHub Actions, secrets como TRACKING_URL ficam disponíveis apenas em tempo de execução do workflow; gerar o config.local.js no build evita versionar a credencial e ainda mantém o site 100% estático."
+    },
+    {
+      "order": 11,
+      "title": "Qualidade Automatizada",
+      "description": "O ecossistema mantém a saúde do site com três workflows de verificação. O lighthouse.yml roda semanalmente o Lighthouse CI contra o site publicado, comparando as métricas com os limites do lighthouse-budget.json. O link-check.yml usa o lychee para detectar links quebrados em PRs e por cron. O seo-check.yml valida que robots.txt, sitemap.xml e 404.html existam e estejam coerentes. Juntos, eles são a rede de segurança de performance, links e SEO.",
+      "nodeIds": [
+        "pipeline:.github/workflows/lighthouse.yml",
+        "pipeline:.github/workflows/link-check.yml",
+        "pipeline:.github/workflows/seo-check.yml",
+        "config:.github/lighthouse-budget.json"
+      ],
+      "languageLesson": "Workflows YAML do GitHub Actions combinam gatilhos por evento (pull_request, push) com cron agendado; rodar auditorias contra a URL já publicada testa o site real, não uma versão local que poderia divergir do que o usuário vê."
+    },
+    {
+      "order": 12,
+      "title": "Documentação e Descoberta por IA",
+      "description": "Fechando o tour, a camada de Documentação e SEO garante que o ecossistema seja entendido por pessoas e máquinas. O SETUP_AUTH.md documenta o gate de cadastro dos Passos 5 e 6 (integração com Apps Script, aprovação manual, limitações). Já llms.txt, robots.txt e sitemap.xml formam a tríade de descoberta: orientam crawlers de busca e de IA, listam os dashboards com fontes oficiais para citação e expõem as URLs públicas para indexação.",
+      "nodeIds": [
+        "document:SETUP_AUTH.md",
+        "document:llms.txt",
+        "document:robots.txt",
+        "config:sitemap.xml"
+      ]
+    }
+  ]
+}
