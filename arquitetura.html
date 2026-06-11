@@ -7,12 +7,25 @@
     <meta name="description" content="Arquitetura do ecossistema Datageo Parana - Diagramas de fluxo, camadas de aplicacao, fontes de dados e infraestrutura." />
     <meta name="author" content="Avner Gomes">
     <link rel="canonical" href="https://datageoparana.github.io/arquitetura.html" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Arquitetura - Datageo Parana">
+    <meta property="og:description" content="Arquitetura do ecossistema Datageo Parana: camadas de aplicacao, fluxos de dados, fontes oficiais e infraestrutura.">
+    <meta property="og:url" content="https://datageoparana.github.io/arquitetura.html">
+    <meta property="og:site_name" content="Datageo Parana">
+    <meta property="og:image" content="https://datageoparana.github.io/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://datageoparana.github.io/og-image.png">
     <title>Arquitetura - Datageo Parana</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='white'%3EDG%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="i18n/i18n-switcher.css" />
+    <script defer src="i18n/i18n-dict.js"></script>
+    <script defer src="i18n/i18n-text-map.js"></script>
+    <script defer src="i18n/i18n.js"></script>
+    <script defer src="i18n/i18n-runtime.js"></script>
     <script>
       window.TRACKING_CONFIG = window.TRACKING_CONFIG || {
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
@@ -188,6 +201,7 @@
     <header class="site-header">
       <div class="content-wrapper">
         <a href="index.html" class="back-link">&larr; Voltar para Datageo Parana</a>
+        <div data-i18n-switcher></div>
         <h1 class="page-title">Arquitetura</h1>
         <p class="page-subtitle">
           Visao geral do ecossistema Datageo Parana: camadas de aplicacao, fluxos de dados, fontes oficiais e infraestrutura de hospedagem.
@@ -397,37 +411,37 @@ GAPPS --> CONTROLPANEL
             </thead>
             <tbody>
               <tr>
-                <td><a href="https://datageoparana.github.io/vbp-parana/" target="_blank" rel="noopener">VBP Parana</a></td>
+                <td><a href="https://avnergomes.github.io/vbp-parana/" target="_blank" rel="noopener">VBP Parana</a></td>
                 <td>Valor Bruto da Producao Agropecuaria</td>
                 <td>RadarChart, SunburstChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/precos-diarios/" target="_blank" rel="noopener">Precos Diarios</a></td>
+                <td><a href="https://avnergomes.github.io/precos-diarios/" target="_blank" rel="noopener">Precos Diarios</a></td>
                 <td>Cotacoes diarias SIMA com previsao ML</td>
                 <td>RidgelineChart, CircularBarChart, LollipopChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/precos-florestais/" target="_blank" rel="noopener">Precos Florestais</a></td>
+                <td><a href="https://avnergomes.github.io/precos-florestais/" target="_blank" rel="noopener">Precos Florestais</a></td>
                 <td>Serie historica desde 1997</td>
                 <td>TreemapChart, LollipopChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/precos-de-terras/" target="_blank" rel="noopener">Precos de Terras</a></td>
+                <td><a href="https://avnergomes.github.io/precos-de-terras/" target="_blank" rel="noopener">Precos de Terras</a></td>
                 <td>Serie historica desde 1998</td>
                 <td>RadarChart, LollipopChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/comexstat-parana/" target="_blank" rel="noopener">ComexStat Parana</a></td>
+                <td><a href="https://avnergomes.github.io/comexstat-parana/" target="_blank" rel="noopener">ComexStat Parana</a></td>
                 <td>Comercio exterior agricola</td>
                 <td>ConnectionMap, SankeyChart, HeatmapChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/emprego-agro-parana/" target="_blank" rel="noopener">Emprego Agro</a></td>
+                <td><a href="https://avnergomes.github.io/emprego-agro-parana/" target="_blank" rel="noopener">Emprego Agro</a></td>
                 <td>Vinculos formais no agronegocio</td>
                 <td>BumpChart, CircularBarChart, LollipopChart</td>
               </tr>
               <tr>
-                <td><a href="https://datageoparana.github.io/censo-parana/" target="_blank" rel="noopener">Censo Parana</a></td>
+                <td><a href="https://avnergomes.github.io/censo-parana/" target="_blank" rel="noopener">Censo Parana</a></td>
                 <td>Evolucao demografica 1991-2022</td>
                 <td>PyramidChart, PopulationMap</td>
               </tr>

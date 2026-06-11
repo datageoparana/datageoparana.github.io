@@ -18,11 +18,11 @@ window.__I18N_TEXT_MAP__ = (function () {
   var ROWS = [
     // ── landing meta-strip + masthead ────────────────────────────────
     ["Atlas Datageo · Ed. 2026",
-      "Editorial Atlas — Ten Plates",
-      "Atlas Editorial — Diez Placas"],
-    ["X | 10 placas, 8 fontes oficiais",
-      "X | 10 plates, 8 official sources",
-      "X | 10 placas, 8 fuentes oficiales"],
+      "Datageo Atlas · 2026 Ed.",
+      "Atlas Datageo · Ed. 2026"],
+    ["10 placas, 8 fontes oficiais",
+      "10 plates, 8 official sources",
+      "10 placas, 8 fuentes oficiales"],
     ["Datageo · Paraná · Brasil",
       "Datageo · Paraná · Brazil",
       "Datageo · Paraná · Brasil"],

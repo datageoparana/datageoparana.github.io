@@ -28,7 +28,12 @@ jobs:
         env:
           TRACKING_URL: ${{ secrets.TRACKING_URL }}
         run: |
-          echo "window.TRACKING_CONFIG = { url: \"${TRACKING_URL}\" };" > config.local.js
+          if [ -n "${TRACKING_URL}" ]; then
+            echo "window.TRACKING_CONFIG = { url: \"${TRACKING_URL}\" };" > config.local.js
+          fi
+
+      - name: Remove internal files from published artifact
+        run: rm -rf SETUP_AUTH.md .understand-anything
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

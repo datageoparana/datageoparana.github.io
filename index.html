@@ -143,7 +143,7 @@
       <div class="meta-strip" role="presentation">
         <span><span class="dot" aria-hidden="true"></span> <span data-i18n="masthead.kicker">Atlas Datageo · Ed. 2026</span></span>
         <span>PR · 25.4°S × 51.5°W</span>
-        <span>X | 10 placas, 8 fontes oficiais</span>
+        <span>10 placas, 8 fontes oficiais</span>
         <span class="meta-strip-switcher" data-i18n-switcher></span>
       </div>
 
@@ -204,7 +204,7 @@
           <div class="running-head">
             <span>§ I</span>
             <span class="rule" aria-hidden="true"></span>
-            <span data-i18n="section.platesTitle">Placas 01–10</span>
+            <span data-i18n="section.platesKicker">Placas 01–10</span>
           </div>
           <h2 class="section-title"><span data-i18n="section.platesTitle">As dez placas.</span></h2>
           <p class="section-deck">
@@ -400,9 +400,9 @@
           <div class="running-head">
             <span>§ II</span>
             <span class="rule" aria-hidden="true"></span>
-            <span data-i18n="colofao.title">Sobre o projeto</span>
+            <span data-i18n="colofao.kicker">Sobre o projeto</span>
           </div>
-          <h2 class="section-title"><span data-i18n="colofao.title">Um atlas público, independente.</span></h2>
+          <h2 class="section-title"><span data-i18n="colofao.sectionTitle">Um atlas público, independente.</span></h2>
 
           <div class="colophon">
             <div class="colophon-body">
@@ -489,12 +489,12 @@
       <img src="assets/bug.png" alt="Reportar bug" width="20" height="20" />
     </button>
 
-    <div id="bug-modal" class="bug-modal" hidden>
+    <div id="bug-modal" class="bug-modal" hidden role="dialog" aria-modal="true" aria-labelledby="bug-modal-title">
       <div class="bug-backdrop"></div>
       <div class="bug-dialog">
         <div class="bug-dialog-head">
-          <h3>Reportar problema</h3>
-          <button type="button" class="bug-close" id="bug-close">&times;</button>
+          <h3 id="bug-modal-title">Reportar problema</h3>
+          <button type="button" class="bug-close" id="bug-close" aria-label="Fechar">&times;</button>
         </div>
         <form id="bug-form" class="bug-form">
           <label for="bug-page">Página com problema</label>
@@ -520,14 +520,39 @@
         </form>
       </div>
     </div>
-    <!-- Analytics Tracking URL -->
+    <!-- Analytics Tracking URL — config.local.js (gerado no deploy a partir do secret) tem precedência -->
+    <script src="config.local.js"></script>
     <script>
-      window.TRACKING_CONFIG = {
+      window.TRACKING_CONFIG = window.TRACKING_CONFIG || {
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
       };
     </script>
     <!-- Auth gate — gate ativa apenas em clique de painel ou redirect ?from= -->
     <script src="auth.js" defer></script>
+    <!-- Propaga o idioma escolhido para os dashboards (origens diferentes não compartilham localStorage) -->
+    <script>
+      (function () {
+        function syncDashboardLinks(lang) {
+          if (!lang) return;
+          document.querySelectorAll('a[href^="https://avnergomes.github.io/"]').forEach(function (a) {
+            try {
+              var url = new URL(a.href);
+              url.searchParams.set('lang', lang);
+              a.href = url.toString();
+            } catch (e) {}
+          });
+        }
+        window.addEventListener('i18n:change', function (e) {
+          syncDashboardLinks(e.detail && e.detail.lang);
+        });
+        function initial() { syncDashboardLinks(window.i18n && window.i18n.lang); }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initial);
+        } else {
+          initial();
+        }
+      })();
+    </script>
     <!-- Analytics Tracking Script - Dados anonimizados (Art. 12 LGPD) -->
     <script>
       (function () {
@@ -763,7 +788,12 @@
 
         window.initTracking = initTracking;
 
-        // Tracking dispara sempre - dados anonimizados nao exigem consentimento (Art. 12 LGPD)
+        // Respeita Do Not Track / Global Privacy Control antes de qualquer envio
+        if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl) {
+          return;
+        }
+
+        // Dados anonimizados (Art. 12 LGPD); o proxy descarta campos fora da whitelist
         if (document.readyState === 'complete') {
           setTimeout(initTracking, 100);
         } else {
@@ -780,12 +810,24 @@
         var form = document.getElementById('bug-form');
         var sent = document.getElementById('bug-sent');
 
-        function open() { modal.hidden = false; }
-        function close() { modal.hidden = true; sent.hidden = true; form.reset(); form.style.display = ''; }
+        var lastFocus = null;
+        function open() {
+          lastFocus = document.activeElement;
+          modal.hidden = false;
+          var first = document.getElementById('bug-page');
+          if (first) first.focus();
+        }
+        function close() {
+          modal.hidden = true; sent.hidden = true; form.reset(); form.style.display = '';
+          if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+        }
 
         trigger.addEventListener('click', open);
         closeBtn.addEventListener('click', close);
         backdrop.addEventListener('click', close);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !modal.hidden) close();
+        });
 
         function sanitizeHTML(str) {
           var div = document.createElement('div');

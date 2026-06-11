@@ -286,7 +286,6 @@
           try { localStorage.removeItem(TRIAL_KEY); } catch (e) {}
           setMessage(msg, 'Acesso liberado. O Datageo Paraná agora é grátis vitalício.', 'success');
           setTimeout(closeOverlayAndUnlock, 600);
-          showPaywall(overlayEl || document.querySelector('#dg-auth-overlay'), email);
         } else if (status === 'pending') {
           setMessage(msg, 'Seu cadastro está aguardando aprovação. Você receberá email quando for aprovado.', 'info');
         } else if (status === 'denied') {
@@ -388,91 +387,6 @@
     }
   }
 
-  function showPaywall(overlay, email) {
-    if (!overlay) return;
-    var loginPanel = overlay.querySelector('[data-panel="login"]');
-    var signupPanel = overlay.querySelector('[data-panel="signup"]');
-    var tabs = overlay.querySelector('.gate-tabs');
-    if (loginPanel) loginPanel.classList.add('is-hidden');
-    if (signupPanel) signupPanel.classList.add('is-hidden');
-    if (tabs) tabs.classList.add('is-hidden');
-
-    var existing = overlay.querySelector('.gate-success');
-    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
-
-    var titleEl = overlay.querySelector('.gate-title');
-    var descEl = overlay.querySelector('.gate-desc');
-    if (titleEl) titleEl.textContent = 'Período gratuito encerrado';
-    if (descEl) descEl.textContent = 'Seu trial de 30 dias acabou. Para continuar usando os painéis, escolha um plano e pague via PIX.';
-
-    var card = overlay.querySelector('.gate-card');
-    var paywall = document.createElement('div');
-    paywall.className = 'gate-success';
-    paywall.innerHTML = [
-      '<h2 class="gate-success-title">Escolha um plano para continuar</h2>',
-      '<p class="gate-success-desc">Conta: <strong>' + escapeHtml(email || '') + '</strong></p>',
-      '<div class="gate-pricing">',
-      '  <div class="gate-price">',
-      '    <div class="gate-price-tag">Avulso</div>',
-      '    <div class="gate-price-value">R$ 10</div>',
-      '    <div class="gate-price-period">acesso único</div>',
-      '  </div>',
-      '  <div class="gate-price is-featured">',
-      '    <div class="gate-price-tag">Mensal</div>',
-      '    <div class="gate-price-value">R$ 50</div>',
-      '    <div class="gate-price-period">por mês</div>',
-      '  </div>',
-      '  <div class="gate-price">',
-      '    <div class="gate-price-tag">Anual</div>',
-      '    <div class="gate-price-value">R$ 500</div>',
-      '    <div class="gate-price-period">por ano</div>',
-      '  </div>',
-      '</div>',
-      '<div class="gate-pix">',
-      '  <div class="gate-pix-label">Pague via PIX</div>',
-      '  <a class="gate-pix-qr" href="qrcode_pix.png" download="datageo-parana-pix.png" title="Clique para baixar o QR Code">',
-      '    <img src="qrcode_pix.png" alt="QR Code PIX para pagamento" width="180" height="180" />',
-      '    <span class="gate-pix-hint">Clique para baixar</span>',
-      '  </a>',
-      '  <p class="gate-pix-note">Após o pagamento, clique em "Já paguei" abaixo. Liberamos o acesso assim que confirmarmos.</p>',
-      '</div>',
-      '<div class="gate-success-actions">',
-      '  <button type="button" class="btn primary gate-btn" id="dg-paywall-check">Já paguei — verificar acesso</button>',
-      '</div>',
-      '<p class="gate-message" id="dg-paywall-msg" role="status" aria-live="polite"></p>'
-    ].join('');
-    card.appendChild(paywall);
-
-    var checkBtn = paywall.querySelector('#dg-paywall-check');
-    var msg = paywall.querySelector('#dg-paywall-msg');
-    if (checkBtn) {
-      checkBtn.addEventListener('click', function () {
-        if (!email) return;
-        checkBtn.disabled = true;
-        checkBtn.textContent = 'Verificando...';
-        setMessage(msg, '');
-        checkAccess(email).then(function (data) {
-          var status = (data.status || '').toLowerCase();
-          if (status === 'approved' && data.plan !== 'trial' && !data.trialExpiresAt) {
-            writeSession(email, { trial: false, plan: data.plan || 'paid' });
-            try { localStorage.removeItem(TRIAL_KEY); } catch (e) {}
-            setMessage(msg, 'Pagamento confirmado. Redirecionando...', 'success');
-            setTimeout(closeOverlayAndUnlock, 600);
-          } else if (status === 'trial_expired' || status === 'approved') {
-            setMessage(msg, 'Ainda não recebemos a confirmação do pagamento. Aguarde alguns minutos e tente de novo.', 'info');
-          } else {
-            setMessage(msg, 'Não foi possível confirmar. Verifique o PIX ou contate o administrador.', 'error');
-          }
-        }).catch(function () {
-          setMessage(msg, 'Falha na verificação. Tente novamente em instantes.', 'error');
-        }).then(function () {
-          checkBtn.disabled = false;
-          checkBtn.textContent = 'Já paguei — verificar acesso';
-        });
-      });
-    }
-  }
-
   function escapeHtml(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -551,13 +465,12 @@
         e.stopPropagation();
         pendingNavigationUrl = link.href;
         showOverlay();
-        var trialRec = readTrialRecord();
-        if (trialIsExpired(trialRec) && trialRec && trialRec.email) {
-          showPaywall(overlayEl, trialRec.email);
-        }
       });
     });
   }
+
+  // Hosts permitidos para o redirect pós-login via ?from= (evita open redirect).
+  var ALLOWED_FROM_HOSTS = ['datageoparana.github.io', 'avnergomes.github.io'];
 
   function getFromParamUrl() {
     try {
@@ -566,7 +479,9 @@
       if (!raw) return null;
       var decoded = decodeURIComponent(raw);
       if (!/^[a-z0-9.\-]+\.[a-z]{2,}\//i.test(decoded)) return null;
-      return 'https://' + decoded.replace(/^\/+/, '');
+      var url = new URL('https://' + decoded.replace(/^\/+/, ''));
+      if (ALLOWED_FROM_HOSTS.indexOf(url.hostname) === -1) return null;
+      return url.href;
     } catch (e) {
       return null;
     }
