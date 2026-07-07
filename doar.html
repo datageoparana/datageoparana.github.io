@@ -17,7 +17,11 @@
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- CSS de fontes carregado de forma não bloqueante (media=print + onload) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="i18n/i18n-switcher.css" />
     <script defer src="i18n/i18n-dict.js"></script>
@@ -106,6 +110,53 @@
       }
       .donate-list li { display: flex; gap: 10px; align-items: baseline; }
       .donate-list li::before { content: "·"; font-family: var(--mono); color: var(--clay); font-weight: 700; }
+      .donate-receiver {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+      .donate-copy-wrap {
+        border: 1px solid var(--rule);
+        background: var(--paper-warm);
+        padding: clamp(16px, 3vw, 24px);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 32px;
+      }
+      .donate-copy-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--clay);
+        font-weight: 700;
+        margin: 0;
+      }
+      .donate-copy-row { display: flex; gap: 8px; flex-wrap: wrap; }
+      .donate-copy-input {
+        flex: 1;
+        min-width: 200px;
+        padding: 12px 14px;
+        border: 1px solid var(--ink);
+        border-radius: 0;
+        background: #fff;
+        font-family: var(--mono);
+        font-size: 1rem;
+        color: var(--ink);
+        text-overflow: ellipsis;
+      }
+      .donate-copy-feedback {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--forest);
+        margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -130,6 +181,17 @@
             <img src="qrcode_pix.png" alt="QR Code PIX para doação ao Datageo Paraná" width="260" height="260" />
           </a>
           <p class="donate-qr-caption" data-i18n="donate.qrCaption">Escaneie com o app do seu banco</p>
+          <p class="donate-receiver" data-i18n="donate.receiver">Chave PIX em nome de Avner Paes Gomes.</p>
+        </div>
+
+        <div class="donate-copy-wrap">
+          <p class="donate-copy-label" id="pix-copy-label" data-i18n="donate.copyLabel">PIX copia e cola</p>
+          <div class="donate-copy-row">
+            <input id="pix-code" class="donate-copy-input" type="text" readonly aria-labelledby="pix-copy-label"
+              value="00020126580014BR.GOV.BCB.PIX01360995a46a-d125-40ba-8a41-3d4a7f540fcd5204000053039865802BR5916Avner Paes Gomes6009SAO PAULO62140510i5PcbBKyR5630456B7" />
+            <button id="pix-copy-btn" class="btn primary" type="button" data-i18n="donate.copyBtn">Copiar código</button>
+          </div>
+          <p class="donate-copy-feedback" id="pix-copied" role="status" hidden data-i18n="donate.copied">Código copiado!</p>
         </div>
 
         <p class="donate-note" data-i18n="donate.note">
@@ -151,5 +213,34 @@
         </div>
       </footer>
     </div>
+    <script>
+      (function () {
+        var btn = document.getElementById('pix-copy-btn');
+        var input = document.getElementById('pix-code');
+        var feedback = document.getElementById('pix-copied');
+        if (!btn || !input) return;
+        function showFeedback() {
+          if (!feedback) return;
+          feedback.hidden = false;
+          setTimeout(function () { feedback.hidden = true; }, 4000);
+        }
+        function fallbackCopy() {
+          try {
+            input.focus();
+            input.select();
+            input.setSelectionRange(0, input.value.length);
+            var ok = document.execCommand('copy');
+            if (ok) showFeedback();
+          } catch (e) { /* seleção manual continua possível */ }
+        }
+        btn.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(input.value).then(showFeedback, fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

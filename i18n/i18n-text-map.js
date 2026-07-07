@@ -1257,6 +1257,91 @@ window.__I18N_TEXT_MAP__ = (function () {
     // ── banner de convite ao hub (substituiu o referer gate) ─────────
     ["Este painel faz parte do ecossistema Datageo Paraná.", "This dashboard is part of the Datageo Paraná ecosystem.", "Este panel forma parte del ecosistema Datageo Paraná."],
     ["Conhecer o hub", "Visit the hub", "Conocer el hub"],
+
+    // ── gate de cadastro/login (auth.js): strings estáticas ──────────
+    ["Acesso ao Datageo Paraná", "Access to Datageo Paraná", "Acceso a Datageo Paraná"],
+    ["Fechar e voltar para a página inicial", "Close and return to the home page", "Cerrar y volver a la página de inicio"],
+    ["Acesso aos painéis · grátis vitalício", "Access to the dashboards · free for life", "Acceso a los paneles · gratis de por vida"],
+    ["Cadastro único para liberar os painéis. Sem paywall, sem trial: o Datageo Paraná é gratuito para sempre. Código e dados abertos.",
+      "One-time registration to unlock the dashboards. No paywall, no trial: Datageo Paraná is free forever. Open code and data.",
+      "Registro único para desbloquear los paneles. Sin paywall, sin prueba: Datageo Paraná es gratuito para siempre. Código y datos abiertos."],
+    ["Criar acesso gratuito", "Create free access", "Crear acceso gratuito"],
+    ["seu.email@exemplo.com", "your.email@example.com", "tu.correo@ejemplo.com"],
+    ["Empresa ou instituição", "Company or institution", "Empresa o institución"],
+    ["Empresa ou instituição (opcional)", "Company or institution (optional)", "Empresa o institución (opcional)"],
+    ["Telefone", "Phone", "Teléfono"],
+    ["Telefone (opcional)", "Phone (optional)", "Teléfono (opcional)"],
+    ["Motivo do acesso", "Reason for access", "Motivo del acceso"],
+    ["Como pretende usar os dados? (opcional)", "How do you plan to use the data? (optional)", "¿Cómo piensa usar los datos? (opcional)"],
+    ["Seus dados de cadastro (nome, email e telefone) são usados apenas para controle de acesso e contato. A navegação gera estatísticas anonimizadas (LGPD).",
+      "Your registration data (name, email and phone) is used only for access control and contact. Browsing generates anonymized statistics (LGPD).",
+      "Sus datos de registro (nombre, correo y teléfono) se usan solo para control de acceso y contacto. La navegación genera estadísticas anonimizadas (LGPD)."],
+
+    // ── gate de cadastro/login (auth.js): mensagens dinâmicas ────────
+    ["Informe um email válido.", "Enter a valid email.", "Ingrese un correo electrónico válido."],
+    ["Informe seu nome completo.", "Enter your full name.", "Ingrese su nombre completo."],
+    ["Verificando...", "Checking...", "Verificando..."],
+    ["Enviando...", "Sending...", "Enviando..."],
+    ["Enviando, pode levar até 30s...", "Sending, this can take up to 30s...", "Enviando, puede tardar hasta 30s..."],
+    ["Acesso liberado. Redirecionando...", "Access granted. Redirecting...", "Acceso liberado. Redirigiendo..."],
+    ["Acesso liberado. O Datageo Paraná agora é grátis vitalício.", "Access granted. Datageo Paraná is now free for life.", "Acceso liberado. Datageo Paraná ahora es gratis de por vida."],
+    ["Não achamos esse email na base. Reative seu acesso em segundos: o cadastro é gratuito, vitalício e liberado na hora. Uma falha técnica em junho de 2026 perdeu alguns cadastros; se era o seu caso, basta reenviar o formulário.",
+      "We could not find this email in our records. Reactivate your access in seconds: registration is free, lifelong and granted instantly. A technical failure in June 2026 lost a few registrations; if that was your case, just resubmit the form.",
+      "No encontramos este correo en nuestra base. Reactive su acceso en segundos: el registro es gratuito, vitalicio y se libera al instante. Una falla técnica en junio de 2026 perdió algunos registros; si fue su caso, basta reenviar el formulario."],
+    ["Seu cadastro é do modelo antigo de aprovação. Reenvie o formulário abaixo para liberar o acesso gratuito na hora.",
+      "Your registration is from the old approval model. Resubmit the form below to unlock free access instantly.",
+      "Su registro es del modelo antiguo de aprobación. Reenvíe el formulario a continuación para liberar el acceso gratuito al instante."],
+    ["Acesso negado para este email. Se acha que houve engano, escreva para avnerpaesgomes@gmail.com.",
+      "Access denied for this email. If you believe this is a mistake, write to avnerpaesgomes@gmail.com.",
+      "Acceso denegado para este correo. Si cree que hubo un error, escriba a avnerpaesgomes@gmail.com."],
+    ["Não foi possível verificar agora. Tente novamente em instantes.",
+      "We could not verify right now. Please try again shortly.",
+      "No se pudo verificar ahora. Inténtelo de nuevo en unos instantes."],
+    ["O servidor demorou a responder e seu cadastro pode ter sido enviado. Aguarde um minuto e tente a aba Entrar com seu email.",
+      "The server took too long to respond and your registration may have gone through. Wait a minute and try the Sign in tab with your email.",
+      "El servidor tardó en responder y su registro puede haberse enviado. Espere un minuto e intente la pestaña Entrar con su correo."],
+    ["O servidor não confirmou o cadastro. Tente novamente; se continuar falhando, escreva para avnerpaesgomes@gmail.com.",
+      "The server did not confirm the registration. Try again; if it keeps failing, write to avnerpaesgomes@gmail.com.",
+      "El servidor no confirmó el registro. Inténtelo de nuevo; si sigue fallando, escriba a avnerpaesgomes@gmail.com."],
+
+    // ── gate de cadastro/login (auth.js): tela de sucesso ────────────
+    // A frase de confirmação intercala <strong>email</strong>, então os dois
+    // fragmentos de texto são mapeados separadamente (o walker traduz por
+    // text node, com a chave PT já com trim aplicado).
+    ["Acesso liberado · grátis vitalício", "Access granted · free for life", "Acceso liberado · gratis de por vida"],
+    ["Cadastro confirmado para", "Registration confirmed for", "Registro confirmado para"],
+    [". O Datageo Paraná é gratuito para sempre, sem paywall e sem período de teste. Código e dados abertos.",
+      ". Datageo Paraná is free forever, with no paywall and no trial period. Open code and data.",
+      ". Datageo Paraná es gratuito para siempre, sin paywall y sin período de prueba. Código y datos abiertos."],
+    ["Apoie com uma doação (opcional)", "Support with a donation (optional)", "Apoye con una donación (opcional)"],
+    ["Baixar QR Code PIX", "Download the PIX QR Code", "Descargar el código QR PIX"],
+    ["Clique para baixar", "Click to download", "Haga clic para descargar"],
+    ["Doações via PIX ajudam a custear domínios, armazenamento e novas placas. Nada é condição de acesso.",
+      "PIX donations help cover domains, storage and new plates. Nothing is a condition of access.",
+      "Las donaciones vía PIX ayudan a costear dominios, almacenamiento y nuevas placas. Nada es condición de acceso."],
+    ["Acessar painéis agora", "Access the dashboards now", "Acceder a los paneles ahora"],
+
+    // ── landing: vocabulário painéis + aviso de cadastro pré-clique ──
+    ["Explorar os dez painéis", "Explore the ten dashboards", "Explorar los diez paneles"],
+    ["As dez placas: dez painéis interativos.",
+      "The ten plates: ten interactive dashboards.",
+      "Las diez placas: diez paneles interactivos."],
+    ["Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social. O acesso é grátis vitalício: basta um cadastro único com email no primeiro acesso, liberado na hora.",
+      "Each plate is an independent interactive dashboard: tables, maps, charts, municipal cross-sections and export. Listed in recommended reading order, from the market to the social fabric. Access is free for life: just a one-time signup with your email on first access, granted instantly.",
+      "Cada placa es un panel interactivo independiente: tablas, mapas, gráficos, recortes municipales y exportación. Listadas en orden de lectura recomendado, del mercado al tejido social. El acceso es gratis de por vida: basta un registro único con correo en el primer acceso, liberado al instante."],
+    ["Abrir painel", "Open dashboard", "Abrir panel"],
+    ["Grátis vitalício. Cadastro único com email no primeiro acesso.",
+      "Free for life. One-time signup with your email on first access.",
+      "Gratis de por vida. Registro único con correo en el primer acceso."],
+
+    // ── landing: navegação do footer ─────────────────────────────────
+    ["Navegação", "Navigation", "Navegación"],
+    ["Doar via PIX", "Donate via PIX", "Donar vía PIX"],
+    ["Contato", "Contact", "Contacto"],
+
+    // ── gate (auth.js): linha discreta de doação na tela de sucesso ──
+    ["Quer apoiar o projeto?", "Want to support the project?", "¿Quieres apoyar el proyecto?"],
+    ["Doe via PIX (opcional)", "Donate via PIX (optional)", "Dona vía PIX (opcional)"],
   ];
 
   var en = {}, es = {};

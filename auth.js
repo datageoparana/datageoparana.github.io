@@ -1,13 +1,14 @@
 /**
  * Datageo Paraná - Login Gate
  *
- * Sistema simples de gate por email com aprovação manual.
+ * Sistema simples de gate por email com cadastro único: acesso grátis
+ * vitalício, liberado na hora (sem trial, sem aprovação manual).
  *
  * Fluxo:
- *  1. Usuário sem sessão vê overlay de bloqueio com 2 abas: Entrar / Cadastrar
+ *  1. Usuário sem sessão vê overlay com 2 abas: Entrar / Criar acesso gratuito
  *  2. Entrar: digita email -> consulta Apps Script -> se status APROVADO, libera
- *  3. Cadastrar: preenche formulário -> envia ao Apps Script -> aguarda aprovação
- *  4. Sessão dura 30 dias via localStorage
+ *  3. Criar acesso: preenche formulário -> Apps Script grava -> acesso na hora
+ *  4. Sessão dura 30 dias via localStorage, renovada a cada visita (deslizante)
  *
  * Configuração: window.TRACKING_CONFIG.url precisa apontar para o Apps Script.
  * Admin sempre aprovado: configurado em ALWAYS_APPROVED no Apps Script.
@@ -138,10 +139,10 @@
       '  <h1 class="gate-title">Acesso aos painéis · grátis vitalício</h1>',
       '  <p class="gate-desc">Cadastro único para liberar os painéis. Sem paywall, sem trial: o Datageo Paraná é gratuito para sempre. Código e dados abertos.</p>',
       '  <div class="gate-tabs" role="tablist">',
-      '    <button type="button" class="gate-tab is-active" role="tab" aria-selected="true" data-tab="login">Entrar</button>',
-      '    <button type="button" class="gate-tab" role="tab" aria-selected="false" data-tab="signup">Solicitar acesso</button>',
+      '    <button type="button" class="gate-tab is-active" id="dg-tab-login" role="tab" aria-selected="true" aria-controls="dg-panel-login" data-tab="login">Entrar</button>',
+      '    <button type="button" class="gate-tab" id="dg-tab-signup" role="tab" aria-selected="false" aria-controls="dg-panel-signup" tabindex="-1" data-tab="signup">Criar acesso gratuito</button>',
       '  </div>',
-      '  <div class="gate-panel" data-panel="login">',
+      '  <div class="gate-panel" id="dg-panel-login" role="tabpanel" aria-labelledby="dg-tab-login" data-panel="login">',
       '    <form class="gate-form" id="dg-login-form" novalidate>',
       '      <label for="dg-login-email" class="sr-only">Email</label>',
       '      <input id="dg-login-email" type="email" required autocomplete="email" placeholder="seu.email@exemplo.com" />',
@@ -149,7 +150,7 @@
       '      <p class="gate-message" id="dg-login-msg" role="status" aria-live="polite"></p>',
       '    </form>',
       '  </div>',
-      '  <div class="gate-panel is-hidden" data-panel="signup">',
+      '  <div class="gate-panel is-hidden" id="dg-panel-signup" role="tabpanel" aria-labelledby="dg-tab-signup" data-panel="signup">',
       '    <form class="gate-form" id="dg-signup-form" novalidate>',
       '      <label for="dg-signup-name" class="sr-only">Nome completo</label>',
       '      <input id="dg-signup-name" type="text" required autocomplete="name" placeholder="Nome completo" />',
@@ -161,11 +162,11 @@
       '      <input id="dg-signup-phone" type="tel" autocomplete="tel" placeholder="Telefone (opcional)" />',
       '      <label for="dg-signup-reason" class="sr-only">Motivo do acesso</label>',
       '      <textarea id="dg-signup-reason" rows="3" placeholder="Como pretende usar os dados? (opcional)"></textarea>',
-      '      <button type="submit" class="btn primary gate-btn" id="dg-signup-submit">Solicitar acesso</button>',
+      '      <button type="submit" class="btn primary gate-btn" id="dg-signup-submit">Criar acesso gratuito</button>',
       '      <p class="gate-message" id="dg-signup-msg" role="status" aria-live="polite"></p>',
       '    </form>',
       '  </div>',
-      '  <p class="gate-note">Ao continuar, você concorda com a coleta de dados anonimizados de navegação (LGPD Art. 12).</p>',
+      '  <p class="gate-note">Seus dados de cadastro (nome, email e telefone) são usados apenas para controle de acesso e contato. A navegação gera estatísticas anonimizadas (LGPD).</p>',
       '</div>'
     ].join('');
     return overlay;
@@ -242,22 +243,53 @@
     });
   }
 
-  function attachTabHandlers(overlay) {
+  function setActiveTab(overlay, tab) {
     var tabs = overlay.querySelectorAll('.gate-tab');
     var panels = overlay.querySelectorAll('.gate-panel');
-    tabs.forEach(function (tab) {
+    var name = tab.getAttribute('data-tab');
+    tabs.forEach(function (t) {
+      var active = t === tab;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('is-hidden', p.getAttribute('data-panel') !== name);
+    });
+  }
+
+  function attachTabHandlers(overlay) {
+    var tabs = overlay.querySelectorAll('.gate-tab');
+    tabs.forEach(function (tab, idx) {
       tab.addEventListener('click', function () {
-        var name = tab.getAttribute('data-tab');
-        tabs.forEach(function (t) {
-          var active = t === tab;
-          t.classList.toggle('is-active', active);
-          t.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        panels.forEach(function (p) {
-          p.classList.toggle('is-hidden', p.getAttribute('data-panel') !== name);
-        });
+        setActiveTab(overlay, tab);
+      });
+      // Padrão WAI-ARIA de tabs: setas movem o foco e ativam a aba.
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(idx + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') next = tabs[0];
+        else if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) {
+          e.preventDefault();
+          setActiveTab(overlay, next);
+          next.focus();
+        }
       });
     });
+  }
+
+  // Troca para a aba de cadastro com o email pré-preenchido e mensagem
+  // orientando o recadastro (usado pelos branches not_found e pending).
+  function switchToSignup(overlay, email, messageText) {
+    var signupTab = overlay.querySelector('.gate-tab[data-tab="signup"]');
+    if (signupTab) setActiveTab(overlay, signupTab);
+    var emailInput = overlay.querySelector('#dg-signup-email');
+    if (emailInput && email) emailInput.value = email;
+    setMessage(overlay.querySelector('#dg-signup-msg'), messageText, 'info');
+    var nameInput = overlay.querySelector('#dg-signup-name');
+    if (nameInput) nameInput.focus();
   }
 
   function attachLoginHandler(overlay) {
@@ -298,11 +330,16 @@
           setMessage(msg, 'Acesso liberado. O Datageo Paraná agora é grátis vitalício.', 'success');
           setTimeout(closeOverlayAndUnlock, 600);
         } else if (status === 'pending') {
-          setMessage(msg, 'Seu cadastro está aguardando aprovação. Você receberá email quando for aprovado.', 'info');
+          // Resquício do modelo antigo de aprovação manual: orienta o
+          // recadastro, que hoje libera o acesso na hora.
+          switchToSignup(overlay, email, 'Seu cadastro é do modelo antigo de aprovação. Reenvie o formulário abaixo para liberar o acesso gratuito na hora.');
         } else if (status === 'denied') {
-          setMessage(msg, 'Acesso negado para este email. Entre em contato com o administrador.', 'error');
+          setMessage(msg, 'Acesso negado para este email. Se acha que houve engano, escreva para avnerpaesgomes@gmail.com.', 'error');
         } else {
-          setMessage(msg, 'Email não encontrado. Use a aba "Solicitar acesso" para se cadastrar.', 'error');
+          // Email não encontrado: troca para a aba de cadastro com o email
+          // já preenchido. O recadastro é gratuito e imediato, inclusive para
+          // quem perdeu o cadastro na falha técnica de junho de 2026.
+          switchToSignup(overlay, email, 'Não achamos esse email na base. Reative seu acesso em segundos: o cadastro é gratuito, vitalício e liberado na hora. Uma falha técnica em junho de 2026 perdeu alguns cadastros; se era o seu caso, basta reenviar o formulário.');
         }
       }).catch(function () {
         setMessage(msg, 'Não foi possível verificar agora. Tente novamente em instantes.', 'error');
@@ -332,7 +369,8 @@
 
       btn.disabled = true;
       btn.textContent = 'Enviando...';
-      setMessage(msg, '');
+      // O Apps Script envia emails de forma síncrona; a espera é normal.
+      setMessage(msg, 'Enviando, pode levar até 30s...', 'info');
 
       var payload = {
         name: nameVal,
@@ -344,10 +382,14 @@
 
       submitSignup(payload).then(function () {
         showSignupSuccess(overlay, emailVal);
-      }).catch(function () {
-        setMessage(msg, 'Falha ao enviar. Tente novamente em instantes.', 'error');
+      }).catch(function (err) {
+        if (err && err.message === 'timeout') {
+          setMessage(msg, 'O servidor demorou a responder e seu cadastro pode ter sido enviado. Aguarde um minuto e tente a aba Entrar com seu email.', 'error');
+        } else {
+          setMessage(msg, 'O servidor não confirmou o cadastro. Tente novamente; se continuar falhando, escreva para avnerpaesgomes@gmail.com.', 'error');
+        }
         btn.disabled = false;
-        btn.textContent = 'Solicitar acesso';
+        btn.textContent = 'Criar acesso gratuito';
       });
     });
   }
@@ -367,6 +409,8 @@
     var card = overlay.querySelector('.gate-card');
     var success = document.createElement('div');
     success.className = 'gate-success';
+    // Anuncia a confirmação para leitores de tela (região de status).
+    success.setAttribute('role', 'status');
     success.innerHTML = [
       '<div class="gate-success-icon" aria-hidden="true">',
       '  <svg viewBox="0 0 24 24" width="42" height="42">',
@@ -376,17 +420,12 @@
       '</div>',
       '<h2 class="gate-success-title">Acesso liberado · grátis vitalício</h2>',
       '<p class="gate-success-desc">Cadastro confirmado para <strong>' + escapeHtml(email) + '</strong>. O Datageo Paraná é gratuito para sempre, sem paywall e sem período de teste. Código e dados abertos.</p>',
-      '<div class="gate-pix">',
-      '  <div class="gate-pix-label">Apoie com uma doação (opcional)</div>',
-      '  <a class="gate-pix-qr" href="qrcode_pix.png" download="datageo-parana-pix.png" title="Baixar QR Code PIX">',
-      '    <img src="qrcode_pix.png" alt="QR Code PIX para doação" width="160" height="160" />',
-      '    <span class="gate-pix-hint">Clique para baixar</span>',
-      '  </a>',
-      '  <p class="gate-pix-note">Doações via PIX ajudam a custear domínios, armazenamento e novas placas. Nada é condição de acesso.</p>',
-      '</div>',
       '<div class="gate-success-actions">',
       '  <button type="button" class="btn primary gate-btn" id="dg-success-enter">Acessar painéis agora</button>',
-      '</div>'
+      '</div>',
+      // Doação reduzida a uma linha discreta: o pitch completo (QR, copia e
+      // cola) vive em doar.html, sem empurrar o CTA principal para baixo.
+      '<p class="gate-donate-line">Quer apoiar o projeto? <a href="doar.html" target="_blank" rel="noopener">Doe via PIX (opcional)</a>.</p>'
     ].join('');
     card.appendChild(success);
 
@@ -395,6 +434,9 @@
       enterBtn.addEventListener('click', function () {
         closeOverlayAndUnlock();
       });
+      // O botão de submit ficou num painel display:none; devolve o foco
+      // ao CTA principal para o teclado/leitor de tela não cair no body.
+      enterBtn.focus();
     }
   }
 
@@ -406,6 +448,41 @@
 
   var overlayEl = null;
   var pendingNavigationUrl = null;
+  var lastFocusEl = null;
+
+  function overlayIsVisible() {
+    return !!(overlayEl && !overlayEl.classList.contains('gate-hidden'));
+  }
+
+  function restoreLastFocus() {
+    if (lastFocusEl && typeof lastFocusEl.focus === 'function' && document.contains(lastFocusEl)) {
+      lastFocusEl.focus();
+    }
+    lastFocusEl = null;
+  }
+
+  // Propaga o idioma escolhido no hub para o painel de destino
+  // (origens diferentes não compartilham localStorage).
+  function withLang(urlStr) {
+    try {
+      var lang = window.i18n && window.i18n.lang;
+      if (!lang || lang === 'pt') return urlStr;
+      var url = new URL(urlStr, window.location.href);
+      url.searchParams.set('lang', lang);
+      return url.href;
+    } catch (e) {
+      return urlStr;
+    }
+  }
+
+  function focusFirstField(overlay) {
+    var fields = overlay.querySelectorAll('input, textarea');
+    for (var i = 0; i < fields.length; i++) {
+      if (fields[i].offsetParent !== null) { fields[i].focus(); return; }
+    }
+    var successBtn = overlay.querySelector('#dg-success-enter');
+    if (successBtn) successBtn.focus();
+  }
 
   function closeOverlayAndUnlock() {
     var nextUrl = pendingNavigationUrl;
@@ -418,24 +495,31 @@
           overlayEl = null;
         }
         if (nextUrl) {
-          window.location.href = nextUrl;
+          window.location.href = withLang(nextUrl);
         }
       }, 350);
     }
     unlockBody();
     document.dispatchEvent(new CustomEvent('dg:auth:unlocked'));
+    if (!nextUrl) restoreLastFocus();
   }
 
   function dismissOverlay() {
-    pendingNavigationUrl = null;
+    // Fechar com X, Esc ou backdrop apenas ESCONDE o overlay: o formulário
+    // preenchido e a pendingNavigationUrl sobrevivem para a reabertura.
     cleanFromParam();
-    closeOverlayAndUnlock();
+    if (overlayEl) overlayEl.classList.add('gate-hidden');
+    unlockBody();
+    document.dispatchEvent(new CustomEvent('dg:auth:unlocked'));
+    restoreLastFocus();
   }
 
   function showOverlay() {
+    lastFocusEl = document.activeElement;
     if (overlayEl) {
-      var existingInput = overlayEl.querySelector('input[type="email"]');
-      if (existingInput) existingInput.focus();
+      overlayEl.classList.remove('gate-hidden');
+      lockBody();
+      focusFirstField(overlayEl);
       return;
     }
     lockBody();
@@ -445,8 +529,7 @@
     attachLoginHandler(overlayEl);
     attachSignupHandler(overlayEl);
     attachDismissHandlers(overlayEl);
-    var firstInput = overlayEl.querySelector('input[type="email"]');
-    if (firstInput) firstInput.focus();
+    focusFirstField(overlayEl);
   }
 
   function attachDismissHandlers(overlay) {
@@ -455,13 +538,40 @@
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) dismissOverlay();
     });
+    // addEventListener com a mesma referência não duplica handlers.
     document.addEventListener('keydown', escClose);
+    document.addEventListener('keydown', trapFocus);
   }
 
   function escClose(e) {
-    if (e.key === 'Escape' && overlayEl) {
-      document.removeEventListener('keydown', escClose);
+    if (e.key === 'Escape' && overlayIsVisible()) {
       dismissOverlay();
+    }
+  }
+
+  // Focus trap: enquanto o dialog aria-modal estiver aberto, Tab circula
+  // apenas pelos elementos focáveis visíveis do overlay.
+  function trapFocus(e) {
+    if (e.key !== 'Tab' || !overlayIsVisible()) return;
+    var nodes = overlayEl.querySelectorAll('button, input, textarea, a[href]');
+    var focusables = [];
+    for (var i = 0; i < nodes.length; i++) {
+      if (!nodes[i].disabled && nodes[i].offsetParent !== null && nodes[i].tabIndex !== -1) {
+        focusables.push(nodes[i]);
+      }
+    }
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    var active = document.activeElement;
+    if (e.shiftKey) {
+      if (active === first || !overlayEl.contains(active)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else if (active === last || !overlayEl.contains(active)) {
+      e.preventDefault();
+      first.focus();
     }
   }
 
@@ -486,11 +596,12 @@
   function getFromParamUrl() {
     try {
       var params = new URLSearchParams(window.location.search);
+      // URLSearchParams já decodifica; decodificar de novo corromperia
+      // URLs de painel com %XX legítimos no search/hash.
       var raw = params.get('from');
       if (!raw) return null;
-      var decoded = decodeURIComponent(raw);
-      if (!/^[a-z0-9.\-]+\.[a-z]{2,}\//i.test(decoded)) return null;
-      var url = new URL('https://' + decoded.replace(/^\/+/, ''));
+      if (!/^[a-z0-9.\-]+\.[a-z]{2,}\//i.test(raw)) return null;
+      var url = new URL('https://' + raw.replace(/^\/+/, ''));
       if (ALLOWED_FROM_HOSTS.indexOf(url.hostname) === -1) return null;
       return url.href;
     } catch (e) {
@@ -521,10 +632,19 @@
     var expiredTrial = trialIsExpired(trialRec);
 
     if (session) {
+      // Renovação deslizante: cada visita com sessão válida estende o
+      // expiresAt por mais 30 dias; o TTL só derruba visitantes inativos.
+      try {
+        session = writeSession(session.email, {
+          trial: session.trial === true,
+          trialUntil: session.trialUntil || null,
+          plan: session.plan
+        });
+      } catch (e) { /* storage indisponível: mantém a sessão atual */ }
       sessionStorage.setItem('dg_access_email', session.email);
       if (fromUrl) {
         cleanFromParam();
-        window.location.href = fromUrl;
+        window.location.href = withLang(fromUrl);
         return;
       }
       cleanFromParam();
@@ -539,7 +659,7 @@
       sessionStorage.setItem('dg_access_email', trialRec.email);
       if (fromUrl) {
         cleanFromParam();
-        window.location.href = fromUrl;
+        window.location.href = withLang(fromUrl);
         return;
       }
       cleanFromParam();

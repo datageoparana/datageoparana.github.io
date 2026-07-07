@@ -97,7 +97,11 @@
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- CSS de fontes carregado de forma não bloqueante (media=print + onload) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
     <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
     <!-- Google Analytics 4 (descomente e substitua GA_MEASUREMENT_ID para ativar)
@@ -144,6 +148,7 @@
         <span><span class="dot" aria-hidden="true"></span> <span data-i18n="masthead.kicker">Atlas Datageo · Ed. 2026</span></span>
         <span>PR · 25.4°S × 51.5°W</span>
         <span>10 placas, 8 fontes oficiais</span>
+        <button type="button" class="meta-login" id="dg-login-open">Entrar</button>
         <span class="meta-strip-switcher" data-i18n-switcher></span>
       </div>
 
@@ -192,7 +197,8 @@
               Séries: <b>1991 → 2025</b>
             </div>
             <div class="cta-row">
-              <a class="btn primary" href="#placas" data-i18n="masthead.cta">Abrir o índice</a>
+              <a class="btn primary" href="#placas" data-i18n="masthead.cta">Explorar os dez painéis</a>
+              <p class="cta-note">Grátis vitalício. Cadastro único com email no primeiro acesso.</p>
             </div>
           </div>
         </div>
@@ -206,9 +212,9 @@
             <span class="rule" aria-hidden="true"></span>
             <span data-i18n="section.platesKicker">Placas 01–10</span>
           </div>
-          <h2 class="section-title"><span data-i18n="section.platesTitle">As dez placas.</span></h2>
+          <h2 class="section-title"><span data-i18n="section.platesTitle">As dez placas: dez painéis interativos.</span></h2>
           <p class="section-deck">
-            <span data-i18n="section.platesDeck">Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social.</span>
+            <span data-i18n="section.platesDeck">Cada placa é um painel interativo independente: tabelas, mapas, gráficos, recortes municipais e exportação. Listadas em ordem de leitura recomendada, do mercado para o tecido social. O acesso é grátis vitalício: basta um cadastro único com email no primeiro acesso, liberado na hora.</span>
           </p>
 
           <div class="plates">
@@ -227,7 +233,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -245,7 +251,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB · SIMA</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -263,7 +269,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -281,7 +287,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DERAL · SEAB</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -299,7 +305,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">MDIC · ComexStat</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -317,7 +323,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">RAIS · MTE</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -335,7 +341,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">IBGE · Censos</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -353,7 +359,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">BCB · SICOR</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -371,7 +377,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">DATASUS · MS</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -389,7 +395,7 @@
               </div>
               <div class="plate-end">
                 <span class="plate-source">SESP-PR · SINESP · IBGE</span>
-                <span class="plate-arrow"><span data-i18n="plates.open">Abrir placa</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
+                <span class="plate-arrow"><span data-i18n="plates.open">Abrir painel</span> <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h20m0 0L16 1m4 4l-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></span>
               </div>
             </a>
 
@@ -410,7 +416,7 @@
                 O <em>Datageo Paraná</em> reúne dez painéis interativos sobre preços, produção, crédito rural, comércio exterior, emprego, saúde, segurança e demografia no estado. Tudo é construído a partir de fontes oficiais: DERAL/SEAB, SIMA, BCB/SICOR, ComexStat/MDIC, RAIS/MTE, DATASUS/MS, SESP-PR e IBGE.
               </p>
               <p data-i18n-html="colofao.paragraph2">
-                Cada placa permite consulta por produto, região, município e período, com visualizações em mapas, gráficos e tabelas exportáveis. <strong>O acesso é grátis vitalício, sem paywall e sem período de teste</strong>: não há cobrança, presente nem futura. <strong>Código aberto</strong> no GitHub e <strong>dados abertos</strong> coletados de fontes públicas oficiais.
+                Cada placa permite consulta por produto, região, município e período, com visualizações em mapas, gráficos e tabelas exportáveis. <strong>O acesso é grátis vitalício, sem paywall e sem período de teste</strong>: pedimos apenas um cadastro único com email no primeiro acesso, liberado na hora, sem cobrança presente nem futura. <strong>Código aberto</strong> no GitHub e <strong>dados abertos</strong> coletados de fontes públicas oficiais.
               </p>
               <p data-i18n-html="colofao.paragraph3">
                 Se o atlas for útil para o seu trabalho e você puder contribuir, doações via PIX ajudam a custear domínios, armazenamento, atualização das séries e novas placas. Qualquer valor faz diferença, e nada é condição de uso.
@@ -465,15 +471,21 @@
             <h4>Editor</h4>
             <a class="developer-link" href="https://avnergomes.github.io/portfolio/" target="_blank" rel="noopener" title="Desenvolvido por Avner Gomes">
               <picture>
-                <source srcset="logo2.webp" type="image/webp" />
-                <img src="logo2.png" alt="Avner Gomes" width="40" height="40" loading="lazy" />
+                <source srcset="assets/avatar-80.webp" type="image/webp" />
+                <img src="assets/avatar-80.png" alt="Avner Gomes" width="40" height="40" loading="lazy" decoding="async" />
               </picture>
               <span>Avner Gomes</span>
             </a>
           </div>
           <div class="footer-col">
-            <h4>Catálogo</h4>
-            <p>ATL · DGPR · ED. 2026 · v.10</p>
+            <h4>Navegação</h4>
+            <nav class="footer-nav">
+              <a href="doar.html">Doar via PIX</a>
+              <a href="arquitetura.html">Arquitetura</a>
+              <a href="referencias.html">Referências</a>
+              <a href="mailto:avnerpaesgomes@gmail.com">Contato</a>
+            </nav>
+            <p class="footer-catalog">ATL · DGPR · ED. 2026 · v.10</p>
           </div>
         </div>
         <div class="footer-bottom">
@@ -486,7 +498,7 @@
 
     <!-- Bug report -->
     <button id="bug-trigger" class="bug-trigger" type="button" title="Encontrei um BUG!">
-      <img src="assets/bug.png" alt="Reportar bug" width="20" height="20" />
+      <img src="assets/bug-40.png" alt="Reportar bug" width="20" height="20" decoding="async" />
     </button>
 
     <div id="bug-modal" class="bug-modal" hidden role="dialog" aria-modal="true" aria-labelledby="bug-modal-title">
@@ -520,15 +532,44 @@
         </form>
       </div>
     </div>
-    <!-- Analytics Tracking URL — config.local.js (gerado no deploy a partir do secret) tem precedência -->
-    <script src="config.local.js"></script>
+    <!-- Analytics Tracking URL: o fallback abaixo roda no parse; config.local.js
+         (gerado no deploy a partir do secret, carregado com defer para não
+         bloquear o parser nem serializar um 404 em preview local) executa
+         depois e sobrescreve, mantendo a precedência. Todos os consumidores
+         (tracking, bug report, auth.js) leem window.TRACKING_CONFIG na hora do uso. -->
     <script>
       window.TRACKING_CONFIG = window.TRACKING_CONFIG || {
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
       };
     </script>
+    <script src="config.local.js" defer></script>
     <!-- Auth gate — gate ativa apenas em clique de painel ou redirect ?from= -->
     <script src="auth.js" defer></script>
+    <!-- Botão Entrar do meta-strip: abre o gate via API pública do auth.js;
+         com sessão ativa, vira indicador do email logado. -->
+    <script>
+      (function () {
+        var btn = document.getElementById('dg-login-open');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          if (window.DatageoAuth) window.DatageoAuth.open();
+        });
+        function showLogged(email) {
+          if (!email) return;
+          btn.textContent = email;
+          btn.classList.add('is-logged');
+          btn.disabled = true;
+        }
+        document.addEventListener('dg:auth:ready', function (e) {
+          showLogged(e.detail && e.detail.email);
+        });
+        // Login/cadastro na mesma visita: o unlocked não carrega detail, lê a sessão.
+        document.addEventListener('dg:auth:unlocked', function () {
+          var s = window.DatageoAuth && window.DatageoAuth.session();
+          showLogged(s && s.email);
+        });
+      })();
+    </script>
     <!-- Propaga o idioma escolhido para os dashboards (origens diferentes não compartilham localStorage) -->
     <script>
       (function () {
@@ -556,7 +597,11 @@
     <!-- Analytics Tracking Script - Dados anonimizados (Art. 12 LGPD) -->
     <script>
       (function () {
-        const TRACKING_URL = window.TRACKING_CONFIG?.url || '';
+        // Lido na hora do uso: config.local.js (defer) pode sobrescrever o
+        // fallback definido no parse, e o initTracking roda só no load.
+        function getTrackingUrl() {
+          return (window.TRACKING_CONFIG && window.TRACKING_CONFIG.url) || '';
+        }
         const TRACKING_DEBUG = false;
 
         function log(message, data) {
@@ -576,6 +621,7 @@
         }
 
         function initTracking(page) {
+          const TRACKING_URL = getTrackingUrl();
           if (!TRACKING_URL) {
             log('Tracking desabilitado - configure TRACKING_CONFIG.url');
             return;
@@ -690,15 +736,10 @@
             webRTCSupported: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
             notificationPermission: 'Notification' in window ? Notification.permission : 'not-supported',
 
-            pluginsCount: navigator.plugins ? navigator.plugins.length : 0,
-            mimeTypesCount: navigator.mimeTypes ? navigator.mimeTypes.length : 0,
             pdfViewerEnabled: navigator.pdfViewerEnabled || false,
 
             maxTouchPoints: navigator.maxTouchPoints || 0,
-            batteryLevel: null,
-            batteryCharging: null,
 
-            historyLength: window.history.length,
             isIframe: window.self !== window.top,
 
             utmSource: utmSource,
@@ -746,15 +787,6 @@
           sessionStorage.setItem('dg_page_views', visitData.pageViewsInSession.toString());
 
           const asyncPromises = [];
-
-          if ('getBattery' in navigator) {
-            asyncPromises.push(
-              navigator.getBattery().then((battery) => {
-                visitData.batteryLevel = battery.level;
-                visitData.batteryCharging = battery.charging;
-              }).catch(() => {})
-            );
-          }
 
           if ('storage' in navigator && 'estimate' in navigator.storage) {
             asyncPromises.push(
@@ -829,6 +861,25 @@
           if (e.key === 'Escape' && !modal.hidden) close();
         });
 
+        // Focus trap: aria-modal sozinho não impede o Tab de vazar para o fundo.
+        modal.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab') return;
+          var focusables = modal.querySelectorAll(
+            'button, select, textarea, input, a[href]'
+          );
+          var visible = Array.prototype.filter.call(focusables, function (el) {
+            return el.offsetParent !== null && !el.disabled;
+          });
+          if (!visible.length) return;
+          var first = visible[0];
+          var last = visible[visible.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        });
+
         function sanitizeHTML(str) {
           var div = document.createElement('div');
           div.appendChild(document.createTextNode(str));
@@ -873,9 +924,9 @@
 <div id="lgpd-banner" class="lgpd-banner" style="display:none;">
   <div class="lgpd-inner">
     <p class="lgpd-text" data-i18n-html="lgpd.text">
-      Este site coleta dados anonimizados de navegação (timestamp, página visitada, tipo de dispositivo) para fins estatísticos.
-      Nenhum dado pessoal identificável é coletado. Saiba mais na
-      <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">LGPD (Art. 12)</a>.
+      Este site coleta estatísticas de navegação anonimizadas (página visitada, tipo de dispositivo e desempenho).
+      No cadastro de acesso e no reporte de bugs, nome, email e telefone são guardados apenas para controle de acesso e contato. Saiba mais na
+      <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">LGPD</a>.
     </p>
     <button type="button" class="lgpd-btn"
       onclick="document.getElementById('lgpd-banner').style.display='none'; localStorage.setItem('lgpd-informed','true');">

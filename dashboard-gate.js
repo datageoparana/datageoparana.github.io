@@ -55,7 +55,10 @@
 
   function redirect() {
     try {
-      var target = ROOT_LOGIN_URL + '?from=' + encodeURIComponent(location.host + location.pathname);
+      // Preserva query string e hash do painel (filtros, ?lang=, abas) no
+      // round-trip pelo gate: o auth.js reconstrói a URL completa no retorno.
+      var target = ROOT_LOGIN_URL + '?from='
+        + encodeURIComponent(location.host + location.pathname + location.search + location.hash);
       location.replace(target);
     } catch (e) {
       location.href = ROOT_LOGIN_URL;

@@ -146,7 +146,8 @@
     ];
     host.classList.add('lang-switcher');
     host.setAttribute('role', 'group');
-    host.setAttribute('aria-label', 'Language');
+    // Chave PT canônica: o runtime traduz [aria-label] via i18n-text-map.js.
+    host.setAttribute('aria-label', 'Idioma');
     host.innerHTML = langs.map(function (l) {
       return '<button type="button" class="lang-chip" data-lang="' + l.code +
              '" aria-pressed="false" title="' + l.full + '">' +

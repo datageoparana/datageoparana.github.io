@@ -114,7 +114,7 @@ Ou apague manualmente `localStorage.dg_auth_session` no DevTools.
 
 ## 4. Gate de referer nos dashboards externos
 
-Os dashboards (`vbp-parana`, `precos-diarios`, `c2-parana`, etc.) ficam em `https://avnergomes.github.io/<dashboard>/`. Como `localStorage` é por origem, eles **não compartilham sessão** com `datageoparana.github.io`. Em vez de duplicar todo o login gate em cada dashboard, usamos um **gate por referer**: o dashboard só abre se:
+Os dashboards (`vbp-parana`, `precos-diarios`, etc.) ficam em `https://avnergomes.github.io/<dashboard>/`. Como `localStorage` é por origem, eles **não compartilham sessão** com `datageoparana.github.io`. Em vez de duplicar todo o login gate em cada dashboard, usamos um **gate por referer**: o dashboard só abre se:
 
 1. O visitante chegou via link do `datageoparana.github.io` (referer válido), OU
 2. Já tem sessão ativa neste mesmo dashboard (sessionStorage), OU
@@ -141,7 +141,7 @@ Já aplicado nos 11 dashboards listados abaixo. Para novos dashboards, cole este
         sessionStorage.setItem(KEY, '1');
         return;
       }
-      location.replace(ROOT + '?from=' + encodeURIComponent(location.host + location.pathname));
+      location.replace(ROOT + '?from=' + encodeURIComponent(location.host + location.pathname + location.search + location.hash));
     } catch (e) {}
   })();
 </script>
@@ -167,7 +167,6 @@ Os links/cartões para os dashboards **precisam** usar `rel="noopener"` (sem `no
 | `credito-rural-parana` | `dashboard/index.html` | https://avnergomes.github.io/credito-rural-parana/ |
 | `saude-parana` | `dashboard/index.html` | https://avnergomes.github.io/saude-parana/ |
 | `seguranca-parana` | `dashboard/index.html` | https://avnergomes.github.io/seguranca-parana/ |
-| `c2-parana` | `index.html` | https://avnergomes.github.io/c2-parana/ |
 
 ### Versão hospedada (alternativa)
 
