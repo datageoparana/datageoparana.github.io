@@ -30,13 +30,15 @@ A sessão é armazenada em `localStorage.dg_auth_session` por **30 dias** (limit
 |---------|-------|
 | `auth.js` | Lógica do gate (UI, sessão, fetch ao backend) |
 | `styles.css` (seção `Auth gate`) | Estilos do overlay, tabs e formulários |
-| `google-apps-script-tracking.gs` | Backend: aba `Cadastros`, endpoint `?action=check`, helpers `approveEmail`/`denyEmail` |
+| `proxy.gs` (DataGeo Unified v2) | Backend **implantado**: proxy + tracking + aba `Cadastros`, endpoint `?action=check`, helpers `approveEmail`/`denyEmail`. (`google-apps-script-tracking.gs` é obsoleto — não usar.) |
 | `index.html`, `arquitetura.html`, `referencias.html`, `404.html` | Páginas com gate ativo |
 
 ## 1. Atualizar o Apps Script
 
+> **⚠️ Lição de 2026-07-07:** o script implantado foi editado direto no editor (adição do site `dayane-psicologia`) a partir de uma base SEM a seção `AUTH GATE` do `proxy.gs` — resultado: cadastros de 19/06 a 06/07 caíram na aba `Tracking LGPD` sem nome/email (perdidos). **Toda edição no Apps Script deve preservar a seção AUTH GATE no fim do `proxy.gs`**, e toda adição de site feita no editor deve ser replicada no `proxy.gs` deste repositório.
+
 1. Abra o projeto Apps Script atual (mesmo que serve hoje o tracking).
-2. **Substitua todo o código** pelo conteúdo de `google-apps-script-tracking.gs` (este repositório).
+2. **Substitua todo o código** pelo conteúdo de `proxy.gs` (este repositório) — antes de colar, copie do código implantado os `sheetId`/`urlKey` de sites adicionados só no editor (ex.: `dayane-psicologia`).
 3. Confira se `SPREADSHEET_ID` aponta para a planilha correta.
 4. Confira a lista `ALWAYS_APPROVED` — emails listados ali são sempre liberados (default: `avnerpaesgomes@gmail.com`).
 5. **Salve** (`Ctrl+S`).

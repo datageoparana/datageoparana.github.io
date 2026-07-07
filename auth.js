@@ -20,6 +20,8 @@
   var SESSION_TTL_DAYS = 30;
   var TRIAL_DAYS = 30;
   var STATUS_CHECK_TIMEOUT_MS = 12000;
+  // O doPost do Apps Script envia 2 emails de forma síncrona; precisa de folga maior.
+  var SIGNUP_TIMEOUT_MS = 30000;
 
   function getEndpoint() {
     return (window.TRACKING_CONFIG && window.TRACKING_CONFIG.url) || '';
@@ -222,13 +224,22 @@
       timestamp: new Date().toISOString()
     }, payload));
 
-    return fetch(endpoint, {
+    // CORS legível: o Apps Script responde com Access-Control-Allow-Origin: *.
+    // Só é sucesso quando o backend confirma a gravação na aba Cadastros
+    // (authSaveSignup_ responde status 'ok'); qualquer outra resposta significa
+    // que o cadastro NÃO foi salvo (ex.: implantação sem a seção AUTH GATE,
+    // que engoliu cadastros silenciosamente até 2026-07-07).
+    return fetchWithTimeout(endpoint, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: body,
       keepalive: true
-    }).then(function () { return { ok: true }; });
+    }, SIGNUP_TIMEOUT_MS).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      if (data && data.status === 'ok') return data;
+      throw new Error((data && data.message) || 'cadastro não confirmado pelo servidor');
+    });
   }
 
   function attachTabHandlers(overlay) {
