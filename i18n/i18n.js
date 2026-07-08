@@ -21,6 +21,38 @@
   var DEFAULT = 'pt';
   var STORAGE_KEY = 'dgp-lang';
 
+  // Base do proprio script, para resolver os dicionarios sob demanda.
+  // document.currentScript funciona em scripts defer durante a avaliacao inicial;
+  // o fallback relativo mantem compat com os paineis servidos de ./i18n/.
+  var BASE = (document.currentScript && document.currentScript.src)
+    ? document.currentScript.src.replace(/[^\/]*$/, '')
+    : 'i18n/';
+
+  // Carrega i18n-dict.js + i18n-text-map.js sob demanda (so quando lang != pt).
+  // Memoizado: uma unica promessa por pagina. Guard inicial torna a funcao no-op
+  // quando os dicts ja estao presentes (paineis que ainda usam <script> estatico).
+  var dictsPromise = null;
+  function ensureDicts() {
+    if (window.__I18N__ && window.__I18N_TEXT_MAP__) return Promise.resolve(true);
+    if (dictsPromise) return dictsPromise;
+    dictsPromise = new Promise(function (resolve) {
+      var todo = 2;
+      function done() {
+        if (--todo === 0) resolve(!!(window.__I18N__ && window.__I18N_TEXT_MAP__));
+      }
+      ['i18n-dict.js', 'i18n-text-map.js'].forEach(function (f) {
+        var s = document.createElement('script');
+        s.src = BASE + f;
+        s.async = true;
+        s.onload = done;
+        // onerror tambem chama done(): resolve(false) sinaliza fallback PT sem quebrar.
+        s.onerror = done;
+        document.head.appendChild(s);
+      });
+    });
+    return dictsPromise;
+  }
+
   function detect() {
     try {
       var url = new URL(window.location.href);
@@ -82,21 +114,27 @@
         }
       }
     });
+    // Guard v !== key (como em data-i18n): sem dicionario (PT lazy), t() devolve a
+    // propria chave; nesse caso NAO sobrescreve o conteudo canonico PT ja no HTML.
     root.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
-      var v = t(el.getAttribute('data-i18n-placeholder'));
-      if (v) el.setAttribute('placeholder', v);
+      var key = el.getAttribute('data-i18n-placeholder');
+      var v = t(key);
+      if (v && v !== key) el.setAttribute('placeholder', v);
     });
     root.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
-      var v = t(el.getAttribute('data-i18n-aria'));
-      if (v) el.setAttribute('aria-label', v);
+      var key = el.getAttribute('data-i18n-aria');
+      var v = t(key);
+      if (v && v !== key) el.setAttribute('aria-label', v);
     });
     root.querySelectorAll('[data-i18n-title]').forEach(function (el) {
-      var v = t(el.getAttribute('data-i18n-title'));
-      if (v) el.setAttribute('title', v);
+      var key = el.getAttribute('data-i18n-title');
+      var v = t(key);
+      if (v && v !== key) el.setAttribute('title', v);
     });
     root.querySelectorAll('[data-i18n-html]').forEach(function (el) {
-      var v = t(el.getAttribute('data-i18n-html'));
-      if (v) el.innerHTML = v;
+      var key = el.getAttribute('data-i18n-html');
+      var v = t(key);
+      if (v && v !== key) el.innerHTML = v;
     });
 
     // Update language switcher chips' aria-selected state.
@@ -119,8 +157,22 @@
         window.history.replaceState({}, '', url);
       } catch (e) {}
     }
-    applyDom();
-    window.dispatchEvent(new CustomEvent('i18n:change', { detail: { lang: lang } }));
+    if (lang === 'pt') {
+      // PT nao precisa dos dicionarios: restaura texto canonico via runtime/applyDom.
+      applyDom();
+      window.dispatchEvent(new CustomEvent('i18n:change', { detail: { lang: lang } }));
+      return;
+    }
+    // EN/ES: garante dicts antes de aplicar. Le window.i18n.lang no resolve
+    // (nao a var capturada) para evitar corrida em troca rapida EN->ES.
+    ensureDicts().then(function (ok) {
+      if (!ok) {
+        window.i18n.lang = 'pt';
+        try { localStorage.setItem(STORAGE_KEY, 'pt'); } catch (e) {}
+      }
+      applyDom();
+      window.dispatchEvent(new CustomEvent('i18n:change', { detail: { lang: window.i18n.lang } }));
+    });
   }
 
   // Mount switcher chips: any element with [data-lang] becomes a button.
@@ -162,7 +214,17 @@
     window.i18n.lang = detect();
     document.querySelectorAll('[data-i18n-switcher]').forEach(buildSwitcher);
     bindSwitcher();
+    // Render PT imediato (sem flash em outro idioma): build/bind/applyDom sincronos.
     applyDom();
+    // Se o idioma detectado (?lang=, dgp-lang ou navigator) != pt, baixa os
+    // dicionarios em paralelo e re-traduz tudo ao chegar. Fallback PT se falhar.
+    if (window.i18n.lang !== 'pt') {
+      ensureDicts().then(function (ok) {
+        if (!ok) { window.i18n.lang = 'pt'; }
+        applyDom();
+        window.dispatchEvent(new CustomEvent('i18n:change', { detail: { lang: window.i18n.lang } }));
+      });
+    }
   }
 
   window.i18n = { t: t, setLang: setLang, apply: applyDom, lang: DEFAULT, SUPPORTED: SUPPORTED };

@@ -615,11 +615,22 @@ main { padding-bottom: 80px; }
 }
 .aside-block { display: flex; flex-direction: column; gap: 6px; }
 .aside-donate {
-  border: 1px solid var(--rule);
-  padding: 16px;
+  border: 1px solid var(--clay);
+  border-top: 3px solid var(--clay);
+  padding: 18px 16px;
   background: var(--paper-warm);
   gap: 12px;
-  align-items: flex-start;
+  align-items: stretch;
+  box-shadow: 4px 4px 0 rgba(168, 72, 44, 0.14);
+}
+/* Destaca o CTA de doacao como acao principal do bloco. */
+.aside-donate .aside-label {
+  color: var(--clay-deep);
+  font-weight: 700;
+}
+.aside-donate .btn.primary {
+  justify-content: center;
+  width: 100%;
 }
 .aside-pix {
   display: inline-block;
