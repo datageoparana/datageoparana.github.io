@@ -532,17 +532,14 @@
         </form>
       </div>
     </div>
-    <!-- Analytics Tracking URL: o fallback abaixo roda no parse; config.local.js
-         (gerado no deploy a partir do secret, carregado com defer para não
-         bloquear o parser nem serializar um 404 em preview local) executa
-         depois e sobrescreve, mantendo a precedência. Todos os consumidores
-         (tracking, bug report, auth.js) leem window.TRACKING_CONFIG na hora do uso. -->
+    <!-- Analytics Tracking URL: a URL do Web App é pública (mesma nos 4 HTMLs).
+         O antigo config.local.js (override via secret no deploy) foi removido:
+         nunca foi populado e gerava 404 em toda visita. -->
     <script>
       window.TRACKING_CONFIG = window.TRACKING_CONFIG || {
         url: 'https://script.google.com/macros/s/AKfycbwdSLK3K9_D39sc0UfzYZIM1QEMLxMUudSneAELoqcJjM5ExTSq7ZmMilNzYDx5QK5iMA/exec'
       };
     </script>
-    <script src="config.local.js" defer></script>
     <!-- Auth gate — gate ativa apenas em clique de painel ou redirect ?from= -->
     <script src="auth.js" defer></script>
     <!-- Botão Entrar do meta-strip: abre o gate via API pública do auth.js;
