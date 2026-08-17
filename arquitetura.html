@@ -185,6 +185,11 @@
         font-weight: 500;
         margin: 2px;
       }
+      /* wrapper de scroll horizontal para tabelas largas em mobile */
+      .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
       @media (max-width: 720px) {
         .mermaid-container {
           padding: 16px;
@@ -194,6 +199,12 @@
           padding: 10px 12px;
           font-size: 0.85rem;
         }
+        /* alvos de toque mínimo 44px (WCAG 2.5.5) */
+        .zoom-btn {
+          width: 44px;
+          height: 44px;
+        }
+        .back-link { min-height: 44px; }
       }
     </style>
   </head>
@@ -335,6 +346,7 @@ GAPPS --> CONTROLPANEL
 
         <section class="diagram-section">
           <h2>Resumo das Camadas</h2>
+          <div class="table-scroll">
           <table class="info-table">
             <thead>
               <tr>
@@ -397,10 +409,12 @@ GAPPS --> CONTROLPANEL
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
         <section class="diagram-section">
           <h2>Dashboards</h2>
+          <div class="table-scroll">
           <table class="info-table">
             <thead>
               <tr>
@@ -462,6 +476,7 @@ GAPPS --> CONTROLPANEL
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
         <section class="diagram-section">
@@ -581,6 +596,7 @@ S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 & S10 & S11 --> CP
 
         <section class="diagram-section">
           <h2>Tecnologias Principais</h2>
+          <div class="table-scroll">
           <table class="info-table">
             <thead>
               <tr>
@@ -657,6 +673,7 @@ S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 & S10 & S11 --> CP
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
       </div>

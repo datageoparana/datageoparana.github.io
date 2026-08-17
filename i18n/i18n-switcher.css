@@ -64,5 +64,6 @@
 
 @media (max-width: 540px) {
   .lang-chip .lang-flag { display: none; }
-  .lang-chip { padding: 4px 8px; }
+  /* alvo de toque mínimo 44px (WCAG 2.5.5) */
+  .lang-chip { padding: 4px 8px; min-height: 44px; }
 }

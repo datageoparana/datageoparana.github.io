@@ -1242,10 +1242,15 @@ body.gate-locked { overflow: hidden; }
 @media (max-width: 720px) {
   .meta-strip { font-size: 0.62rem; letter-spacing: 0.1em; gap: 8px; }
   .meta-strip > span:nth-child(3) { display: none; }
+  /* alvo de toque mínimo 44px no botão Entrar (WCAG 2.5.5) */
+  .meta-login { min-height: 44px; display: inline-flex; align-items: center; }
   .masthead { padding-top: 36px; }
   .wordmark { font-size: clamp(2.6rem, 14vw, 4rem); }
   .lede .drop { font-size: 2.6em; }
   .plate { grid-template-columns: 64px 1fr; }
   .plate-folio { font-size: 2.6rem; }
+  /* stats e end ficam sob o body (col 2), não sob o fólio (col 1 = 64px) */
+  .plate-stats,
+  .plate-end { grid-column: 2; }
   .plate-end { padding-top: 8px; }
 }

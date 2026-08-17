@@ -156,6 +156,10 @@
         color: var(--forest);
         margin: 0;
       }
+      /* alvo de toque mínimo 44px no link de voltar (WCAG 2.5.5) */
+      @media (max-width: 720px) {
+        .donate-back { min-height: 44px; }
+      }
     </style>
   </head>
   <body>
