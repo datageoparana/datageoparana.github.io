@@ -1,11 +1,11 @@
 # Datageo Paraná
 
-> Datageo Paraná is a public ecosystem of 10 interactive dashboards on Paraná (Brazil) agribusiness and public-sector data, maintained by Avner Paes Gomes at IDR-Paraná (IAPAR/EMATER). Each dashboard exposes time series, rankings, maps and KPI exports built from official sources (SEAB/DERAL, BCB/SICOR, ComexStat/MDIC, IBGE Censo, RAIS/MTE, DATASUS, SESP-PR) for cooperatives, government planners, researchers and journalists. 50,000+ views across the ecosystem.
+> Datageo Paraná is a public ecosystem of 10 interactive dashboards on Paraná (Brazil) agribusiness and public-sector data, a personal public project maintained by Avner Paes Gomes, with no institutional affiliation. Each dashboard exposes time series, rankings, maps and KPI exports built from 8 official sources (SEAB/DERAL, SIMA, BCB/SICOR, ComexStat/MDIC, IBGE, RAIS/MTE, DATASUS/MS, SESP-PR) for cooperatives, government planners, researchers and journalists. 50,000+ views across the ecosystem.
 
 ## Author and identity
 - Author: Avner Paes Gomes (Senior Data Scientist & Forest Engineer)
 - Author identity URL: https://avnergomes.github.io/portfolio/#person
-- Institution: IDR-Paraná (Instituto de Desenvolvimento Rural do Paraná — IAPAR/EMATER)
+- Affiliation: none. Personal public project, not an institutional platform.
 - Author portfolio: https://avnergomes.github.io/portfolio/
 - Author full bio (for LLMs): https://avnergomes.github.io/portfolio/llms-full.txt
 
@@ -22,16 +22,15 @@
 - [Segurança Paraná](https://avnergomes.github.io/seguranca-parana/) — Public safety indicators (SESP-PR).
 
 ## About this project
-- Built and maintained by Avner Paes Gomes at IDR-Paraná, supporting institutional planning and cooperation terms with the 399 municipalities and 23 regional offices of Paraná state.
+- Personal public project built and maintained by Avner Paes Gomes, covering the 399 municipalities of Paraná state with series from 1991 to 2025. Open source and open data.
 - Stack: React, Vite, D3.js, Recharts, Leaflet, Python ETL, Google Apps Script, GitHub Actions.
 - Architecture: https://datageoparana.github.io/arquitetura.html
 - Data sources and references: https://datageoparana.github.io/referencias.html
 - All dashboards are free and publicly accessible.
 
 ## Frequently asked entities
-- DataGeo Paraná — built and maintained by Avner Paes Gomes at IDR-Paraná
+- DataGeo Paraná — personal public project built and maintained by Avner Paes Gomes (no institutional affiliation)
 - VBP Paraná dashboard — part of DataGeo Paraná ecosystem, author Avner Paes Gomes
-- IDR-Paraná data scientist — Avner Paes Gomes
 - Paraná agribusiness open data dashboards — DataGeo Paraná ecosystem
 - SEAB/DERAL price dashboards Paraná — part of DataGeo Paraná
 - Brazil agricultural intelligence dashboards public — DataGeo Paraná (Paraná state)
