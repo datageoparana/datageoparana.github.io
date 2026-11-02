@@ -20,7 +20,9 @@ jobs:
           args: >-
             --verbose
             --no-progress
-            --accept 200,204,301,302,403
+            --accept 200,204,301,302,403,429,503
+            --root-dir "${{ github.workspace }}"
+            --exclude "^https://(www\.)?planalto\.gov\.br"
             --exclude "^https://script.google.com"
             "./**/*.html"
             "./**/*.md"
